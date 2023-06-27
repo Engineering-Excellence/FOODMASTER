@@ -18,8 +18,8 @@ public class AuthController extends HttpServlet {
     private static final long serialVersionUID = -2930158301476609066L;
     private final AuthService authService = AuthServiceImpl.getInstance();
 
-    private static final String REDIRECT_PATH = "index.html?redirect=true";
-    private static final String VIEW_PATH = "WEB-INF/views/home.jsp";
+    private static final String REDIRECT_PATH = "/index.html?redirect=true";
+    private static final String VIEW_PATH = "/WEB-INF/views/home.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
