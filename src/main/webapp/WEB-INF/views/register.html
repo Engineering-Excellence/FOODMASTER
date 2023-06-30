@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="JSP Project for Attendance Management System">
+    <meta name="author" content="WorkMaster">
+    <title>WorkMaster</title>
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/register.css">
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js" defer></script>
+    <script type="text/javascript" src="../../js/register.js" defer></script>
+</head>
+
+<body>
+<div class="main">
+    <div class="logo">
+        <img class="logo-img" src="../../images/daebo.png" alt="daebo">
+        <p class="logo-title">WorkMaster</p>
+    </div>
+
+    <div class="register-container">
+        <div class="register-wrapper">
+            <form action="/auth/register" method="post" id="register-form">
+                <div class="register-stage-container">
+                    <div class="register-stage-wrapper">
+                        <div class="register-stage 1">
+                            <div class="input-container">
+                                <h5>이메일</h5>
+                                <div class="input-group">
+                                    <input type="email" class="form-control" placeholder="이메일" id="email" name="email">
+                                    <button class="btn btn-outline-secondary" type="button" id="email-chk">중복 검사
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <h5>비밀번호</h5>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" placeholder="비밀번호" name="password"
+                                           id="password">
+                                </div>
+                                <span class="help hide">비밀번호는 8자 이상, 대소문자 1개 이상, 숫자 1개 이상, 특수문자 1개 이상이 포함되어야 합니다</span>
+                            </div>
+                            <div class="input-container">
+                                <h5>비밀번호 확인</h5>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" placeholder="비밀번호 확인"
+                                           id="password-confirm">
+                                </div>
+                            </div>
+                            <div class="btn-container">
+                                <button class="btn btn-outline-secondary" type="button" id="nextstage">다음</button>
+                            </div>
+                        </div>
+                        <div class="register-stage 2">
+                            <div class="input-container">
+                                <h5>이름</h5>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="이름" id="mName" name="mName">
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <h5>연락처</h5>
+                                <div class="input-group">
+                                    <input type="tel" class="form-control" placeholder="연락처" id="contact"
+                                           name="contact">
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <h5>생년월일</h5>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" placeholder="생년월일" id="birthday"
+                                           name="birthday">
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <h5>비밀번호 찾기 질문</h5>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="질문 입력" id="question"
+                                           name="question">
+                                </div>
+                            </div>
+                            <div class="input-container">
+                                <h5>비밀번호 찾기 답</h5>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="답 입력" id="answer"
+                                           name="answer">
+                                </div>
+                            </div>
+                            <div class="btn-container">
+                                <button class="btn btn-outline-secondary" type="button" id="prevstage">이전</button>
+                                <input class="btn btn-outline-secondary" type="submit" value="제출">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

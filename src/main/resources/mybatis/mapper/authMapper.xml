@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.or.sw.model.UsrDTO">
-    <select id="checkCredentials" parameterType="kr.or.sw.model.UsrDTO" resultType="int">
-        SELECT COUNT(*)
-        FROM USR
-        WHERE ACCOUNT = #{account}
-          AND PASSWORD = #{password}
+<mapper namespace="kr.or.sw.mapper.AuthDAOImpl">
+    <select id="selectCredentials" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
+        SELECT PASSWORD, SALT
+        FROM MEMBER
+        WHERE EMAIL = #{email}
     </select>
+
+    <select id="checkEmail" parameterType="java.lang.String" resultType="_int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE EMAIL = #{email}
+    </select>
+
+    <insert id="insertMember" parameterType="kr.or.sw.model.MemberDTO">
+        INSERT INTO MEMBER
+        VALUES (PCMASTER.MEMBERID_SEQ.NEXTVAL, #{mName}, #{email}, #{password}, #{salt}, #{contact}, #{question},
+                #{answer}, SYSDATE, 0)
+    </insert>
 </mapper>

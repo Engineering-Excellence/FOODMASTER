@@ -40,3 +40,4 @@ build/
 ### Custom ###
 .idea/
 *.map
+src/main/resources/mybatis/db.properties

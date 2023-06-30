@@ -1,0 +1,90 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+}
+.main .hide {
+  display: none;
+}
+
+.logo {
+  flex-basis: 50%;
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.logo .logo-img {
+  width: 40vw;
+  position: relative;
+  bottom: 25%;
+}
+.logo .logo-title {
+  font-size: 6vw;
+  font-weight: bolder;
+  position: relative;
+  bottom: 25%;
+}
+
+.register-container {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.register-container .register-wrapper {
+  position: relative;
+  width: 100%;
+  height: 80%;
+}
+.register-container .register-wrapper form {
+  width: 100%;
+  height: 100%;
+}
+.register-container .register-wrapper form .register-stage-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.register-container .register-wrapper form .register-stage-container .register-stage-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 200%;
+  height: 100%;
+  transition: 0.3s;
+  transform: translateX(0);
+}
+.register-container .register-wrapper form .register-stage-container .register-stage-wrapper .register-stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.register-container .register-wrapper form .register-stage-container .register-stage-wrapper .register-stage .input-container {
+  width: 80%;
+  padding: 2vh;
+}
+.register-container .register-wrapper form .register-stage-container .register-stage-wrapper .register-stage .input-container .help {
+  font-size: 0.5rem;
+}
+.register-container .register-wrapper form .register-stage-container .register-stage-wrapper .register-stage .input-container .form-control:focus.err {
+  border-color: red;
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25);
+}
+.register-container .register-wrapper form .register-stage-container .register-stage-wrapper .register-stage .btn-container {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+/*# sourceMappingURL=register.css.map */

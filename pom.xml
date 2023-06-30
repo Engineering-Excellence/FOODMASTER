@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>kr.or.sw</groupId>
-    <artifactId>WORKMASTER</artifactId>
+    <artifactId>PCMASTER</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>WORKMASTER</name>
+    <name>PCMASTER</name>
     <packaging>war</packaging>
 
     <properties>
@@ -38,7 +38,6 @@
         </dependency>
 
         <!-- ORACLE -->
-        <!-- ojdbc & pki(cloud) -->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
@@ -195,7 +194,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>tomcat-maven-plugin</artifactId>
                 <configuration>
-                    <url>http://192.168.0.29:8080/manager/text</url>
+                    <url>http://192.168.0.29:8090/manager/text</url>
                     <path>/</path>
                     <username>admin</username>
                     <password>0000</password>

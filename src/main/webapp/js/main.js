@@ -1,4 +1,3 @@
-
 // -- side menu 펼치기 부분
 // 현재는 클릭시 펼치기로 했지만
 // menuHeads의 이벤트리스너 종류를 클릭으로 변경하고 기존 함수를 지우고, 주석한 부분으로 변경
@@ -13,27 +12,26 @@ let isMenuClicked = Array(menuHeads.length).fill(false);
 //     });
 // });
 menuHeads.forEach((e, i) => {
-   e.addEventListener("click", () => {
+    e.addEventListener("click", () => {
 
-       //
-       // menuBodies.forEach((e) => {
-       //     e.style.setProperty("display", "none");
-       // });
-       // e.nextElementSibling.style.setProperty("display", "flex");
+        //
+        // menuBodies.forEach((e) => {
+        //     e.style.setProperty("display", "none");
+        // });
+        // e.nextElementSibling.style.setProperty("display", "flex");
 
-       if (!isMenuClicked[i]) {
-           isMenuClicked.fill(false);
-           menuBodies.forEach((e) => {
-               e.style.setProperty("display", "none");
-           });
-           e.nextElementSibling.style.setProperty("display", "flex");
-       }
-       else {
-           menuBodies.forEach((e) => {
-               e.style.setProperty("display", "none");
-           });
-       }
-       isMenuClicked[i] = !isMenuClicked[i];
-   });
+        if (!isMenuClicked[i]) {
+            isMenuClicked.fill(false);
+            menuBodies.forEach((e) => {
+                e.style.setProperty("display", "none");
+            });
+            e.nextElementSibling.style.setProperty("display", "flex");
+        } else {
+            menuBodies.forEach((e) => {
+                e.style.setProperty("display", "none");
+            });
+        }
+        isMenuClicked[i] = !isMenuClicked[i];
+    });
 });
 // -- side menu 펼치기 부분 종료

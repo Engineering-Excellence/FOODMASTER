@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<div class="container">
+<div class="main">
     <div class="daeboLeft">
         <p class="workmasterFont">WorkMaster</p>
         <img class="fit-picture" src="./images/daebo.png" alt="daebo">
@@ -26,8 +26,8 @@
         <form action="/auth/login" method="post">
             <h1 class="idFont">ID</h1>
             <label>
-                <input style="width:490px; height:30px; font-size:25px;" type="text" placeholder="ID 입력" id="account"
-                       name="account">
+                <input style="width:490px; height:30px; font-size:25px;" type="text" placeholder="ID 입력" id="email"
+                       name="email">
             </label>
             <br>
             <br>
@@ -38,7 +38,7 @@
             </label>
             <br>
             <br>
-            <input type="button" class="button NewAccount" value="회원가입">
+            <input type="button" class="button NewAccount" value="회원가입" onclick="location.href='/auth/register'">
             <br>
             <br>
             <div class="checkCancelButton">

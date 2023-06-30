@@ -96,6 +96,28 @@ main {
   overflow-y: auto;
 }
 
+.main-container {
+  height: 100%;
+  width: 100%;
+  
+}
+
+.main-box {
+  height: 15%;
+  width: 8%;
+  background-color: white;
+  border: 1px solid black;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display:inline-block;
+  /* white-space: pre-wrap; */ /* 박스안에 내용이 벗어나도 박스 밖을 못 벗어나게 하려고 했지만 박스크기가 늘어남 */
+}
+
+.box-font {
+  text-align: right;
+}
+
 footer {
   grid-area: footer;
   background-color: gray;

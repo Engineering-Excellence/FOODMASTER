@@ -16,10 +16,12 @@ import java.io.IOException;
 public class AuthController extends HttpServlet {
 
     private static final long serialVersionUID = -2930158301476609066L;
+
     private final AuthService authService = AuthServiceImpl.getInstance();
 
     private static final String REDIRECT_PATH = "/index.html?redirect=true";
-    private static final String VIEW_PATH = "/WEB-INF/views/home.jsp";
+    private static final String HOME_PATH = "/WEB-INF/views/home.jsp?redirect=true";
+    private static final String VIEW_PATH = "/WEB-INF/views/";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,10 +35,15 @@ public class AuthController extends HttpServlet {
                 break;
             case "/logout":
                 log.info("/logout");    // 로그아웃
-                handleLogout(request, response);
+                request.getSession().invalidate();  // 로그인 세션 무효화
+                redirectToIndex(request, response);
+                break;
+            case "/register":
+                log.info("/register");
+                request.getRequestDispatcher(VIEW_PATH + "register.html").forward(request, response);
                 break;
             default:
-                handleInvalidAccess(response, pathInfo);
+                handleInvalidAccess(request, response);
                 break;
         }
     }
@@ -51,49 +58,55 @@ public class AuthController extends HttpServlet {
                 log.info("/login"); // 로그인
                 handleLogin(request, response);
                 break;
+            case "/register":
+                log.info("/register");
+                handleRegister(request, response);
+                break;
+            case "/checkEmail":
+                log.info("/checkEmail");
+                authService.checkEmail(request, response);
+                break;
             default:
-                handleInvalidAccess(response, pathInfo);
+                handleInvalidAccess(request, response);
                 break;
         }
     }
 
     private void redirectToIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
         log.info("redirectToIndex()");  // 로그인 화면으로 이동
-
         response.sendRedirect(request.getContextPath() + REDIRECT_PATH);
     }
 
     private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("handleLogin()");  // 로그인
 
-        String account = request.getParameter("account");
-        String password = request.getParameter("password");
+        String email = request.getParameter("email");
         if (!authService.login(request, response)) {
-            log.error("로그인 실패\nAC: {}, PW: {}", account, password);
+            log.error("로그인 실패");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.getWriter().write("{ \"message\": \"Login Failed\" }");
-//            request.getRequestDispatcher("/index.html").forward(request, response);   // 인덱스로 이동
+            redirectToIndex(request, response);
         } else {
-            log.info("로그인 성공\naccount: {}\npassword: {}", account, password);
-            request.getSession().setAttribute("account", account);  // 로그인 세션 저장
-//            response.setStatus(HttpServletResponse.SC_OK);
-//            response.setHeader("Location", "/WEB-INF/views/home.jsp");
-            request.getRequestDispatcher(VIEW_PATH).forward(request, response); // 홈 화면으로 이동
+            log.info("로그인 성공");
+            request.getSession().setAttribute("email", email);  // 로그인 세션 저장
+            request.getRequestDispatcher(HOME_PATH).forward(request, response);
         }
     }
 
-    private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        log.info("handleLogout()"); // 로그아웃
+    private void handleRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.info("handleRegister");
 
-        request.getSession().invalidate();  // 로그인 세션 무효화
+        if (!authService.insertMember(request, response)) {
+            log.error("register fail");
+        } else {
+            log.info("register success");
+        }
         redirectToIndex(request, response);
     }
 
-    private void handleInvalidAccess(HttpServletResponse response, String pathInfo) throws ServletException, IOException {
+    private void handleInvalidAccess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("handleInvalidAccess()");  // 잘못된 접근 처리
 
-        log.error("잘못된 접근 : {}", pathInfo);
+        log.error("잘못된 접근");
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType("application/json");
         response.getWriter().write("{ \"message\": \"FORBIDDEN\" }");

@@ -1,0 +1,106 @@
+
+.main {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+
+  .hide {
+    display: none;
+  }
+}
+
+.logo {
+  flex-basis: 50%;
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .logo-img {
+    width: 40vw;
+    position: relative;
+    bottom: 25%;
+  }
+
+  .logo-title {
+    font-size: 6vw;
+    font-weight: bolder;
+    position: relative;
+    bottom: 25%;
+  }
+}
+
+.register-container {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+
+  .register-wrapper {
+    position: relative;
+
+    width: 100%;
+    height: 80%;
+
+    form {
+      width: 100%;
+      height: 100%;
+
+      .register-stage-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        .register-stage-wrapper {
+          display: flex;
+          flex-direction: row;
+          width: 200%;
+          height: 100%;
+
+          transition: 0.3s;
+          transform: translateX(0);
+
+          .register-stage {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .input-container {
+              width: 80%;
+              padding: 2vh;
+
+              .help {
+                font-size: 0.5rem;
+              }
+
+              .form-control:focus.err {
+                border-color: red;
+                box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, .25);
+              }
+            }
+
+            .btn-container {
+              width: 40%;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-evenly;
+            }
+          }
+        }
+      }
+    }
+  }
+}
