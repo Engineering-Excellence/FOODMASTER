@@ -16,19 +16,26 @@ import java.util.Locale;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MyBatisUtil {
 
-    private static SqlSessionFactory sqlSessionFactory;
+    private static class SqlSessionFactoryHolder {  // Lazy Holder
+        private static final SqlSessionFactory INSTANCE = buildSqlSessionFactory();
+    }
 
-    static {
+    private static SqlSessionFactory buildSqlSessionFactory() {
         try (Reader reader = Resources.getResourceAsReader("mybatis/mybatis-config.xml")) {
             log.info(String.valueOf(Locale.getDefault()));
             SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
-            sqlSessionFactory = builder.build(reader);
+            return builder.build(reader);
         } catch (IOException e) {
             log.error("SqlSessionFactory 초기화 실패", e);
+            throw new ExceptionInInitializerError(e);
         }
     }
 
+    public static SqlSessionFactory getSqlSessionFactory() {
+        return SqlSessionFactoryHolder.INSTANCE;
+    }
+
     public static SqlSession getSession() {
-        return sqlSessionFactory.openSession();
+        return getSqlSessionFactory().openSession();
     }
 }

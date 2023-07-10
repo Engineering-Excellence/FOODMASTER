@@ -2,21 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.sw.mapper.AuthDAOImpl">
-    <select id="selectCredentials" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
+    <select id="selectCredentials" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
         SELECT PASSWORD, SALT
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
 
-    <select id="checkEmail" parameterType="java.lang.String" resultType="_int">
+    <select id="checkEmail" parameterType="String" resultType="_int">
         SELECT COUNT(*)
+        FROM MEMBER
+        WHERE EMAIL = #{email}
+    </select>
+
+    <select id="getQuestion" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
+        SELECT QUESTION, ANSWER
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
 
     <insert id="insertMember" parameterType="kr.or.sw.model.MemberDTO">
         INSERT INTO MEMBER
-        VALUES (PCMASTER.MEMBERID_SEQ.NEXTVAL, #{mName}, #{email}, #{password}, #{salt}, #{contact}, #{question},
-                #{answer}, SYSDATE, 0)
+        VALUES (PCMASTER.MEMBERID_SEQ.NEXTVAL, #{name}, #{email}, #{password}, #{salt}, #{contact}, #{question},
+                #{answer}, #{birthDate}, SYSDATE, 0)
     </insert>
+
+    <update id="resetPassword" parameterType="kr.or.sw.model.MemberDTO">
+        UPDATE MEMBER
+        SET SALT = #{salt},
+            PASSWORD = #{password}
+        WHERE EMAIL = #{email}
+    </update>
 </mapper>

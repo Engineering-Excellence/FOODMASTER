@@ -1,21 +1,21 @@
 body {
-    display: grid;
-    max-width: 100%;
-    grid-template-areas: "logo main";
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+  display: grid;
+  max-width: 100%;
+  grid-template-areas: "logo main";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
 }
 
 logo {
-    grid-area: logo;
-    background-color: #015F23;
-    width: 50vw;
-    height: 98vh;
+  grid-area: logo;
+  background-color: #015F23;
+  width: 50vw;
+  height: 98vh;
 }
 
 main {
-    grid-area: main;
-    background-color: gray;
+  grid-area: main;
+  background-color: gray;
 }
 
-/*# sourceMappingURL=selectCredentials.css.map */
+/*# sourceMappingURL=login.css.map */

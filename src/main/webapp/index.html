@@ -5,55 +5,92 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="JSP Project for Attendance Management System">
-    <meta name="author" content="WorkMaster">
-    <title>WorkMaster</title>
+    <meta name="description" content="JSP Project for Internet Cafe Management System">
+    <meta name="author" content="PC Master">
+    <title>PC Master</title>
     <link rel="icon" href="./favicon.ico">
     <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./css/index.css">
     <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js" defer></script>
+    <script type="text/javascript" src="./js/index.js" defer></script>
 </head>
 
 <body>
 <div class="main">
-    <div class="daeboLeft">
-        <p class="workmasterFont">WorkMaster</p>
-        <img class="fit-picture" src="./images/daebo.png" alt="daebo">
+    <div class="logo">
+        <img class="logo-img" src="./images/daebo.png" alt="daebo">
+        <p class="logo-title">PC Master</p>
     </div>
 
-    <div class="fixed">
-        <form action="/auth/login" method="post">
-            <h1 class="idFont">ID</h1>
-            <label>
-                <input style="width:490px; height:30px; font-size:25px;" type="text" placeholder="ID 입력" id="email"
-                       name="email">
-            </label>
-            <br>
-            <br>
-            <h1 class="passwordFont">Password</h1>
-            <label>
-                <input style="width:490px;height:30px;font-size:25px;" type="password" placeholder="PW 입력" id="password"
-                       name="password">
-            </label>
-            <br>
-            <br>
-            <input type="button" class="button NewAccount" value="회원가입" onclick="location.href='/auth/register'">
-            <br>
-            <br>
-            <div class="checkCancelButton">
-                <table>
-                    <tr>
-                        <th>
-                            <input type="submit" class="button CheckButton" value="확인">
-                        </th>
-                        <th>
-                            <input type="reset" class="button CancelButton" value="취소">
-                        </th>
-                    </tr>
-                </table>
+    <div class="login-container">
+        <div class="login-wrapper">
+            <div class="login-main">
+                <div class="login-type-select-wrapper btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-success active"> <input type="radio" name="select-type"
+                                                                          id="client_login" value="member"
+                                                                          onchange="switchForm('member')"
+                                                                          checked> 회원 로그인 </label>
+                    <label class="btn btn-outline-success"> <input type="radio" name="select-type"
+                                                                id="manager_login" value="login"
+                                                                onchange="switchForm('admin')"> 관리자 로그인 </label>
+                </div>
+                <br><br>
+                <form action="/auth/login" method="post" id="client-login">
+                    <div class="input-container">
+                        <h5>이메일</h5>
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="이메일" id="email"
+                                   name="email">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-container">
+                        <h5>비밀번호</h5>
+                        <div class="input-group">
+                            <input type="password" class="form-control" placeholder="비밀번호" name="password"
+                                   id="password">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="login-help-wrapper">
+                        <a href="/auth/register">회원가입</a>
+                        <a href="/auth/password">비밀번호 찾기</a>
+                    </div>
+                    <br>
+                    <div class="btn-container">
+                        <input type="submit" class="btn btn-outline-success" value="확인">
+<!--                        <input type="reset" class="btn btn-outline-success" value="취소">-->
+                    </div>
+                </form>
+
+                <form action="/auth/" method="post" id="manager-login" style="display: none;">
+                    <div class="input-container">
+                        <h5>관리자</h5>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="관리자 ID" id="adminId"
+                                   name="adminId">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-container">
+                        <h5>비밀번호</h5>
+                        <div class="input-group">
+                            <input type="password" class="form-control" placeholder="비밀번호" name="adminPw"
+                                   id="adminPw">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="login-help-wrapper">
+                    </div>
+                    <br>
+                    <div class="btn-container text-center">
+                        <input type="submit" class="btn btn-outline-success" value="확인">
+                    </div>
+                    <br>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 </body>

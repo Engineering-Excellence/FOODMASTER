@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+main {
+  grid-area: main;
+  border: 1px solid lightgray;
+  //border-radius: 1%;
+  padding: 1vw;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.order-box {
+  width: 30%;
+  background-color: white;
+  border: 1px solid;
+  border-radius: 3px;
+  margin: 20px;
+  display: inline-block;
+}
+
+.box-front {
+  height: 100%;
+  width: 25%;
+  background-color: #015F23;
+  display: inline-block;
+  text-align: center;
+}
+
+.front-number {
+  font-size: 50px;
+  color: white;
+}
+
+.front-font {
+  font-size: 20px;
+  color: white;
+}
+
+.box-main {
+  display: inline-block;
+  transform: translate(10px, -10px);
+}
+
+.main-font {
+  font-weight: bold;
+}
+
+.font-demand {
+  color: rgb(1, 95, 35);
+}
+
+.font-pay {
+  font-weight: bold;
+}
+
+.btn-outline-success {
+  transform: translate(20px, -3px);
+  display: inline-block;
+  margin: -8px;
+}
+
+

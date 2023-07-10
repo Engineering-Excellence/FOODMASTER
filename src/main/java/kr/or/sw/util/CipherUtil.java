@@ -18,13 +18,15 @@ public class CipherUtil {
     private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH = 512;
 
-    private static final SecureRandom secureRandom = new SecureRandom();
-
-    private static final CipherUtil INSTANCE = new CipherUtil();
-
-    public static CipherUtil getInstance() {
-        return INSTANCE;
+    private static class CipherUtilHolder { // Lazy Holder
+        private static final CipherUtil INSTANCE = new CipherUtil();
     }
+
+    public static CipherUtil getInstance() {   // Thread-safe
+        return CipherUtilHolder.INSTANCE;
+    }
+
+    private static final SecureRandom secureRandom = new SecureRandom();
 
     public String generateSalt() {
         byte[] salt = new byte[SALT_LENGTH];

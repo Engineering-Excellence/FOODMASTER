@@ -1,4 +1,3 @@
-@CHARSET "UTF-8";
 body {
   max-width: 100%;
   display: grid;
@@ -6,6 +5,14 @@ body {
   grid-template-columns: 1fr 6fr;
   grid-template-rows: 0.25fr 1.75fr 0.75fr 1fr;
   gap: 1.8vw;
+}
+body a {
+  text-underline: none;
+  color: black;
+}
+body a:hover {
+  text-underline: none;
+  color: black;
 }
 
 header {
@@ -55,26 +62,31 @@ side .side-container .side-wrapper:nth-last-child(2) .side-menu {
 side .side-container .side-wrapper:nth-child(even) {
   display: none;
 }
+side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(1)) {
+  flex-basis: 14%;
+}
+side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(2)) {
+  flex-basis: 28%;
+}
 side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(3)) {
   flex-basis: 42%;
-}
-side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(4)) {
-  flex-basis: 56%;
 }
 side .side-container .side-wrapper:nth-child(even) .side-menu {
   background-color: white;
   color: black;
   font-size: 1.5rem;
 }
+side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(1), side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(1) ~ .side-menu {
+  flex-basis: 100%;
+}
+side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(2), side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(2) ~ .side-menu {
+  flex-basis: 50%;
+}
 side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(3), side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(3) ~ .side-menu {
   flex-basis: 33.3333333333%;
 }
-side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(4), side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(4) ~ .side-menu {
-  flex-basis: 25%;
-}
 side .side-container .side-wrapper:nth-child(even) .side-menu:hover {
-  background-color: #aaaaaa;
-  color: white;
+  background-color: #eee;
 }
 side .side-container .side-wrapper:nth-last-child(1) .side-menu:first-child {
   border-top: none;
@@ -85,21 +97,43 @@ side .side-container .side-wrapper:nth-last-child(1) .side-menu:last-child {
 
 nav {
   grid-area: nav;
-  background-color: gray;
-  padding: 1vw;
+}
+nav .nav-wrapper {
+  width: 100%;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 33%;
+}
+nav .nav-wrapper .nav-menu {
+  border: 1px solid black;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  flex-basis: 100%;
+  font-size: 2rem;
+  text-align: center;
+}
+nav .nav-wrapper .nav-menu:hover {
+  background-color: #eee;
+}
+nav .nav-wrapper:nth-last-child(1) .nav-menu:last-child {
+  border-bottom: 1px solid black;
 }
 
 main {
   grid-area: main;
-  background-color: gray;
+  border: 1px solid lightgray;
   padding: 1vw;
   overflow-y: auto;
+  height: 100%;
 }
 
 .main-container {
   height: 100%;
   width: 100%;
-  
 }
 
 .main-box {
@@ -110,17 +144,91 @@ main {
   margin: 20px;
   margin-left: auto;
   margin-right: auto;
-  display:inline-block;
-  /* white-space: pre-wrap; */ /* 박스안에 내용이 벗어나도 박스 밖을 못 벗어나게 하려고 했지만 박스크기가 늘어남 */
+  display: inline-block;
 }
 
 .box-font {
   text-align: right;
 }
 
+.modal-dialog {
+  max-width: 100%;
+  position: absolute;
+}
+
+.modal-header {
+  height: 100%;
+  width: 100%;
+}
+
+.modal-title {
+  height: 100px;
+  width: 200px;
+  background: white;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.title-font {
+  text-align: center;
+  margin: revert;
+}
+
+.search {
+  position: relative;
+  width: 300px;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  margin: 15%;
+}
+
+.search-img {
+  position: absolute;
+  width: 17px;
+  top: 55px;
+  right: -30px;
+}
+
+.modal-body {
+  height: 100%;
+  width: 100%;
+}
+
+.modal-box {
+  height: 330px;
+  width: 300px;
+  background-color: white;
+  border: 1px solid black;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+}
+
+.modal-img {
+  height: 200px;
+  width: 200px;
+  margin: auto;
+  display: block;
+}
+
+.modal-line {
+  background-color: black;
+}
+
+.modal-text {
+  text-align: center;
+}
+
 footer {
   grid-area: footer;
-  background-color: gray;
   padding: 1vw;
 }
 

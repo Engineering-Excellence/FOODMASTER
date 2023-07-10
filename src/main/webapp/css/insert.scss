@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+main {
+  grid-area: main;
+  border: 1px solid lightgray;
+  //border-radius: 1%;
+  padding: 1vw;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #015F23;
+  border-color: #545b62;
+}
+

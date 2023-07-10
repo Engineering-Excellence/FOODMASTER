@@ -1,0 +1,15 @@
+main {
+  grid-area: main;
+  border: 1px solid lightgray;
+  padding: 1vw;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #015F23;
+  border-color: #545b62;
+}
+
+/*# sourceMappingURL=insert.css.map */

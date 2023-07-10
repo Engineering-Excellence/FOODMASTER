@@ -1,3 +1,4 @@
+@charset "UTF-8";
 
 .main {
   display: flex;
@@ -68,10 +69,16 @@
 
           transition: 0.3s;
           transform: translateX(0);
+          align-items: center;
 
           .register-stage {
-            width: 100%;
-            height: 100%;
+            width: 40%;
+            height: fit-content;
+            margin: 5%;
+
+            padding: 1.5vw;
+            border: 1px solid #ccc;
+            border-radius: 2%;
 
             display: flex;
             flex-direction: column;
@@ -79,7 +86,7 @@
             align-items: center;
 
             .input-container {
-              width: 80%;
+              width: 100%;
               padding: 2vh;
 
               .help {

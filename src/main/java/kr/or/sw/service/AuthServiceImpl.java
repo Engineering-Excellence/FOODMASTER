@@ -20,69 +20,140 @@ import java.io.PrintWriter;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)    // Singleton
 public class AuthServiceImpl implements AuthService {
 
-    private static final AuthService INSTANCE = new AuthServiceImpl();
+    private static AuthService instance;
 
-    public static AuthService getInstance() {
-        return INSTANCE;
+    public static synchronized AuthService getInstance() {  // Thread-safe
+        if (instance == null) {
+            instance = new AuthServiceImpl();   // Lazy Initialization
+        }
+        return instance;
     }
 
+    private CipherUtil cipher;
     private final AuthDAO authDAO = AuthDAOImpl.getInstance();
 
     @Override
     public boolean login(HttpServletRequest request, HttpServletResponse response) {
+        // 로그인
         log.info("login()");
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        SqlSession sqlSession = MyBatisUtil.getSession();
-        MemberDTO memberDTO = authDAO.selectCredentials(sqlSession, email);
-        sqlSession.close();
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            // 입력한 이메일에 해당하는 DB의 비밀번호와 솔트를 가져옴
+            MemberDTO memberDTO = authDAO.selectCredentials(sqlSession, email);
 
-        return CipherUtil.getInstance().hashPassword(password, memberDTO.getSalt()).equals(memberDTO.getPassword());
+            // 입력한 비밀번호를 해싱 후 DB의 비밀번호와 일치 여부를 검사
+            cipher = CipherUtil.getInstance();
+            return cipher.hashPassword(password, memberDTO.getSalt()).equals(memberDTO.getPassword());
+        }
     }
 
     @Override
     public void checkEmail(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 이메일 중복 여부 확인
         log.info("checkEmail()");
 
         String email = request.getParameter("email");
 
-        PrintWriter out = response.getWriter();
-        response.setContentType("application/json");
+        try (SqlSession sqlSession = MyBatisUtil.getSession();
+             PrintWriter out = response.getWriter()) {
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            int ret = authDAO.checkEmail(sqlSession, email);
+            log.info("ret: " + ret);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            out.write(objectMapper.writeValueAsString(ret));
+            out.flush();
+            log.info("check email done");
+        }
+    }
+    @Override
+    public void getQuestion(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 입력한 이메일로 비밀번호 찾기 질문 가져옴
+        log.info("getQuestion()");
+
+        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        String email = request.getParameter("email");
+        try (SqlSession sqlSession = MyBatisUtil.getSession();
+             PrintWriter out = response.getWriter()) {
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        SqlSession sqlSession = MyBatisUtil.getSession();
-        int ret = authDAO.checkEmail(sqlSession, email);
-        sqlSession.close();
+            MemberDTO ret = authDAO.getQuestion(sqlSession, email);
+            log.info("ret: " + ret);
 
-        log.info("ret: " + ret);
-        out.write(objectMapper.writeValueAsString(ret));
-        out.flush();
-        log.info("check email done");
+            ObjectMapper objectMapper = new ObjectMapper();
+            out.write(objectMapper.writeValueAsString(ret));
+            out.flush();
+            log.info("get question done");
+        }
+    }
+    @Override
+    public boolean resetPassword(HttpServletRequest request, HttpServletResponse response) {
+        log.info("resetPassword()");
+
+        cipher = CipherUtil.getInstance();
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setEmail(request.getParameter("email"));
+        String salt = cipher.generateSalt(),
+                password = cipher.hashPassword(request.getParameter("password"), salt);
+        memberDTO.setSalt(salt);
+        memberDTO.setPassword(password);
+
+        String email = request.getParameter("email");
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            int ret = authDAO.resetPassword(sqlSession, memberDTO);
+             sqlSession.commit();
+            return ret == 1;
+        }
     }
 
     @Override
-    public boolean insertMember(HttpServletRequest request, HttpServletResponse response) {
-        log.info("insertMember()");
-        CipherUtil cipher = CipherUtil.getInstance();
+    public boolean insert(HttpServletRequest request, HttpServletResponse response) {
+        log.info("insert()");
+        // 회원가입
 
-        String mName = request.getParameter("mName"),
+        cipher = CipherUtil.getInstance();
+        String name = request.getParameter("name"),
                 email = request.getParameter("email"),
                 salt = cipher.generateSalt(),
                 password = cipher.hashPassword(request.getParameter("password"), salt),
                 contact = request.getParameter("contact"),
                 question = request.getParameter("question"),
                 answer = request.getParameter("answer"),
-                birthday = request.getParameter("birthday");
+                birthDate = request.getParameter("birthDate");
 
-        MemberDTO memberDTO = new MemberDTO(mName, email, password, salt, contact, question, answer, birthday);
+        MemberDTO memberDTO = new MemberDTO(name, email, password, salt, contact, question, answer, birthDate);
 
-        SqlSession sqlSession = MyBatisUtil.getSession();
-        int ret = authDAO.insertMember(sqlSession, memberDTO);
-        sqlSession.commit();
-        sqlSession.close();
-        return ret == 1;
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            int ret = authDAO.insertMember(sqlSession, memberDTO);
+            sqlSession.commit();
+            return ret == 1;
+        }
+    }
+
+    @Override
+    public void select(HttpServletRequest request, HttpServletResponse response) {
+        // 회원정보(본인) 보기
+        log.info("select()");
+    }
+
+    @Override
+    public boolean delete(HttpServletRequest request, HttpServletResponse response) {
+        // 회원탈퇴
+        log.info("delete()");
+        return false;
+    }
+
+    @Override
+    public boolean update(HttpServletRequest request, HttpServletResponse response) {
+        // 회원정보 수정
+        log.info("update()");
+        return false;
     }
 }

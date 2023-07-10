@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.sw.mapper.MemberDAOImpl">
+    <select id="selectAllMembers" resultType="kr.or.sw.model.MemberDTO">
+        SELECT MEMBERID,
+               NAME,
+               EMAIL,
+               CONTACT,
+               REGDATE,
+               REMAINTIME
+        FROM MEMBER
+        ORDER BY MEMBERID ASC
+    </select>
+    
+    <select id="selectMemberById" parameterType="_int" resultType="kr.or.sw.model.MemberDTO">
+        SELECT MEMBERID,
+               NAME,
+               EMAIL,
+               CONTACT,
+               REGDATE,
+               REMAINTIME
+        FROM MEMBER
+        WHERE MEMBERID = #{id}
+        ORDER BY MEMBERID ASC
+    </select>
+    
+    <select id="selectMemberByName" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
+        SELECT MEMBERID,
+               NAME,
+               EMAIL,
+               CONTACT,
+               REGDATE,
+               REMAINTIME
+        FROM MEMBER
+        WHERE NAME LIKE #{name}
+        ORDER BY MEMBERID ASC
+    </select>
+    
+    <select id="selectMemberByEmail" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
+        SELECT MEMBERID,
+               NAME,
+               EMAIL,
+               CONTACT,
+               REGDATE,
+               REMAINTIME
+        FROM MEMBER
+        WHERE EMAIL LIKE #{email}
+        ORDER BY MEMBERID ASC
+    </select>
+    
+    <select id="selectMemberByContact" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
+        SELECT MEMBERID,
+               NAME,
+               EMAIL,
+               CONTACT,
+               REGDATE,
+               REMAINTIME
+        FROM MEMBER
+        WHERE CONTACT LIKE #{contact}
+        ORDER BY MEMBERID ASC
+    </select>
+
+    <select id="selectMember" parameterType="_int" resultType="kr.or.sw.model.MemberDTO">
+        SELECT *
+        FROM MEMBER
+        WHERE MEMBERID = #{memberID}
+    </select>
+
+    <update id="updateMember" parameterType="kr.or.sw.model.MemberDTO">
+        UPDATE MEMBER
+        SET EMAIL      = #{email},
+            CONTACT    = #{contact},
+            REMAINTIME = #{remainTime}
+        WHERE MEMBERID = #{memberID}
+    </update>
+
+    <delete id="deleteMember" parameterType="_int">
+        DELETE
+        FROM MEMBER
+        WHERE MEMBERID = #{memberID}
+    </delete>
+</mapper>

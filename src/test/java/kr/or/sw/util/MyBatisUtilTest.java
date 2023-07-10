@@ -10,6 +10,7 @@ public class MyBatisUtilTest {
     @Test
     public void testGetSession() {
         log.info("testGetSession()");
+
         boolean result = MyBatisUtil.getSession() != null;
         Assert.assertTrue("FAIL", result);
     }

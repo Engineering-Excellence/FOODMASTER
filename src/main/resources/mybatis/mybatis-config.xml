@@ -27,5 +27,8 @@
     <mappers>
         <!-- 실행할 SQL 명령이 저장된 파일의 위치 -->
         <mapper resource="mybatis/mapper/authMapper.xml"/>
+        <mapper resource="mybatis/mapper/memberMapper.xml"/>
+        <mapper resource="mybatis/mapper/productMapper.xml"/>
+        <mapper resource="mybatis/mapper/stockMapper.xml"/>
     </mappers>
 </configuration>

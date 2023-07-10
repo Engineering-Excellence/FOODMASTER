@@ -1,15 +1,12 @@
+'use strict'
+
 let stage = 0;
 let stageLength = $(".register-stage").length;
 let emailChk = false;
 let passwordChk = false;
 let passwordConfirmChk = false;
 let contacktCheck = false;
-const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-const passwordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-const contactRegex = /^[+]?[(]?[0-9]{2,3}[)]?[-\s\.]?[0-9]{3,4}[-\s\.]?[0-9]{4,6}$/
-const checkValidate = (input, reg) => {
-    return input.match(reg);
-}
+
 const changeInputOutline = (selector, flag) => {
     if (flag) {
         $(selector).removeClass("err");
@@ -38,7 +35,7 @@ $("#email-chk").click(() => {
             dataType: "json",
             success: (res) => {
                 if (!res) {
-                    $("#email").attr("disabled", "disabled");
+                    $("#email").attr("readonly", "readonly");
                     $("#email-chk").toggleClass("btn-outline-secondary");
                     $("#email-chk").toggleClass("btn-success");
                     emailChk = true;
@@ -50,7 +47,7 @@ $("#email-chk").click(() => {
             },
         });
     } else {
-        $("#email").removeAttr("disabled");
+        $("#email").removeAttr("readonly");
         $("#email-chk").toggleClass("btn-outline-secondary");
         $("#email-chk").toggleClass("btn-success");
         $("#email").focus();
@@ -85,7 +82,7 @@ $("#nextstage").click(() => {
 $("#prevstage").click(() => {
     stage--;
     $(".register-stage-wrapper").css({
-        transform: `translateX(${-49 * (stage % stageLength)}%)`
+        transform: `translateX(${-50 * (stage % stageLength)}%)`
     });
 });
 
@@ -115,7 +112,7 @@ $("#register-form").submit((e) => {
         alert("비밀번호 찾기 답을 입력해주세요");
         return false;
     }
-    $("#email").removeAttr("disabled");
+    // $("#email").removeAttr("readonly");
     return true;
 })
 $("#register-form").on("keydown", (e) => {
