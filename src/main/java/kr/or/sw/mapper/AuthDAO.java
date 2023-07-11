@@ -1,16 +1,16 @@
 package kr.or.sw.mapper;
 
 import kr.or.sw.model.MemberDTO;
-import org.apache.ibatis.session.SqlSession;
 
 public interface AuthDAO {
 
-    MemberDTO selectCredentials(SqlSession sqlSession, String email);
+    MemberDTO selectCredentials(String email);
 
-    int checkEmail(SqlSession sqlsession, String email);
-    MemberDTO getQuestion(SqlSession sqlsession, String email);
+    int checkEmail(String email);
 
-    int insertMember(SqlSession sqlSession, MemberDTO memberDTO);
+    MemberDTO getQuestion(String email);
 
-    int resetPassword(SqlSession sqlSession, MemberDTO memberDTO);
+    int insertMember(MemberDTO memberDTO);
+
+    int resetPassword(MemberDTO memberDTO);
 }

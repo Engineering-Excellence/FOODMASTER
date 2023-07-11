@@ -55,6 +55,7 @@ public class AuthController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("doPost()");
 
+        request.setCharacterEncoding("UTF-8");
         String pathInfo = request.getPathInfo();
         log.info("pathInfo: {}", pathInfo);
         switch (pathInfo) {
@@ -64,7 +65,8 @@ public class AuthController extends HttpServlet {
             }
             case "/register" -> {
                 log.info("/register");
-                handleRegister(request, response);
+                if (authService.insert(request, response)) log.info("register success");
+                redirectToIndex(request, response);
             }
             case "/checkEmail" -> {
                 log.info("/checkEmail");
@@ -76,7 +78,8 @@ public class AuthController extends HttpServlet {
             }
             case "/resetPassword" -> {
                 log.info("/resetPassword");
-                handleResetPassword(request, response);
+                if (authService.resetPassword(request, response)) log.info("resetPassword success");
+                redirectToIndex(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }
@@ -112,28 +115,5 @@ public class AuthController extends HttpServlet {
             request.setAttribute("redirect", "true");
             request.getRequestDispatcher(VIEW_PATH + "customer.jsp").forward(request, response);
         }
-    }
-
-    private void handleRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.info("handleRegister"); // 회원 등록
-        request.setCharacterEncoding("UTF-8");
-
-        if (!authService.insert(request, response)) {
-            log.error("register fail");
-        } else {
-            log.info("register success");
-        }
-        redirectToIndex(request, response);
-    }
-
-    private void handleResetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.info("handleRegister"); // 회원 등록
-
-        if (!authService.resetPassword(request, response)) {
-            log.error("register fail");
-        } else {
-            log.info("register success");
-        }
-        redirectToIndex(request, response);
     }
 }

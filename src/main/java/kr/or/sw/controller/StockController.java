@@ -35,6 +35,12 @@ public class StockController extends HttpServlet {
                 // 모든 재고 목록을 불러오는 로직
 //                request.setAttribute("stockList", stockService.selectAll());
             }
+            case "/insert" ->{
+            	log.info("/insert"); // 재고 추가
+            }
+            case "/update" ->{
+            	log.info("/update");   // 재고 수정
+            }
             default -> handleInvalidAccess(request, response);
         }
         request.setAttribute("path", request.getRequestURI().substring(request.getContextPath().length()));
@@ -44,6 +50,25 @@ public class StockController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("doPost()");
+        
+       response.setContentType("application/json");
+       String pathInfo = request.getPathInfo();
+       switch(pathInfo) {
+       		case "/insert" -> {
+       			log.info("/insert");
+       			if(stockService.insert(request, response)) log.info("재고 추가 성공");
+       			response.sendRedirect("stock/list");
+       			
+       		}
+       		case "/update" -> {
+       			log.info("/update");
+       			if(stockService.update(request, response)) log.info("재고 수정 성공");
+       			response.sendRedirect("stock/list");
+       			
+       		}
+       		default -> handleInvalidAccess(request, response);
+
+       }
     }
 
     @Override

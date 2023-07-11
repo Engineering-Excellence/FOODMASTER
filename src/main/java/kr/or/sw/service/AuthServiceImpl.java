@@ -5,11 +5,9 @@ import kr.or.sw.mapper.AuthDAO;
 import kr.or.sw.mapper.AuthDAOImpl;
 import kr.or.sw.model.MemberDTO;
 import kr.or.sw.util.CipherUtil;
-import kr.or.sw.util.MyBatisUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.session.SqlSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,14 +38,13 @@ public class AuthServiceImpl implements AuthService {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            // 입력한 이메일에 해당하는 DB의 비밀번호와 솔트를 가져옴
-            MemberDTO memberDTO = authDAO.selectCredentials(sqlSession, email);
 
-            // 입력한 비밀번호를 해싱 후 DB의 비밀번호와 일치 여부를 검사
-            cipher = CipherUtil.getInstance();
-            return cipher.hashPassword(password, memberDTO.getSalt()).equals(memberDTO.getPassword());
-        }
+        // 입력한 이메일에 해당하는 DB의 비밀번호와 솔트를 가져옴
+        MemberDTO memberDTO = authDAO.selectCredentials(email);
+
+        // 입력한 비밀번호를 해싱 후 DB의 비밀번호와 일치 여부를 검사
+        cipher = CipherUtil.getInstance();
+        return cipher.hashPassword(password, memberDTO.getSalt()).equals(memberDTO.getPassword());
     }
 
     @Override
@@ -57,12 +54,11 @@ public class AuthServiceImpl implements AuthService {
 
         String email = request.getParameter("email");
 
-        try (SqlSession sqlSession = MyBatisUtil.getSession();
-             PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
 
-            int ret = authDAO.checkEmail(sqlSession, email);
+            int ret = authDAO.checkEmail(email);
             log.info("ret: " + ret);
 
             ObjectMapper objectMapper = new ObjectMapper();
@@ -71,6 +67,7 @@ public class AuthServiceImpl implements AuthService {
             log.info("check email done");
         }
     }
+
     @Override
     public void getQuestion(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 입력한 이메일로 비밀번호 찾기 질문 가져옴
@@ -79,12 +76,11 @@ public class AuthServiceImpl implements AuthService {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String email = request.getParameter("email");
-        try (SqlSession sqlSession = MyBatisUtil.getSession();
-             PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
 
-            MemberDTO ret = authDAO.getQuestion(sqlSession, email);
+            MemberDTO ret = authDAO.getQuestion(email);
             log.info("ret: " + ret);
 
             ObjectMapper objectMapper = new ObjectMapper();
@@ -93,6 +89,7 @@ public class AuthServiceImpl implements AuthService {
             log.info("get question done");
         }
     }
+
     @Override
     public boolean resetPassword(HttpServletRequest request, HttpServletResponse response) {
         log.info("resetPassword()");
@@ -105,12 +102,8 @@ public class AuthServiceImpl implements AuthService {
         memberDTO.setSalt(salt);
         memberDTO.setPassword(password);
 
-        String email = request.getParameter("email");
-        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            int ret = authDAO.resetPassword(sqlSession, memberDTO);
-             sqlSession.commit();
-            return ret == 1;
-        }
+        int ret = authDAO.resetPassword(memberDTO);
+        return ret == 1;
     }
 
     @Override
@@ -130,11 +123,8 @@ public class AuthServiceImpl implements AuthService {
 
         MemberDTO memberDTO = new MemberDTO(name, email, password, salt, contact, question, answer, birthDate);
 
-        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            int ret = authDAO.insertMember(sqlSession, memberDTO);
-            sqlSession.commit();
-            return ret == 1;
-        }
+        int ret = authDAO.insertMember(memberDTO);
+        return ret == 1;
     }
 
     @Override

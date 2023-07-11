@@ -17,7 +17,7 @@ import java.util.Objects;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private static MemberService instance;
 
@@ -34,10 +34,7 @@ public class MemberServiceImpl implements MemberService{
     public void selectAll(HttpServletRequest request, HttpServletResponse response) {
         log.info("selectAll()");
 
-        List<MemberDTO> list;
-        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            list = new ArrayList<>(memberDAO.selectAllMembers(sqlSession));
-        }
+        List<MemberDTO> list = new ArrayList<>(memberDAO.selectAllMembers());
 
         request.setAttribute("memberList", list);
         request.setAttribute("page", Objects.requireNonNullElse(request.getParameter("page"), 1));
@@ -54,15 +51,13 @@ public class MemberServiceImpl implements MemberService{
         // searchOption이 1이면 id(숫자) 검색이므로 불필요
         // 나머지는 문자열 포함 여부 검색이므로 like 연산을 위해 앞뒤에 % 추가
 
-        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            result = switch (searchOption) {
-                case 1 -> memberDAO.selectMemberById(sqlSession, Integer.parseInt(keyword));
-                case 2 -> memberDAO.selectMemberByName(sqlSession, keyword);
-                case 3 -> memberDAO.selectMemberByEmail(sqlSession, keyword);
-                case 4 -> memberDAO.selectMemberByContact(sqlSession, keyword);
-                default -> throw new IllegalStateException("Unexpected value: " + searchOption);
-            };
-        }
+        result = switch (searchOption) {
+            case 1 -> memberDAO.selectMemberById(Integer.parseInt(keyword));
+            case 2 -> memberDAO.selectMemberByName(keyword);
+            case 3 -> memberDAO.selectMemberByEmail(keyword);
+            case 4 -> memberDAO.selectMemberByContact(keyword);
+            default -> throw new IllegalStateException("Unexpected value: " + searchOption);
+        };
         List<MemberDTO> list = new ArrayList<>(result);
         log.info("size: {}", list.size());
 
@@ -77,10 +72,7 @@ public class MemberServiceImpl implements MemberService{
         log.info("select()");
 
         int memberID = Integer.parseInt(request.getParameter("memberID"));
-        MemberDTO memberDTO;
-        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            memberDTO = memberDAO.selectMember(sqlSession, memberID);
-        }
+        MemberDTO memberDTO = memberDAO.selectMember(memberID);
         request.setAttribute("memberDTO", memberDTO);
         log.info("memberDTO: {}", memberDTO);
     }
@@ -91,10 +83,7 @@ public class MemberServiceImpl implements MemberService{
 
         int memberID = Integer.parseInt(request.getParameter("memberID"));
         int result;
-        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            result = memberDAO.deleteMember(sqlSession, memberID);
-            sqlSession.commit();
-        }
+        result = memberDAO.deleteMember(memberID);
         return result == 1;
     }
 
@@ -110,7 +99,7 @@ public class MemberServiceImpl implements MemberService{
 
         int result;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            result = memberDAO.updateMember(sqlSession, memberDTO);
+            result = memberDAO.updateMember(memberDTO);
             sqlSession.commit();
         }
         return result == 1;

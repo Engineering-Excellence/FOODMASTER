@@ -28,7 +28,7 @@
 
     <update id="resetPassword" parameterType="kr.or.sw.model.MemberDTO">
         UPDATE MEMBER
-        SET SALT = #{salt},
+        SET SALT     = #{salt},
             PASSWORD = #{password}
         WHERE EMAIL = #{email}
     </update>

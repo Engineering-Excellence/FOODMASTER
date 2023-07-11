@@ -33,14 +33,13 @@
 <main>
     <div class="search-container">
         <div class="search-input-container">
-            <form action="/member/search" method="get" name="searchForm" id="search-form">
+            <form action="/product/list" method="get" name="searchForm" id="search-form">
                 <div class="search-input-wrapper input-group">
                     <select class="custom-select" id="searchOption" name="searchOption">
                         <option value="-1" selected>선택</option>
                         <option value="1">번호</option>
                         <option value="2">카테고리</option>
                         <option value="3">상품명</option>
-                        <option value="4">상품가격</option>
                     </select>
                     <input type="text" class="form-control" placeholder="검색어 입력" id="keyword"
                            name="keyword">
@@ -57,7 +56,7 @@
                 </label>
             </div>
             <div class="search-result-into-container">
-                ${memberList.size()}개 검색되었습니다
+                ${productList.size()}개 검색되었습니다
             </div>
         </div>
         <div class="search-result-container">
@@ -69,29 +68,27 @@
                         <th scope="col">카테고리</th>
                         <th scope="col">상품명</th>
                         <th scope="col">상품가격</th>
+                        <th scope="col">재고</th>
                     </tr>
                     </thead>
                     <tbody>
                     <!-- 1페이지에 10개씩 페이징할 것 / 생년월일이랑 최근 방문일은 나중에 추가할 것-->
-                    <c:if test="${memberList.size() > 0}">
+                    <c:if test="${productList.size() > 0}">
                         <%-- 1페이지에 10개씩, 1페이지면 0번 인덱스부터, 9번 인덱스까지의 데이터를 담게 된다. --%>
                         <%-- n페이지일 경우 (10 * (n - 1))번 인덱스부터, (10 * (n - 1) + 9)번 인덱스까지의 데이터를 담게 된다. --%>
                         <%-- 단, 데이터가 10개를 모두 채우지 못하고 이전에 끝난다면, 거기까지만 나오게 조절 --%>
                         <c:forEach var="i" begin="${(page - 1) * 10}"
-                                   end="${Math.min(memberList.size() - 1, (page - 1) * 10 + 9)}">
+                                   end="${Math.min(productList.size() - 1, (page - 1) * 10 + 9)}">
                             <tr class="member-data" id="memberData${i}">
-                                <td>${memberList.get(i).getMemberID()}</td>
-                                <td>${memberList.get(i).getName()}</td>
-                                <td>${memberList.get(i).getEmail()}</td>
-                                <td>${memberList.get(i).getContact()}</td>
-                                <td>${memberList.get(i).getBirthDate()}</td>
-                                <td>${memberList.get(i).getRegDate()}</td>
-                                <td>${memberList.get(i).getRemainTime()}</td>
-                                <td>-</td>
+                                <td>${productList.get(i).getProductID()}</td>
+                                <td>${productList.get(i).getCategory()}</td>
+                                <td>${productList.get(i).getProductName()}</td>
+                                <td>${productList.get(i).getPrice()}</td>
+                                <td>${productList.get(i).getStock()}</td>
                             </tr>
                         </c:forEach>
                     </c:if>
-                    <c:if test="${memberList.size() == 0}">
+                    <c:if test="${productList.size() == 0}">
                         <td colspan="8">검색결과가 없습니다</td>
                     </c:if>
                     </tbody>
@@ -101,7 +98,7 @@
         <div class="search-page-container">
             <div class="search-page-wrapper">
                 <ul class="pagination">
-                    <c:if test="${memberList.size() > 0}">
+                    <c:if test="${productList.size() > 0}">
                         <%-- 일단, 이전 버튼은 11페이지 이상부터 나와야 하므로 지금 페이지가 10을 초과하는 경우에만 달아줌 --%>
                         <c:if test="${page > 10}">
                             <li class="page-item">
@@ -124,7 +121,7 @@
                         </c:if>
                         <%-- 이전과 다음 버튼 사이에 들어갈 각 페이지 버튼들, 데이터를 담는 것과 어느정도 비슷한 방식 --%>
                         <c:forEach var="i" begin="${Math.floor((page - 1) / 10) * 10}"
-                                   end="${Math.min(Math.floor(memberList.size() / 10), Math.floor((page - 1) / 10) * 10 + 9)}">
+                                   end="${Math.min(Math.floor(productList.size() / 10), Math.floor((page - 1) / 10) * 10 + 9)}">
                             <c:if test="${page == i + 1}">
                                 <c:if test="${keyword != null}">
                                     <li class="page-item"><a class="page-link current-page"
@@ -151,7 +148,7 @@
 
                         </c:forEach>
                         <%-- 아까 이전 페이지때처럼, 다음 페이지 버튼은 마지막인 경우에는 추가하지 않는다 --%>
-                        <c:if test="${Math.floor((page - 1) / 10) < Math.floor(memberList.size() / 100)}">
+                        <c:if test="${Math.floor((page - 1) / 10) < Math.floor(productList.size() / 100)}">
                             <li class="page-item">
                                     <%-- 페이지가 1, 11, 21, 31 등에서부터 시작할 수 있게 조절하는 부분 --%>
                                 <c:if test="${keyword != null}">

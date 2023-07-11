@@ -21,7 +21,7 @@
 <main>
     <div class="stock-container">
         <div class="stock-input-container">
-            <form action="/stockManage/stock" method="get" name="stockForm"
+            <form action="/stock/list" method="get" name="stockForm" 
                   id="stock-form">
                 <div class="stock-input-wrapper input-group">
                     <select class="custom-select" id="stockOption" name="stockOption">
@@ -36,65 +36,13 @@
             </form>
             <div class="stock-select-type-wrapper btn-group btn-group-toggle"
                  data-toggle="buttons">
-                <!-- button class="btn btn-outline-info" data-target="#layerpopAdd" data-toggle="modal">재고 추가</button> -->
-                <label class="btn btn-outline-info" data-target="#layerpopAdd" data-toggle="modal">재고 추가</label>
                 <label class="btn btn-outline-secondary" id="edit">재고 수정</label>
                 <label class="btn btn-outline-secondary" id="delete">재고 삭제</label>
             </div>
 
             <!-- //////////////////////////////재고 추가 모달 시작/////////////////////////////////////////////   -->
 
-            <div class="modal fade" id="layerpopAdd">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- header -->
-                        <div class="modal-header">
-                            <label class="stockAdd"> 재고 추가 </label>
 
-                            <button type="button" class="close" data-dismiss="modal">×</button>
-                        </div>
-                        <!-- body -->
-                        <div class="modal-body">
-
-                            <form action="/stockManage/stock" method="post" name="stockForm"
-                                  id="stockAdd-form">
-                                <div class="stock add">
-                                    <label>재고 ID</label> <br> <input type="text"
-                                                                     class="form-control" placeholder="재고 ID"
-                                                                     aria-label="stockNum"
-                                                                     aria-describedby="basic-addon1">
-                                    <br> <label>재고명</label> <br> <input type="text"
-                                                                        class="form-control" placeholder="재고명"
-                                                                        aria-label="stockName"
-                                                                        aria-describedby="basic-addon1"> <br>
-                                    <label>품목명</label>
-                                    <input type="text" class="form-control" placeholder="품목명"
-                                           aria-label="amount" aria-describedby="basic-addon1"> <br>
-                                    <label>단가</label> <br> <input type="text"
-                                                                  class="form-control" placeholder="단가"
-                                                                  aria-label="unitPrice"
-                                                                  aria-describedby="basic-addon1"> <br>
-                                    <label>최근입고일자</label>
-                                    <br> <input type="text" class="form-control"
-                                                placeholder="최근입고일자" aria-label="stockDate"
-                                                aria-describedby="basic-addon1"> <br> <label>상품
-                                    ID</label> <br> <input type="text" class="form-control"
-                                                           placeholder="상품 ID" aria-label="productID"
-                                                           aria-describedby="basic-addon1"> <br>
-                                </div>
-
-                                <!-- Footer -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary">등록</button>
-                                    <button type="button" class="btn btn-outline-primary"
-                                            data-dismiss="modal">닫기
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- //////////////////////////////재고 추가 모달 끝/////////////////////////////////////////////////////////////////////////////  -->
 
@@ -134,7 +82,7 @@
                                 <td>${stockList.get(i).getStockName()}</td>
                                 <td>${stockList.get(i).getAmount()}</td>
                                 <td>${stockList.get(i).getUnitPrice()}</td>
-                                <td>${stockList.get(i).getStockDate()}</td>
+                                <td>${stockList.get(i).getRegDate()}</td> <!-- 재고입고일 -->
                                 <td>${stockList.get(i).getProductID()}</td>
 
                             </tr>
@@ -157,12 +105,12 @@
                                     <%-- 페이지가 1, 11, 21, 31 등에서부터 시작할 수 있게 조절하는 부분 --%> <c:if
                                     test="${keyword != null}">
                                 <a class="page-link"
-                                   href="/stockManage/stock?stockOption=${stockOption}&keyword=${keyword}&page=${page - (page % 10) - (page % 10 == 0 ? 19 : 9)}"
+                                   href="/stock/list?stockOption=${stockOption}&keyword=${keyword}&page=${page - (page % 10) - (page % 10 == 0 ? 19 : 9)}"
                                    aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </c:if> <c:if test="${keyword == null}">
                                 <a class="page-link"
-                                   href="/stockManage/stock?page=${page - (page % 10) - (page % 10 == 0 ? 19 : 9)}"
+                                   href="/stock/list?page=${page - (page % 10) - (page % 10 == 0 ? 19 : 9)}"
                                    aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </c:if>
@@ -174,23 +122,23 @@
                             <c:if test="${page == i + 1}">
                                 <c:if test="${keyword != null}">
                                     <li class="page-item"><a class="page-link current-page"
-                                                             href="/stockManage/stock?stockOption=${stockOption}&keyword=${keyword}&page=${i + 1}">${i + 1}</a>
+                                                             href="/stock/list?stockOption=${stockOption}&keyword=${keyword}&page=${i + 1}">${i + 1}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${keyword == null}">
                                     <li class="page-item"><a class="page-link current-page"
-                                                             href="/stockManage/stock?page=${i + 1}">${i + 1}</a></li>
+                                                             href="/stock/list?page=${i + 1}">${i + 1}</a></li>
                                 </c:if>
                             </c:if>
                             <c:if test="${page != i + 1}">
                                 <c:if test="${keyword != null}">
                                     <li class="page-item"><a class="page-link"
-                                                             href="/stockManage/stock?stockOption=${stockOption}&keyword=${keyword}&page=${i + 1}">${i + 1}</a>
+                                                             href="/stock/list?stockOption=${stockOption}&keyword=${keyword}&page=${i + 1}">${i + 1}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${keyword == null}">
                                     <li class="page-item"><a class="page-link"
-                                                             href="/stockManage/stock?page=${i + 1}">${i + 1}</a></li>
+                                                             href="/stock/list?page=${i + 1}">${i + 1}</a></li>
                                 </c:if>
                             </c:if>
                         </c:forEach>
@@ -201,12 +149,12 @@
                                     <%-- 페이지가 1, 11, 21, 31 등에서부터 시작할 수 있게 조절하는 부분 --%> <c:if
                                     test="${keyword != null}">
                                 <a class="page-link"
-                                   href="/stockManage/stock?stockOption=${stockOption}&keyword=${keyword}&page=${page - (page % 10) + (page % 10 == 0 ? 1 : 11)}"
+                                   href="/stock/list?stockOption=${stockOption}&keyword=${keyword}&page=${page - (page % 10) + (page % 10 == 0 ? 1 : 11)}"
                                    aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </c:if> <c:if test="${keyword == null}">
                                 <a class="page-link"
-                                   href="/stockManage/stock?page=${page - (page % 10) + (page % 10 == 0 ? 1 : 11)}"
+                                   href="/stock/list?page=${page - (page % 10) + (page % 10 == 0 ? 1 : 11)}"
                                    aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </c:if>

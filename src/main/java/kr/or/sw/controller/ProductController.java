@@ -5,11 +5,11 @@ import kr.or.sw.service.ProductServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.io.Serial;
 
@@ -17,6 +17,7 @@ import static kr.or.sw.controller.HomeController.HOME_PATH;
 import static kr.or.sw.controller.HomeController.handleInvalidAccess;
 
 @Slf4j
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 @WebServlet(name = "ProductController", urlPatterns = {"/product/*"})
 public class ProductController extends HttpServlet {
 
@@ -24,7 +25,6 @@ public class ProductController extends HttpServlet {
     private static final long serialVersionUID = 5019171277715891863L;
 
     private ProductService productService;
-    public static String uploadPath;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,7 +40,7 @@ public class ProductController extends HttpServlet {
             case "/list" -> {
                 // 상품 목록 페이지
                 log.info("/list");
-                productService.selectAll(request, response);
+                handleSearch(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }
@@ -69,16 +69,26 @@ public class ProductController extends HttpServlet {
     public void init() throws ServletException {
         log.info("/product/*");
         productService = ProductServiceImpl.getInstance();
-        uploadPath = getServletContext().getRealPath("/upload/");
-        File uploadDirectory = new File(uploadPath);
-        if (!uploadDirectory.exists()) {    // 업로드 디렉토리가 없을 경우 생성
-            log.info("mkdir: {}", uploadDirectory.mkdirs());
-        }
-        log.info("uploadPath: {}", uploadPath);
     }
 
     @Override
     public void destroy() {
         log.info("destroy()");
+    }
+    
+    private void handleSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        int searchOption = 0;
+        if (request.getParameter("searchOption") != null) {
+            searchOption = Integer.parseInt(request.getParameter("searchOption"));
+        }
+
+        // searchOption이 0이면 전체 검색, 0이 아닌 다른 무언가면 그에 해당하는 검색을 진행
+        switch (searchOption) {
+            case 0 -> productService.selectAll(request, response);
+            case 1, 2, 3 -> productService.searchBy(request, response);
+            default -> handleInvalidAccess(request, response);
+        }
     }
 }

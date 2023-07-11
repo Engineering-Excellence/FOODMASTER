@@ -1,6 +1,7 @@
 package kr.or.sw.mapper;
 
 import kr.or.sw.model.MemberDTO;
+import kr.or.sw.util.MyBatisUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,36 +21,50 @@ public class AuthDAOImpl implements AuthDAO {
     }
 
     @Override
-    public MemberDTO selectCredentials(SqlSession sqlSession, String email) {
+    public MemberDTO selectCredentials(String email) {
         // 계정 및 비밀번호 일치 여부 검사
         log.info("selectCredentials(): {}", email);
-        return sqlSession.selectOne("selectCredentials", email);
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            return sqlSession.selectOne("selectCredentials", email);
+        }
     }
 
     @Override
-    public int checkEmail(SqlSession sqlSession, String email) {
+    public int checkEmail(String email) {
         // 입력한 이메일이 DB에 존재하는 개수를 반환
         log.info("checkEmail(): {}", email);
-        return sqlSession.selectOne("checkEmail", email);
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            return sqlSession.selectOne("checkEmail", email);
+        }
     }
 
     @Override
-    public MemberDTO getQuestion(SqlSession sqlSession, String email) {
+    public MemberDTO getQuestion(String email) {
         // 입력한 이메일의 비밀번호 찾기 질문과 답을 반환
         log.info("getQustion(): {}", email);
-        return sqlSession.selectOne("getQuestion", email);
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            return sqlSession.selectOne("getQuestion", email);
+        }
     }
 
     @Override
-    public int insertMember(SqlSession sqlSession, MemberDTO memberDTO) {
+    public int insertMember(MemberDTO memberDTO) {
         // 회원 가입
         log.info("insertMember(): {}", memberDTO);
-        return sqlSession.insert("insertMember", memberDTO);
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            int result = sqlSession.insert("insertMember", memberDTO);
+            if (result > 0) sqlSession.commit();
+            return result;
+        }
     }
 
     @Override
-    public int resetPassword(SqlSession sqlSession, MemberDTO memberDTO) {
+    public int resetPassword(MemberDTO memberDTO) {
         log.info("resetPassword(): {}", memberDTO);
-        return sqlSession.insert("resetPassword", memberDTO);
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            int result = sqlSession.insert("resetPassword", memberDTO);
+            if (result > 0) sqlSession.commit();
+            return result;
+        }
     }
 }

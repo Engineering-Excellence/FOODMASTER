@@ -38,9 +38,6 @@ $("#email-chk").click(() => {
                     $("#email").attr("readonly", "readonly");
                     $("#email-chk").toggleClass("btn-outline-secondary");
                     $("#email-chk").toggleClass("btn-success");
-                    console.log(res);
-                    console.log(res.question);
-                    console.log(res.answer);
                     $("#question").val(res.question);
                     answer = res.answer;
                     emailChk = true;

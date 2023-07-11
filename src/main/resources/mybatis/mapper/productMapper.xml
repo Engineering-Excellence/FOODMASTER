@@ -2,5 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.sw.mapper.ProductDAOImpl">
-
+	  <select id="selectAllProducts" resultType="kr.or.sw.model.ProductDTO">
+        SELECT PRODUCTID,
+               PRODUCTNAME,
+               CATEGORY,
+               PRICE,
+               STOCK
+        FROM PRODUCT
+        ORDER BY PRODUCTID ASC
+    </select>
+    
+    <select id="selectProductById" parameterType="_int" resultType="kr.or.sw.model.ProductDTO">
+        SELECT PRODUCTID,
+               PRODUCTNAME,
+               CATEGORY,
+               PRICE,
+               STOCK
+        FROM PRODUCT
+        WHERE PRODUCTID = #{productID}
+        ORDER BY PRODUCTID ASC
+    </select>
+    
+    <select id="selectProductByCategory" parameterType="String" resultType="kr.or.sw.model.ProductDTO">
+        SELECT PRODUCTID,
+               PRODUCTNAME,
+               CATEGORY,
+               PRICE,
+               STOCK
+        FROM PRODUCT
+        WHERE CATEGORY LIKE #{category}
+        ORDER BY PRODUCTID ASC
+    </select>
+    
+    <select id="selectProductByName" parameterType="String" resultType="kr.or.sw.model.ProductDTO">
+         SELECT PRODUCTID,
+               PRODUCTNAME,
+               CATEGORY,
+               PRICE,
+               STOCK
+        FROM PRODUCT
+        WHERE PRODUCTNAME LIKE #{productName}
+        ORDER BY PRODUCTID ASC
+    </select>
 </mapper>
