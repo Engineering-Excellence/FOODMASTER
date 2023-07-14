@@ -7,6 +7,7 @@ let answerChk = false;
 let passwordChk = false;
 let passwordConfirmChk = false;
 let answer;
+
 const changeInputOutline = (selector, flag) => {
     if (flag) {
         $(selector).removeClass("err");
@@ -14,6 +15,7 @@ const changeInputOutline = (selector, flag) => {
         $(selector).addClass("err");
     }
 }
+
 $("#email-chk").click(() => {
     if ($("#email").val().length == 0) {
         alert("이메일을 입력해주세요");
@@ -56,6 +58,7 @@ $("#email-chk").click(() => {
         emailChk = false;
     }
 });
+
 $(".nextstage").each((i, e) => {
     $(e).click(() => {
         if (i == 0) {
@@ -76,6 +79,7 @@ $(".nextstage").each((i, e) => {
         });
     });
 });
+
 $("#find-password-form").submit((e) => {
     if (!passwordChk) {
         alert("비밀번호가 조건에 맞지 않습니다\n8자 이상, 대소문자 1개 이상, 숫자 1개 이상, 특수문자 1개 이상이 포함되어야 합니다");
@@ -89,17 +93,21 @@ $("#find-password-form").submit((e) => {
 
     return true;
 })
+
 $("#find-password-form").on("keydown", (e) => {
     if (e.keyCode == 13)
         e.preventDefault();
 })
+
 $("#password").on("focus focusout", () => {
     $(".help").toggleClass("hide");
 })
+
 $("#password").on("keyup", () => {
     passwordChk = checkValidate($("#password").val(), passwordRegex);
     changeInputOutline("#password", passwordChk);
 })
+
 $("#password-confirm").on("keyup", () => {
     passwordConfirmChk = $("#password").val() === $("#password-confirm").val();
     changeInputOutline("#password-confirm", passwordConfirmChk);

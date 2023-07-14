@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serial;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import static kr.or.sw.controller.HomeController.VIEW_PATH;
 import static kr.or.sw.controller.HomeController.handleInvalidAccess;
@@ -104,16 +106,16 @@ public class AuthController extends HttpServlet {
     private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("handleLogin()");  // 로그인
 
-        String email = request.getParameter("email");
         if (!authService.login(request, response)) {
             log.error("로그인 실패");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             redirectToIndex(request, response);
         } else {
             log.info("로그인 성공");
-            request.getSession().setAttribute("email", email);  // 로그인 세션 저장
-            request.setAttribute("redirect", "true");
-            request.getRequestDispatcher(VIEW_PATH + "customer.jsp").forward(request, response);
+            authService.setMemberInfo(request, response);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            request.getSession().setAttribute("startDate", sdf.format(new Date(System.currentTimeMillis())));// 로그인 세션 저장
+            response.sendRedirect("/customer/home");
         }
     }
 }

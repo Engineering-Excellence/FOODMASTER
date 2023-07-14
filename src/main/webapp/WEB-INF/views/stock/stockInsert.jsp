@@ -5,9 +5,6 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/productInsert.js" defer></script>
 
-<nav>nav</nav>
-
-
 <main>
 	<!-- 상품등록창 -->
 	<div class="insert-container">
@@ -19,8 +16,16 @@
 		<div class="insert-body-wrapper">
 			<div class="insert-wrapper">
 				<form action="/stock/insert" method="post">
-					<br><br>
-					<div class="insert-name">
+					<br> <br>
+<!-- 					<div class="insert-stockID"> -->
+<!-- 						<h3>재고 ID</h3> -->
+<!-- 						<div class="input-group mb-3"> -->
+<!-- 							<input type="number" class="form-control" -->
+<!-- 								placeholder="재고ID를 입력해주세요" aria-label="Username" name="stockID"> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 					<br> <br> -->
+					<div class="insert-stockName">
 						<h3>재고명</h3>
 						<div class="input-group mb-3">
 							<input type="text" class="form-control" placeholder="재고명을 입력해주세요"
@@ -29,27 +34,38 @@
 					</div>
 					<br> <br>
 					<!-- 재고수량 -->
-					<div class="insert-price">
+					<div class="insert-amount">
 						<h3>재고수량</h3>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control"
+							<input type="number" class="form-control"
 								placeholder="재고수량을 입력해주세요" aria-label="Username" name="amount">
 						</div>
 					</div>
 					<br> <br>
-					<div class="insert-price">
+					<div class="insert-unitPrice">
 						<h3>재고 단가</h3>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control"
-								placeholder="재고수량을 입력해주세요" aria-label="Username" name="unitPrice">
+							<input type="number" class="form-control"
+								placeholder="재고수량을 입력해주세요" aria-label="Username"
+								name="unitPrice">
 						</div>
 					</div>
 					<br> <br>
-					<div class="insert-price">
+					<div class="insert-stockDate">
 						<h3>재고 입고일</h3>
 						<div class="input-group mb-3">
-							<input type="text" class="form-control"
-								placeholder="재고수량을 입력해주세요" aria-label="Username" name="stockDate">
+							<input type="date" class="form-control"
+								placeholder="재고 입고일을 입력해주세요" aria-label="Username"
+								name="stockDate">
+						</div>
+					</div>
+					<br> <br>
+					<div class="insert-productID">
+						<h3>상품 ID</h3>
+						<div class="input-group mb-3">
+							<input type="number" class="form-control"
+								placeholder="상품ID를 입력해주세요" aria-label="Username"
+								name="productID">
 						</div>
 					</div>
 					<br> <br>

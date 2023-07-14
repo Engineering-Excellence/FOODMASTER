@@ -48,6 +48,15 @@ public class AuthDAOImpl implements AuthDAO {
     }
 
     @Override
+    public MemberDTO getMemberInfo(String email) {
+        // 입력한 이메일의 기초적인 회원 정보를 반환
+        log.info("getMemberInfo: {}", email);
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            return sqlSession.selectOne("getMemberInfo", email);
+        }
+    }
+
+    @Override
     public int insertMember(MemberDTO memberDTO) {
         // 회원 가입
         log.info("insertMember(): {}", memberDTO);

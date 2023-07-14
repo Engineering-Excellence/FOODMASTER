@@ -14,6 +14,7 @@ const changeInputOutline = (selector, flag) => {
         $(selector).addClass("err");
     }
 }
+
 $("#email-chk").click(() => {
     if ($("#email").val().length == 0) {
         alert("이메일을 입력해주세요");
@@ -54,6 +55,7 @@ $("#email-chk").click(() => {
         emailChk = false;
     }
 });
+
 $("#nextstage").click(() => {
     if (!emailChk) {
         alert("이메일 중복 확인을 해주세요");
@@ -79,6 +81,7 @@ $("#nextstage").click(() => {
         transform: `translateX(${-50 * (stage % stageLength)}%)`
     });
 });
+
 $("#prevstage").click(() => {
     stage--;
     $(".register-stage-wrapper").css({
@@ -115,6 +118,7 @@ $("#register-form").submit((e) => {
     // $("#email").removeAttr("readonly");
     return true;
 })
+
 $("#register-form").on("keydown", (e) => {
     if (e.keyCode == 13)
         e.preventDefault();
@@ -123,10 +127,12 @@ $("#register-form").on("keydown", (e) => {
 $("#password").on("focus focusout", () => {
     $(".help").toggleClass("hide");
 })
+
 $("#password").on("keyup", () => {
     passwordChk = checkValidate($("#password").val(), passwordRegex);
     changeInputOutline("#password", passwordChk);
 })
+
 $("#password-confirm").on("keyup", () => {
     passwordConfirmChk = $("#password").val() === $("#password-confirm").val();
     changeInputOutline("#password-confirm", passwordConfirmChk);

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/views/layouts/header.jsp" %>
 <%@ include file="/WEB-INF/views/layouts/side.jsp" %>
+<%@ include file="/WEB-INF/views/layouts/nav.jsp" %>
 
 <c:set var="paths" value="${fn:split(path, '/')}"/>
 <c:if test='${pageContext.request.getParameter("redirect") eq "true"}'>
@@ -18,7 +19,7 @@
 </c:if>
 <c:if test="${paths[0] eq 'stock'}">
     <c:if test="${paths[1] eq 'list'}">
-        <%@ include file="/WEB-INF/views/stock/stock.jsp" %>
+        <%@ include file="/WEB-INF/views/stock/stockList.jsp" %>
     </c:if>
     <c:if test="${paths[1] eq 'insert'}">
         <%@ include file="/WEB-INF/views/stock/stockInsert.jsp" %>
@@ -40,7 +41,7 @@
 </c:if>
 
 <c:if test="${paths[0] eq 'home'}">
-	<%@ include file="/WEB-INF/views/main.jsp" %>
+    <%@ include file="/WEB-INF/views/main.jsp" %>
 </c:if>
 
 <%@ include file="/WEB-INF/views/layouts/footer.jsp" %>

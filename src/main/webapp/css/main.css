@@ -54,7 +54,7 @@ side .side-container .side-wrapper:nth-child(odd) {
 side .side-container .side-wrapper:nth-child(odd) .side-menu {
   flex-basis: 100%;
   background-color: #015F23;
-  font-size: 2rem;
+  font-size: 1.6em;
 }
 side .side-container .side-wrapper:nth-last-child(2) .side-menu {
   border-bottom: 1px solid black;
@@ -71,10 +71,16 @@ side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nt
 side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(3)) {
   flex-basis: 42%;
 }
+side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(4)) {
+  flex-basis: 56%;
+}
+side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(5)) {
+  flex-basis: 70%;
+}
 side .side-container .side-wrapper:nth-child(even) .side-menu {
   background-color: white;
   color: black;
-  font-size: 1.5rem;
+  font-size: 1.3em;
 }
 side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(1), side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(1) ~ .side-menu {
   flex-basis: 100%;
@@ -98,29 +104,63 @@ side .side-container .side-wrapper:nth-last-child(1) .side-menu:last-child {
 nav {
   grid-area: nav;
 }
-nav .nav-wrapper {
+nav #chat {
+  height: 100%;
   width: 100%;
-  color: black;
+  max-height: 980px;
+  grid-area: chat;
   display: flex;
   flex-direction: column;
-  flex-basis: 33%;
-}
-nav .nav-wrapper .nav-menu {
-  border: 1px solid black;
-  border-bottom: none;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
   justify-content: center;
-  flex-basis: 100%;
-  font-size: 2rem;
-  text-align: center;
+  align-items: center;
 }
-nav .nav-wrapper .nav-menu:hover {
-  background-color: #eee;
+nav #chat #chatList {
+  background-color: #ccc;
+  width: 95%;
+  height: 95%;
+  overflow-y: auto;
 }
-nav .nav-wrapper:nth-last-child(1) .nav-menu:last-child {
-  border-bottom: 1px solid black;
+nav #chat #chatList::-webkit-scrollbar {
+  width: 10px;
+}
+nav #chat #chatList::-webkit-scrollbar-thumb {
+  background: white;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 7px;
+  width: 3px;
+}
+nav #chat #chatList::-webkit-scrollbar-track {
+  background: rgba(30, 30, 30, 0.85);
+  border-radius: 5px;
+  width: 3px;
+}
+nav #chat #chatList .chatBox {
+  display: flex;
+}
+nav #chat #chatList .chatBox.mine {
+  justify-content: flex-end;
+}
+nav #chat #chatList .chatBox.opponent {
+  justify-content: flex-start;
+}
+nav #chat #chatList .chatBox .chat {
+  width: fit-content;
+  height: fit-content;
+  padding: 2.5px 10px 2.5px 10px;
+  margin: 10px 10px 10px 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+nav #chat #chatList .chatBox .chat.mine {
+  background-color: yellow;
+}
+nav #chat #chatList .chatBox .chat.opponent {
+  background-color: white;
+}
+nav #chat #chatForm {
+  width: 90%;
 }
 
 main {

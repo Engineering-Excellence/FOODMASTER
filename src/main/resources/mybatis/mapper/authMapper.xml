@@ -20,6 +20,12 @@
         WHERE EMAIL = #{email}
     </select>
 
+    <select id="getMemberInfo" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
+        SELECT NAME, EMAIL, CONTACT, BIRTHDATE, REGDATE, REMAINTIME
+        FROM MEMBER
+        WHERE EMAIL = #{email}
+    </select>
+
     <insert id="insertMember" parameterType="kr.or.sw.model.MemberDTO">
         INSERT INTO MEMBER
         VALUES (PCMASTER.MEMBERID_SEQ.NEXTVAL, #{name}, #{email}, #{password}, #{salt}, #{contact}, #{question},

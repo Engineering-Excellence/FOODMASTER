@@ -68,7 +68,7 @@ side {
         .side-menu {
           flex-basis: 100%;
           background-color: #015F23;
-          font-size: 2rem;
+          font-size: 1.6em;
         }
       }
 
@@ -81,7 +81,7 @@ side {
       &:nth-child(even) {
         display: none;
 
-        @for $i from 1 to 4 {
+        @for $i from 1 to 6 {
           &:has(.side-menu:first-child:nth-last-child(#{$i})) {
             flex-basis: $side-menu-basis*$i;
           }
@@ -90,7 +90,7 @@ side {
         .side-menu {
           background-color: white;
           color: black;
-          font-size: 1.5rem;
+          font-size: 1.3em;
 
           @for $i from 1 to 4 {
             &:first-child:nth-last-child(#{$i}),
@@ -122,40 +122,63 @@ side {
 
 nav {
   grid-area: nav;
-
-  .nav-wrapper {
+  #chat {
+    height: 100%;
     width: 100%;
-    color: black;
+    max-height: 980px;
+    grid-area: chat;
     display: flex;
     flex-direction: column;
-
-    $nav-menu-basis: 33%;
-    flex-basis: $nav-menu-basis;
-
-    .nav-menu {
-      border: 1px solid black;
-      border-bottom: none;
-      display: flex;
-      flex-direction: column;
-      align-content: center;
-      justify-content: center;
-
-      flex-basis: 100%;
-      font-size: 2rem;
-      text-align: center;
-
-      &:hover {
-        background-color: #eee;
-      }
-    }
-
-    &:nth-last-child(1) {
-      .nav-menu {
-        &:last-child {
-          border-bottom: 1px solid black;
-        }
-      }
-    }
+    justify-content: center;
+    align-items: center;
+  }
+  #chat #chatList {
+    background-color: #ccc;
+    width: 95%;
+    height: 95%;
+    overflow-y: auto;
+  }
+  #chat #chatList::-webkit-scrollbar {
+    width: 10px;
+  }
+  #chat #chatList::-webkit-scrollbar-thumb {
+    background: white;
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 7px;
+    width: 3px;
+  }
+  #chat #chatList::-webkit-scrollbar-track {
+    background: rgba(30, 30, 30, 0.85);
+    border-radius: 5px;
+    width: 3px;
+  }
+  #chat #chatList .chatBox {
+    display: flex;
+  }
+  #chat #chatList .chatBox.mine {
+    justify-content: flex-end;
+  }
+  #chat #chatList .chatBox.opponent {
+    justify-content: flex-start
+  }
+  #chat #chatList .chatBox .chat {
+    width: fit-content;
+    height: fit-content;
+    padding: 2.5px 10px 2.5px 10px;
+    margin: 10px 10px 10px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  #chat #chatList .chatBox .chat.mine {
+    background-color: yellow;
+  }
+  #chat #chatList .chatBox .chat.opponent {
+    background-color: white;
+  }
+  #chat #chatForm {
+    width: 90%;
   }
 }
 

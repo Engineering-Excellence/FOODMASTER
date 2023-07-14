@@ -3,8 +3,6 @@
 <link href="${pageContext.request.contextPath}/css/insert.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/productInsert.js" defer></script>
 
-<nav>nav</nav>
-
 <main>
     <!-- 상품등록창 -->
     <div class="insert-container">
@@ -19,7 +17,7 @@
             </div>
             <div class="vertical-line"></div>
             <div class="insert-wrapper">
-                <form action="#" method="post">
+                <form action="/product/insert" method="post" enctype="multipart/form-data">
                     <br>
                     <!-- 상품등록 카테고리 -->
                     <div class="insert-category">
@@ -27,10 +25,9 @@
                         <select class="custom-select" name="category">
                             <option value="-1" selected>선택</option>
                             <option value="라면">라면</option>
-                            <option value="음료수">음료</option>
+                            <option value="음료">음료</option>
                             <option value="패스트푸드">패스트푸드</option>
                             <option value="간식">간식</option>
-                            <option value="스낵">스낵</option>
                             <option value="기타">기타</option>
                         </select>
                     </div>
@@ -59,8 +56,9 @@
                     </div>
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="image-upload">
-                            <label class="custom-file-label" for="image-upload" id="image-upload-label">상품 이미지 선택</label>
+                            <input type="file" class="custom-file-input" id="image-upload" name="productImg">
+                            <label class="custom-file-label" id="image-upload-label" for="image-upload">상품 이미지
+                                선택</label>
                         </div>
                     </div>
                     <br><br>

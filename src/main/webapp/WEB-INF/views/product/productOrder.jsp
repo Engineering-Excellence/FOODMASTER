@@ -2,8 +2,6 @@
 
 <link href="${pageContext.request.contextPath}/css/order.css" rel="stylesheet" type="text/css">
 
-<nav>nav</nav>
-
 <main>
     <c:forEach begin="1" end="30">
         <!-- 주문 화면 박스 -->

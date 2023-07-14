@@ -3,6 +3,7 @@
 $("#preview").on("error", () => {
     $("#preview").css("display", "none");
 });
+
 $("#image-upload").change(() => {
     var file = $("input[type=file]")[0].files[0];
     var reader = new FileReader();

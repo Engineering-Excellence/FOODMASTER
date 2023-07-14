@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.sw.mapper.CustomerDAOImpl">
+    <select id="selectMenuInfo" resultType="kr.or.sw.model.ProductDTO">
+        SELECT PRODUCTID,
+               PRODUCTNAME,
+               CATEGORY,
+               PRICE
+        FROM PRODUCT
+        ORDER BY PRODUCTID ASC
+    </select>
+
+    <select id="selectAllImgList" resultType="kr.or.sw.model.ProductImgDTO">
+        SELECT UUID,
+               RELPATH,
+               FILENAME,
+               PRODUCTID
+        FROM PRODUCTIMG
+        ORDER BY PRODUCTID ASC
+    </select>
+</mapper>

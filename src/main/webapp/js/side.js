@@ -8,14 +8,15 @@ var menuContainer = document.querySelector(".side-container")
 var menuHeads = document.querySelectorAll(".side-wrapper:nth-child(2n + 1)");
 var menuBodies = document.querySelectorAll(".side-wrapper:nth-child(2n)");
 var isMenuClicked = Array(menuHeads.length).fill(false);
+
 // menuContainer.addEventListener("mouseleave", () => {
 //     menuBodies.forEach((e) => {
 //         e.style.setProperty("display", "none");
 //     });
 // });
+
 menuHeads.forEach((e, i) => {
     e.addEventListener("click", () => {
-
         //
         // menuBodies.forEach((e) => {
         //     e.style.setProperty("display", "none");

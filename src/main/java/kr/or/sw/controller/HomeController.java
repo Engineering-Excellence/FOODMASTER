@@ -7,9 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import static kr.or.sw.controller.HomeController.HOME_PATH;
-
 import java.io.IOException;
 import java.io.Serial;
 

@@ -4,30 +4,33 @@
       rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/stock.css"
       rel="stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/stock.js" type="text/javascript" defer></script>
 
-<nav>
-    <div class="nav-container">
-        <div class="nav-wrapper">
-            <div class="nav-menu">
-                <a href="/member/stock?page=1"> 회원정보 </a>
-            </div>
-        </div>
-        <div class="nav-wrapper">
-            <div class="nav-menu">탈퇴회원</div>
-        </div>
-    </div>
-</nav>
+
+<c:if test="$ {( page <= 0 || Math.ceil(stockList.size() / 10 ) < page ) && stockList.size()>0 } ">
+
+    <%-- 이때, keyword 값이 null이 아니면, 검색을 통한 데이터이므로, 검색 현황을 유지시킨 상태에서 1페이지로 리다이렉트 --%>
+    <c:if test="${keyword != null}">
+        <c:redirect url="/stock/list?searchOption=${searchOption}&keyword=${keyword}&page=1"/>
+
+    </c:if>
+    <c:if test="${keyword == null}">
+        <c:redirect url="/stock/list?page=1"/>
+    </c:if>
+</c:if>
 
 <main>
     <div class="stock-container">
         <div class="stock-input-container">
-            <form action="/stock/list" method="get" name="stockForm" 
-                  id="stock-form">
+            <form action="/stock/list" method="get" name="stockForm"
+                  id="search-form">
                 <div class="stock-input-wrapper input-group">
-                    <select class="custom-select" id="stockOption" name="stockOption">
+                    <select class="custom-select" id="searchOption" name="searchOption">
                         <option value="-1" selected>선택</option>
                         <option value="1">재고 ID</option>
-                        <option value="2">품목명</option>
+                        <option value="2">상품 ID</option>
+                        <option value="3">재고명</option>
+
                     </select> <input type="text" class="form-control" placeholder="검색어 입력"
                                      id="keyword" name="keyword"> <input
                         class="btn btn-outline-secondary" type="submit" value="검색"
@@ -36,20 +39,14 @@
             </form>
             <div class="stock-select-type-wrapper btn-group btn-group-toggle"
                  data-toggle="buttons">
-                <label class="btn btn-outline-secondary" id="edit">재고 수정</label>
-                <label class="btn btn-outline-secondary" id="delete">재고 삭제</label>
+                <label class="btn btn-outline-secondary active">
+                    <input type="radio" name="select-type" id="edit" value="1" checked>재고 수정
+                </label>
+                <label class="btn btn-outline-secondary">
+                    <input type="radio" name="select-type" id="delete" value="2">
+                    재고 삭제
+                </label>
             </div>
-
-            <!-- //////////////////////////////재고 추가 모달 시작/////////////////////////////////////////////   -->
-
-
-
-            <!-- //////////////////////////////재고 추가 모달 끝/////////////////////////////////////////////////////////////////////////////  -->
-
-
-            <!-- //////////////////////// 재고 수정 페이지 //////////////////////////////////////////////////////////////////////////////////// -->
-
-
             <div class="stock-result-into-container">
                 ${stockList.size()}개의 상품이 검색되었습니다
                 <!-- 재고 리스트 필요함 -->
@@ -82,7 +79,7 @@
                                 <td>${stockList.get(i).getStockName()}</td>
                                 <td>${stockList.get(i).getAmount()}</td>
                                 <td>${stockList.get(i).getUnitPrice()}</td>
-                                <td>${stockList.get(i).getRegDate()}</td> <!-- 재고입고일 -->
+                                <td>${stockList.get(i).getStockDate()}</td>
                                 <td>${stockList.get(i).getProductID()}</td>
 
                             </tr>
@@ -105,7 +102,7 @@
                                     <%-- 페이지가 1, 11, 21, 31 등에서부터 시작할 수 있게 조절하는 부분 --%> <c:if
                                     test="${keyword != null}">
                                 <a class="page-link"
-                                   href="/stock/list?stockOption=${stockOption}&keyword=${keyword}&page=${page - (page % 10) - (page % 10 == 0 ? 19 : 9)}"
+                                   href="/stock/list?searchOption=${searchOption}&keyword=${keyword}&page=${page - (page % 10) - (page % 10 == 0 ? 19 : 9)}"
                                    aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </c:if> <c:if test="${keyword == null}">
@@ -122,7 +119,7 @@
                             <c:if test="${page == i + 1}">
                                 <c:if test="${keyword != null}">
                                     <li class="page-item"><a class="page-link current-page"
-                                                             href="/stock/list?stockOption=${stockOption}&keyword=${keyword}&page=${i + 1}">${i + 1}</a>
+                                                             href="/stock/list?searchOption=${searchOption}&keyword=${keyword}&page=${i + 1}">${i + 1}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${keyword == null}">
@@ -133,7 +130,7 @@
                             <c:if test="${page != i + 1}">
                                 <c:if test="${keyword != null}">
                                     <li class="page-item"><a class="page-link"
-                                                             href="/stock/list?stockOption=${stockOption}&keyword=${keyword}&page=${i + 1}">${i + 1}</a>
+                                                             href="/stock/list?searchOption=${searchOption}&keyword=${keyword}&page=${i + 1}">${i + 1}</a>
                                     </li>
                                 </c:if>
                                 <c:if test="${keyword == null}">
@@ -149,7 +146,7 @@
                                     <%-- 페이지가 1, 11, 21, 31 등에서부터 시작할 수 있게 조절하는 부분 --%> <c:if
                                     test="${keyword != null}">
                                 <a class="page-link"
-                                   href="/stock/list?stockOption=${stockOption}&keyword=${keyword}&page=${page - (page % 10) + (page % 10 == 0 ? 1 : 11)}"
+                                   href="/stock/list?searchOption=${searchOption}&keyword=${keyword}&page=${page - (page % 10) + (page % 10 == 0 ? 1 : 11)}"
                                    aria-label="Next"> <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </c:if> <c:if test="${keyword == null}">

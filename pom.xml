@@ -25,20 +25,6 @@
     </repositories>
 
     <dependencies>
-        <!-- commons-io -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
-        </dependency>
-
-        <!-- imgscalr-lib -->
-        <dependency>
-            <groupId>org.imgscalr</groupId>
-            <artifactId>imgscalr-lib</artifactId>
-            <version>4.2</version>
-        </dependency>
-
         <!-- Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -67,11 +53,6 @@
             <artifactId>osdt_core</artifactId>
             <version>21.5.0.0</version>
         </dependency>
-        <!--<dependency>
-            <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.4</version>
-        </dependency>-->
 
         <!-- MyBatis -->
         <dependency>
@@ -194,13 +175,6 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- Jython -->
-        <!--<dependency>
-            <groupId>org.python</groupId>
-            <artifactId>jython-slim</artifactId>
-            <version>2.7.3</version>
-        </dependency>-->
     </dependencies>
 
     <!-- Jenkins Profile -->

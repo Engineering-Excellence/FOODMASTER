@@ -1,10 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
-<nav>
-    <div class="nav-container">
-    </div>
-</nav>
-
 <main>
     <h1 class="mt-4">회원 정보 수정</h1>
     <form action="/member/update" method="post">

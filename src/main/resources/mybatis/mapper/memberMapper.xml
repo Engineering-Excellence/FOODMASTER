@@ -12,7 +12,7 @@
         FROM MEMBER
         ORDER BY MEMBERID ASC
     </select>
-    
+
     <select id="selectMemberById" parameterType="_int" resultType="kr.or.sw.model.MemberDTO">
         SELECT MEMBERID,
                NAME,
@@ -24,7 +24,7 @@
         WHERE MEMBERID = #{id}
         ORDER BY MEMBERID ASC
     </select>
-    
+
     <select id="selectMemberByName" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
         SELECT MEMBERID,
                NAME,
@@ -36,7 +36,7 @@
         WHERE NAME LIKE #{name}
         ORDER BY MEMBERID ASC
     </select>
-    
+
     <select id="selectMemberByEmail" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
         SELECT MEMBERID,
                NAME,
@@ -48,7 +48,7 @@
         WHERE EMAIL LIKE #{email}
         ORDER BY MEMBERID ASC
     </select>
-    
+
     <select id="selectMemberByContact" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
         SELECT MEMBERID,
                NAME,

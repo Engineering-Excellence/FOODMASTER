@@ -3,11 +3,9 @@ package kr.or.sw.service;
 import kr.or.sw.mapper.MemberDAO;
 import kr.or.sw.mapper.MemberDAOImpl;
 import kr.or.sw.model.MemberDTO;
-import kr.or.sw.util.MyBatisUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.session.SqlSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -82,9 +80,7 @@ public class MemberServiceImpl implements MemberService {
         log.info("delete()");
 
         int memberID = Integer.parseInt(request.getParameter("memberID"));
-        int result;
-        result = memberDAO.deleteMember(memberID);
-        return result == 1;
+        return memberDAO.deleteMember(memberID) == 1;
     }
 
     @Override
@@ -95,14 +91,9 @@ public class MemberServiceImpl implements MemberService {
         String email = request.getParameter("email");
         String contact = request.getParameter("contact");
         int remainTime = Integer.parseInt(request.getParameter("remainTime"));
-        MemberDTO memberDTO = new MemberDTO(memberID, email, contact, remainTime);
 
-        int result;
-        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            result = memberDAO.updateMember(memberDTO);
-            sqlSession.commit();
-        }
-        return result == 1;
+        MemberDTO memberDTO = new MemberDTO(memberID, email, contact, remainTime);
+        return memberDAO.updateMember(memberDTO) == 1;
     }
 
     @Override

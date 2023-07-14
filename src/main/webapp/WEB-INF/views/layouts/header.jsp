@@ -29,15 +29,11 @@
 <body>
     <%
         request.setCharacterEncoding("UTF-8");
-//        System.out.println(session.getAttribute("email"));
 
         Map<String, String[]> map = request.getParameterMap();
         for (Map.Entry<String, String[]> entry : map.entrySet()) {
             System.out.printf("%s : %s%n", entry.getKey(), String.join(", ", entry.getValue()));
         }
-
-        System.out.printf("contextPath: %s%n", request.getContextPath());
-        System.out.printf("pathInfo: %s%n", request.getPathInfo());
     %>
 
 <header>header</header>

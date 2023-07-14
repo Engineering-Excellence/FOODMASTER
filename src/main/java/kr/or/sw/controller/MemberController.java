@@ -37,7 +37,6 @@ public class MemberController extends HttpServlet {
             case "/update" -> {
                 log.info("/update");
                 memberService.select(request, response);
-//                request.getRequestDispatcher(VIEW_PATH + "member/memberUpdate.jsp").forward(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }
@@ -53,12 +52,17 @@ public class MemberController extends HttpServlet {
         switch (pathInfo) {
             case "/delete" -> {
                 log.info("/delete");
-                if (memberService.delete(request, response)) log.info("회원정보 삭제 성공");
+                if (memberService.delete(request, response)) {
+                    log.info("회원정보 삭제 성공");
+                    response.sendRedirect("/member/search");
+                }
             }
             case "/update" -> {
                 log.info("/update");
-                if (memberService.update(request, response)) log.info("회원정보 수정 성공");
-                response.sendRedirect("member/search");
+                if (memberService.update(request, response)) {
+                    log.info("회원정보 수정 성공");
+                    response.sendRedirect("/member/search");
+                }
             }
             default -> handleInvalidAccess(request, response);
         }

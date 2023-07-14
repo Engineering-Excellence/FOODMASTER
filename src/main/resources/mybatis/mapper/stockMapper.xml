@@ -2,5 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.sw.mapper.StockDAOImpl">
+    <select id="selectAllStocks" resultType="kr.or.sw.model.StockDTO">
+        SELECT STOCKID,
+               STOCKNAME,
+               AMOUNT,
+               UNITPRICE,
+               STOCKDATE,
+               PRODUCTID
+        FROM STOCK
+        ORDER BY STOCKID ASC
+    </select>
 
+    <select id="selectStock" parameterType="_int" resultType="kr.or.sw.model.StockDTO">
+        SELECT *
+        FROM STOCK
+        WHERE STOCKID = #{STOCKID}
+    </select>
+
+    <select id="selectStockById" parameterType="_int" resultType="kr.or.sw.model.StockDTO">
+        SELECT STOCKID,
+               STOCKNAME,
+               AMOUNT,
+               UNITPRICE,
+               STOCKDATE,
+               PRODUCTID
+        FROM STOCK
+        WHERE STOCKID = #{stockID}
+        ORDER BY STOCKID ASC
+    </select>
+
+    <select id="selectStockByProductID" parameterType="_int" resultType="kr.or.sw.model.StockDTO">
+        SELECT STOCKID,
+               STOCKNAME,
+               AMOUNT,
+               UNITPRICE,
+               STOCKDATE,
+               PRODUCTID
+        FROM STOCK
+        WHERE PRODUCTID = #{productID}
+        ORDER BY STOCKID ASC
+    </select>
+
+    <update id="updateStock" parameterType="kr.or.sw.model.StockDTO">
+        UPDATE STOCK
+        SET AMOUNT    = #{amount},
+            UNITPRICE = #{unitPrice}
+        WHERE STOCKID = #{stockID}
+    </update>
+
+    <delete id="deleteStock" parameterType="_int">
+        DELETE
+        FROM STOCK
+        WHERE STOCKID = #{STOCKID}
+    </delete>
+
+    <insert id="stockInsert" parameterType="kr.or.sw.model.StockDTO">
+        INSERT INTO STOCK(STOCKID, STOCKNAME, AMOUNT, UNITPRICE, STOCKDATE, PRODUCTID)
+        VALUES (STOCKID_SEQ.NEXTVAL, #{stockName}, #{amount}, #{unitPrice}, #{stockDate}, #{productID})
+    </insert>
 </mapper>

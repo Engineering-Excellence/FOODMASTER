@@ -1,6 +1,8 @@
 package kr.or.sw.model;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;

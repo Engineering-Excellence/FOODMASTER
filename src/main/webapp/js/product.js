@@ -12,12 +12,11 @@ $('#search-form').submit((e) => {
     return true
 })
 
-// jquery에는 forEach 아니고 each인듯
-$('.member-data').each((index, element) => {
+$('.product-data').each((index, element) => {
     $(element).click(() => {
         // 클릭한 데이터의 인덱스
-        let memberID = $('#' + element.id + ' td:first-child').text()
-        console.log('memberID:', memberID)
+        let productID = $('#' + element.id + ' td:first-child').text()
+        console.log('productID:', productID)
 
         // 현재 선택한 방식
         // 1:수정 2:삭제
@@ -26,10 +25,10 @@ $('.member-data').each((index, element) => {
 
         switch (type) {
             case '1':
-                location.href = '/member/update?memberID=' + memberID
+                location.href = '/product/update?productID=' + productID
                 break;
             case '2':
-                deleteMember(memberID)
+                deleteProduct(productID)
                 break;
             default:
                 break;
@@ -37,23 +36,23 @@ $('.member-data').each((index, element) => {
     })
 })
 
-const deleteMember = memberID => {
-    console.log('deleteMember')
-    if (confirm('정말로 ' + memberID + '번 회원정보를 삭제하시겠습니까?')) { // 관리자에게 확인 대화상자를 표시
+const deleteProduct = productID => {
+    console.log('deleteProduct')
+    if (confirm('정말로 ' + productID + '번 상품을 삭제하시겠습니까?')) { // 관리자에게 확인 대화상자를 표시
         $.ajax({
-            url: '/member/delete',
+            url: '/product/delete',
             type: 'POST',
             data: {
-                'memberID': memberID
+                'productID': productID
             },
             success: response => {
                 console.log(response)
-                alert(memberID + '번 회원정보 삭제 완료')
+                alert(productID + '번 상품 삭제 완료')
                 location.reload()
             },
             error: error => {
                 console.error(error)
-                alert(memberID + '번 회원정보 삭제 실패')
+                alert(productID + '번 상품 삭제 실패')
             }
         })
     }

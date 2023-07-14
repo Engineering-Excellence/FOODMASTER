@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.sw.mapper.ProductDAOImpl">
-	  <select id="selectAllProducts" resultType="kr.or.sw.model.ProductDTO">
+    <select id="selectAllProducts" resultType="kr.or.sw.model.ProductDTO">
         SELECT PRODUCTID,
                PRODUCTNAME,
                CATEGORY,
@@ -11,7 +11,7 @@
         FROM PRODUCT
         ORDER BY PRODUCTID ASC
     </select>
-    
+
     <select id="selectProductById" parameterType="_int" resultType="kr.or.sw.model.ProductDTO">
         SELECT PRODUCTID,
                PRODUCTNAME,
@@ -22,7 +22,7 @@
         WHERE PRODUCTID = #{productID}
         ORDER BY PRODUCTID ASC
     </select>
-    
+
     <select id="selectProductByCategory" parameterType="String" resultType="kr.or.sw.model.ProductDTO">
         SELECT PRODUCTID,
                PRODUCTNAME,
@@ -33,9 +33,9 @@
         WHERE CATEGORY LIKE #{category}
         ORDER BY PRODUCTID ASC
     </select>
-    
+
     <select id="selectProductByName" parameterType="String" resultType="kr.or.sw.model.ProductDTO">
-         SELECT PRODUCTID,
+        SELECT PRODUCTID,
                PRODUCTNAME,
                CATEGORY,
                PRICE,
@@ -44,4 +44,55 @@
         WHERE PRODUCTNAME LIKE #{productName}
         ORDER BY PRODUCTID ASC
     </select>
+
+    <select id="selectProduct" parameterType="_int" resultType="kr.or.sw.model.ProductDTO">
+        SELECT *
+        FROM PRODUCT
+        WHERE PRODUCTID = #{productID}
+    </select>
+
+    <select id="selectProductImg" parameterType="_int" resultType="kr.or.sw.model.ProductImgDTO">
+        SELECT *
+        FROM PRODUCTIMG
+        WHERE PRODUCTID = #{productID}
+    </select>
+
+    <insert id="insertProduct" parameterType="kr.or.sw.model.ProductDTO">
+        INSERT INTO PRODUCT(PRODUCTID, PRODUCTNAME, CATEGORY, PRICE)
+        VALUES (PRODUCTID_SEQ.NEXTVAL, #{productName}, #{category}, #{price})
+    </insert>
+
+    <insert id="insertProductImg" parameterType="kr.or.sw.model.ProductImgDTO">
+        INSERT INTO PRODUCTIMG
+        VALUES (#{uuid}, #{absPath}, #{relPath}, #{fileName}, PRODUCTID_SEQ.CURRVAL)
+    </insert>
+
+    <delete id="deleteProduct" parameterType="_int">
+        DELETE
+        FROM PRODUCT
+        WHERE PRODUCTID = #{productID}
+    </delete>
+
+    <delete id="deleteProductImg" parameterType="_int">
+        DELETE
+        FROM PRODUCTIMG
+        WHERE PRODUCTID = #{productID}
+    </delete>
+
+    <update id="updateProduct" parameterType="kr.or.sw.model.ProductDTO">
+        UPDATE PRODUCT
+        SET PRODUCTNAME = #{productName},
+            CATEGORY    = #{category},
+            PRICE       = #{price}
+        WHERE PRODUCTID = #{productID}
+    </update>
+
+    <update id="updateProductImg" parameterType="kr.or.sw.model.ProductImgDTO">
+        UPDATE PRODUCTIMG
+        SET UUID     = #{uuid},
+            ABSPATH  = #{absPath},
+            RELPATH  = #{relPath},
+            FILENAME = #{fileName}
+        WHERE PRODUCTID = #{productID}
+    </update>
 </mapper>

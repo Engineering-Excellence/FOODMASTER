@@ -10,6 +10,8 @@ public interface AuthDAO {
 
     MemberDTO getQuestion(String email);
 
+    MemberDTO getMemberInfo(String email);
+
     int insertMember(MemberDTO memberDTO);
 
     int resetPassword(MemberDTO memberDTO);
