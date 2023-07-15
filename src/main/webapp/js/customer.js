@@ -133,7 +133,25 @@ const addEventListenerOnMenu = () => {
         });
     });
 }
+const updateShoppingList = (idx, updateFlag) => {
+    // updateFlag = false, minus
+    // updateFlag = true, plug
 
+    // 감소는 일단 1보다는 안내려가게 하고, 그냥 삭제가 있음
+    if (!updateFlag) {
+        if (!shoppingList.has(idx)) return;
+        if (shoppingCount == 1) return;
+        shoppingCount--;
+        shoppingList.set(idx, shoppingList.get(idx) - 1);
+    }
+    else {
+        shoppingCount++;
+        if (!shoppingList.has(idx)) shoppingList.set(idx, 0);
+        shoppingList.set(idx, shoppingList.get(idx) + 1);
+    }
+
+    $(".customer-info-shopping-count-text").text(shoppingCount);
+}
 const addEventListenerOnShoppingButton = (list) => {
     console.log(list);
     $(".shopping-btn").each((idx, element) => {
@@ -142,10 +160,8 @@ const addEventListenerOnShoppingButton = (list) => {
                 $(".customer-info-shopping-count-wrapper").removeClass("hide");
                 $(".customer-info-shopping-count-wrapper").addClass("show");
             }
-            shoppingCount++;
-            if (!shoppingList.has(list[idx])) shoppingList.set(list[idx], 0);
-            shoppingList.set(list[idx], shoppingList.get(list[idx]) + 1);
-            $(".customer-info-shopping-count-text").text(shoppingCount);
+
+            updateShoppingList(list[idx], true);
 
             console.log(shoppingList);
         });
@@ -267,3 +283,88 @@ window.onload = () => {
         },
     });
 }
+
+const updateShoppingModal = () => {
+    let htmls = "";
+    const sortedList = Array.from([...shoppingList].sort());
+    console.log(sortedList);
+    let total = 0;
+    sortedList.forEach(entry => {
+        htmls += '<div class="card border-secondary mb-3" style="max-width: 100%;">'
+        htmls += '<div class="card-header">'
+        htmls += `<div class="product-name-wrapper">${menu[entry[0]].productName}</div>`
+        htmls += '<div class="product-remove-btn-wrapper">'
+        htmls += '<button class="product-remove-btn">&times;</button>'
+        htmls += '</div>'
+        htmls += '</div>'
+        htmls += '<div class="card-body text-secondary">'
+        htmls += '<div class="shopping-count-wrapper">'
+        htmls += '<button class="btn btn-outline-secondary shopping-product-count-minus">-</button>'
+        htmls += `<input type="number" class="form-control shopping-product-count" name="keyword" value="${entry[1]}" style="text-align: center">`
+        htmls += '<button class="btn btn-outline-secondary shopping-product-count-plus">+</button>'
+        htmls += '</div>'
+        htmls += '<div class="shopping-price-wrapper">'
+        htmls += `<div class="shopping-price">${menu[entry[0]].price * entry[1]}원</div>`
+        htmls += '</div>'
+        htmls += '</div>'
+        htmls += '</div>'
+
+        total += menu[entry[0]].price * entry[1];
+    });
+    $("#shopping-modal-body").html(htmls);
+    $("#total-price").text(total + "원");
+
+    // 버튼들에 이벤트 리스너 추가
+
+    $(".shopping-product-count-minus").each((idx, element) => {
+        $(element).click(() => {
+            console.log(sortedList[idx][0]);
+            updateShoppingList(sortedList[idx][0], false);
+            updateShoppingModal();
+        });
+    })
+    $(".shopping-product-count-plus").each((idx, element) => {
+        $(element).click(() => {
+            updateShoppingList(sortedList[idx][0], true);
+            updateShoppingModal();
+        });
+    })
+    $(".product-remove-btn").each((idx, element) => {
+        $(element).click(() => {
+            shoppingList.delete(sortedList[idx][0]);
+            shoppingCount -= sortedList[idx][1];
+            $(".customer-info-shopping-count-text").text(shoppingCount);
+            if (!shoppingCount) {
+                $(".customer-info-shopping-count-wrapper").removeClass("show");
+                $(".customer-info-shopping-count-wrapper").addClass("hide");
+            }
+            updateShoppingModal()
+        });
+    })
+}
+$("#shopping-modal-btn").click(updateShoppingModal);
+$("#shopping-make-order").click(() => {
+    if (!shoppingCount) {
+        alert("장바구니가 비어있습니다");
+        return false;
+    }
+
+    // 서버에 주문을 보내는 ajax
+    $.ajax({
+        url: "/customer/order",
+        type: "post",
+        data: {
+            // 주문한 데이터 보내기
+        },
+        success: (res) => {
+            shoppingList = new Map();
+            shoppingCount = 0;
+            $(".customer-info-shopping-count-text").text(shoppingCount);
+            $(".customer-info-shopping-count-wrapper").removeClass("show");
+            $(".customer-info-shopping-count-wrapper").addClass("hide");
+            updateShoppingModal();
+
+            alert("주문 완료");
+        },
+    });
+});
