@@ -352,18 +352,23 @@ $("#shopping-make-order").click(() => {
     let data = [];
     sortedList.forEach((entry, idx) => {
         data.push({
-            'product': menu[entry[0]],
-            'quantity': entry[1]
+            'productID': String(menu[entry[0]].productID),
+            'quantity': String(entry[1])
         });
     })
+    console.log(data);
 
     // 서버에 주문을 보내는 ajax
+    // string으로 바꿔 보내지 않으면 ""가 붙지 않아서
+    // 후에 백엔드에서 JSON.simple로 파싱하는데 문제가 생기므로 주의
     $.ajax({
         url: "/customer/order",
         type: "post",
         data: {
-            data: data
+            order: JSON.stringify(data)
         },
+        dataType: "json",
+        traditional : true,
         success: (res) => {
             shoppingList = new Map();
             shoppingCount = 0;

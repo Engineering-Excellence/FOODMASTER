@@ -8,6 +8,10 @@ import kr.or.sw.model.ProductImgDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +58,27 @@ public class CustomerServiceImpl implements CustomerService {
             ObjectMapper objectMapper = new ObjectMapper();
             out.write(objectMapper.writeValueAsString(productList));
             out.flush();
+        }
+    }
+
+    @Override
+    public void makeOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
+        log.info("makeOrder()");
+        String data = request.getParameter("order");
+        log.info("order: {}", data);
+
+        JSONParser parser = new JSONParser();
+        JSONArray array = (JSONArray) parser.parse(data);
+        log.info("parsing success");
+
+        for (int i = 0; i < array.size(); i++) {
+            JSONObject jsonObj = (JSONObject) array.get(i);
+
+            String productID = (String) jsonObj.get("productID");
+            String quantity = (String) jsonObj.get("quantity");
+
+            log.info("productID: {}", productID);
+            log.info("quantity: {}", quantity);
         }
     }
 
