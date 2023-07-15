@@ -287,7 +287,6 @@ window.onload = () => {
 const updateShoppingModal = () => {
     let htmls = "";
     const sortedList = Array.from([...shoppingList].sort());
-    console.log(sortedList);
     let total = 0;
     sortedList.forEach(entry => {
         htmls += '<div class="card border-secondary mb-3" style="max-width: 100%;">'
@@ -348,13 +347,22 @@ $("#shopping-make-order").click(() => {
         alert("장바구니가 비어있습니다");
         return false;
     }
+    const sortedList = Array.from([...shoppingList].sort());
+
+    let data = [];
+    sortedList.forEach((entry, idx) => {
+        data.push({
+            'product': menu[entry[0]],
+            'quantity': entry[1]
+        });
+    })
 
     // 서버에 주문을 보내는 ajax
     $.ajax({
         url: "/customer/order",
         type: "post",
         data: {
-            // 주문한 데이터 보내기
+            data: data
         },
         success: (res) => {
             shoppingList = new Map();

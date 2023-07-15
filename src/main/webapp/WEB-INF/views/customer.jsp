@@ -175,24 +175,24 @@
 						</button>
 					</div>
 					<div class="modal-body" id="shopping-modal-body">
-						<div class="card border-secondary mb-3" style="max-width: 100%;">
-							<div class="card-header">
-								<div class="product-name-wrapper">신라면</div>
-								<div class="product-remove-btn-wrapper">
-									<button class="product-remove-btn">&times;</button>
-								</div>
-							</div>
-							<div class="card-body text-secondary">
-								<div class="shopping-count-wrapper">
-									<button class="btn btn-outline-secondary shopping-product-count-minus">-</button>
-									<input type="number" class="form-control shopping-product-count" readonly="readonly" value="1" style="text-align: center">
-									<button class="btn btn-outline-secondary shopping-product-count-plus">+</button>
-								</div>
-								<div class="shopping-price-wrapper">
-									<div class="shopping-price">5000원</div>
-								</div>
-							</div>
-						</div>
+<%--						<div class="card border-secondary mb-3" style="max-width: 100%;">--%>
+<%--							<div class="card-header">--%>
+<%--								<div class="product-name-wrapper">신라면</div>--%>
+<%--								<div class="product-remove-btn-wrapper">--%>
+<%--									<button class="product-remove-btn">&times;</button>--%>
+<%--								</div>--%>
+<%--							</div>--%>
+<%--							<div class="card-body text-secondary">--%>
+<%--								<div class="shopping-count-wrapper">--%>
+<%--									<button class="btn btn-outline-secondary shopping-product-count-minus">-</button>--%>
+<%--									<input type="number" class="form-control shopping-product-count" readonly="readonly" value="1" style="text-align: center">--%>
+<%--									<button class="btn btn-outline-secondary shopping-product-count-plus">+</button>--%>
+<%--								</div>--%>
+<%--								<div class="shopping-price-wrapper">--%>
+<%--									<div class="shopping-price">5000원</div>--%>
+<%--								</div>--%>
+<%--							</div>--%>
+<%--						</div>--%>
 					</div>
 					<div class="modal-footer">
 						<div class="shopping-total-wrapper">
