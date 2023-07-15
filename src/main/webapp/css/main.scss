@@ -292,3 +292,18 @@ footer {
   grid-area: footer;
   padding: 1vw;
 }
+
+.foodmaster {
+	color: white;
+    display: flex;
+    align-items: center;
+    font-size: 10vh;
+    font-weight: bold;
+}
+
+.logout {
+    width: 4vw;
+    position: absolute;
+    top: 6%;
+    right: 0%;
+}
