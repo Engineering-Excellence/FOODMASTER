@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.sw.mapper.BalanceDAOImpl">
+    <select id="selectAllBalances" resultType="kr.or.sw.model.BalanceVO">
+        SELECT ACCOUNTID,
+               CURRENCY,
+               AMOUNT,
+               LASTUPDATED
+        FROM BALANCE
+        ORDER BY ACCOUNTID ASC
+    </select>
+
+    <select id="selectBalance" parameterType="_int" resultType="kr.or.sw.model.BalanceVO">
+        SELECT *
+        FROM BALANCE
+        WHERE ACCOUNTID = #{ACCOUNTID}
+    </select>
+
+    <insert id="balanceInsert" parameterType="kr.or.sw.model.BalanceVO">
+        INSERT INTO BALANCE(ACCOUNTID, CURRENCY, AMOUNT, LASTUPDATED)
+        VALUES (#{accountID}, #{currency}, #{amount}, #{lastUpdated})
+    </insert>
+    
+</mapper>
