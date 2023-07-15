@@ -217,4 +217,74 @@
   align-items: center;
 }
 
+.modal .modal-dialog .modal-content .modal-body {
+  overflow-y: auto;
+  height: 50vh;
+}
+.modal .modal-dialog .modal-content .modal-body .card .card-header {
+  display: flex;
+  flex-direction: row;
+}
+.modal .modal-dialog .modal-content .modal-body .card .card-header .product-name-wrapper {
+  flex-basis: 50%;
+}
+.modal .modal-dialog .modal-content .modal-body .card .card-header .product-remove-btn-wrapper {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.modal .modal-dialog .modal-content .modal-body .card .card-header .product-remove-btn-wrapper .product-remove-btn {
+  border: none;
+  background-color: transparent;
+  color: red;
+  font-weight: bold;
+}
+.modal .modal-dialog .modal-content .modal-body .card .card-body {
+  display: flex;
+  flex-direction: row;
+}
+.modal .modal-dialog .modal-content .modal-body .card .card-body .shopping-count-wrapper {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: row;
+}
+.modal .modal-dialog .modal-content .modal-body .card .card-body .shopping-count-wrapper input[type=number]::-webkit-outer-spin-button,
+.modal .modal-dialog .modal-content .modal-body .card .card-body .shopping-count-wrapper input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.modal .modal-dialog .modal-content .modal-body .card .card-body .shopping-price-wrapper {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: center;
+  align-content: flex-end;
+}
+.modal .modal-dialog .modal-content .modal-body .card .card-body .shopping-price-wrapper .shopping-price {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.modal .modal-dialog .modal-content .modal-footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.modal .modal-dialog .modal-content .modal-footer .shopping-total-wrapper {
+  flex-basis: 70%;
+  display: flex;
+  justify-self: flex-start;
+}
+.modal .modal-dialog .modal-content .modal-footer .shopping-total-wrapper .shopping-total-text.first-text {
+  font-size: 1em;
+}
+.modal .modal-dialog .modal-content .modal-footer .shopping-total-wrapper .shopping-total-text.price {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 40%;
+}
+.modal .modal-dialog .modal-content .modal-footer .shopping-modal-control-wrapper {
+  flex-basis: 30%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 /*# sourceMappingURL=customer.css.map */

@@ -3,6 +3,7 @@ package kr.or.sw.controller;
 import kr.or.sw.service.CustomerService;
 import kr.or.sw.service.CustomerServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.parser.ParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,6 +50,14 @@ public class CustomerController extends HttpServlet {
             case "/menu" -> {
                 log.info("/menu");
                 customerService.getMenu(request, response);
+            }
+            case "/order" -> {
+                log.info("/order");
+                try {
+                    customerService.makeOrder(request, response);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
             default -> handleInvalidAccess(request, response);
         }

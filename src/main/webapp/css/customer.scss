@@ -285,3 +285,89 @@
     }
   }
 }
+
+.modal {
+  .modal-dialog {
+    .modal-content {
+      .modal-body {
+        overflow-y: auto;
+        height: 50vh;
+
+        .card {
+          .card-header {
+            display: flex;
+            flex-direction: row;
+
+            .product-name-wrapper {
+              flex-basis: 50%;
+            }
+            .product-remove-btn-wrapper {
+              flex-basis: 50%;
+              display: flex;
+              flex-direction: row-reverse;
+              .product-remove-btn {
+                border: none;
+                background-color: transparent;
+                color: red;
+                font-weight: bold;
+              }
+            }
+          }
+          .card-body {
+            display: flex;
+            flex-direction: row;
+
+            .shopping-count-wrapper {
+              flex-basis: 50%;
+              display: flex;
+              flex-direction: row;
+
+              input[type="number"]::-webkit-outer-spin-button,
+              input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+              }
+            }
+            .shopping-price-wrapper {
+              flex-basis: 50%;
+              display: flex;
+              justify-content: center;
+              align-content: flex-end;
+              .shopping-price {
+                font-size: 1.5em;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+      .modal-footer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        .shopping-total-wrapper {
+          flex-basis: 70%;
+          display: flex;
+          justify-self: flex-start;
+          .shopping-total-text {
+
+            &.first-text {
+              font-size: 1em;
+            }
+            &.price {
+              font-size: 1.5em;
+              font-weight: bold;
+              margin-left: 40%;
+            }
+          }
+        }
+        .shopping-modal-control-wrapper {
+          flex-basis: 30%;
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}

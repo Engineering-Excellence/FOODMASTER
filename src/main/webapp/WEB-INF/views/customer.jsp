@@ -105,7 +105,7 @@
 					</div>
 
 					<div class="customer-info-button-row-wrapper">
-						<button type="button" class="btn btn-secondary user-button"
+						<button type="button" class="btn btn-secondary user-button" id="shopping-modal-btn"
 							data-toggle="modal" data-target="#shopping">장바구니</button>
 						<div class="customer-info-shopping-count-wrapper hide">
 							<div class="customer-info-shopping-count-text">0</div>
@@ -167,26 +167,46 @@
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">장바구니</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="card border-secondary mb-3" style="max-width: 100%;">
-						<div class="card-header">신라면</div>
-						<div class="card-body text-secondary">
-							<p class="card-text">5000원</p>
+					<div class="modal-header">
+						<h5 class="modal-title">장바구니</h5>
+						<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" id="shopping-modal-body">
+<%--						<div class="card border-secondary mb-3" style="max-width: 100%;">--%>
+<%--							<div class="card-header">--%>
+<%--								<div class="product-name-wrapper">신라면</div>--%>
+<%--								<div class="product-remove-btn-wrapper">--%>
+<%--									<button class="product-remove-btn">&times;</button>--%>
+<%--								</div>--%>
+<%--							</div>--%>
+<%--							<div class="card-body text-secondary">--%>
+<%--								<div class="shopping-count-wrapper">--%>
+<%--									<button class="btn btn-outline-secondary shopping-product-count-minus">-</button>--%>
+<%--									<input type="number" class="form-control shopping-product-count" readonly="readonly" value="1" style="text-align: center">--%>
+<%--									<button class="btn btn-outline-secondary shopping-product-count-plus">+</button>--%>
+<%--								</div>--%>
+<%--								<div class="shopping-price-wrapper">--%>
+<%--									<div class="shopping-price">5000원</div>--%>
+<%--								</div>--%>
+<%--							</div>--%>
+<%--						</div>--%>
+					</div>
+					<div class="modal-footer">
+						<div class="shopping-total-wrapper">
+							<div class="shopping-total-text first-text">총 주문금액</div>
+							<div class="shopping-total-text price" id="total-price">
+								15000원
+							</div>
+						</div>
+						<div class="shopping-modal-control-wrapper">
+							<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-primary" id="shopping-make-order" data-dismiss="modal">주문</button>
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Understood</button>
-				</div>
 			</div>
 		</div>
 	</div>
