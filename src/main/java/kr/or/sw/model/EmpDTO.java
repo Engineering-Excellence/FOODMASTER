@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class EmpDTO {
 
     private int empID;  // 직원 ID, PK
-    private String account; // 계정
+    private String admin; // 계정
     private String password; // 비밀번호
     private String salt;    // salt
 }

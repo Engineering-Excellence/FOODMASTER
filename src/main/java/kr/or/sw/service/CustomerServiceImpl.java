@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -42,11 +43,9 @@ public class CustomerServiceImpl implements CustomerService {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
 
         try (PrintWriter out = response.getWriter()) {
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-
             productList = customerDAO.selectMenuInfo();
             log.info("selectMenuInfo Success");
             imgList = customerDAO.selectAllImgList();
@@ -71,15 +70,21 @@ public class CustomerServiceImpl implements CustomerService {
         JSONArray array = (JSONArray) parser.parse(data);
         log.info("parsing success");
 
-        for (int i = 0; i < array.size(); i++) {
-            JSONObject jsonObj = (JSONObject) array.get(i);
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (Object order : array) {
+            JSONObject jsonObj = (JSONObject) order;
 
             String productID = (String) jsonObj.get("productID");
             String quantity = (String) jsonObj.get("quantity");
 
-            log.info("productID: {}", productID);
-            log.info("quantity: {}", quantity);
+            log.info("productID: {}, quantity: {}", productID, quantity);
+            ProductDTO productDTO = new ProductDTO();
+            productDTO.setProductID(Integer.parseInt(productID));
+            productDTO.setQuantity(Integer.parseInt(quantity));
+
+            productDTOList.add(productDTO);
         }
+        customerDAO.insertSale(productDTOList);
     }
 
     @Override

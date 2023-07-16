@@ -21,6 +21,9 @@
     <logger name="kr.or.sw.mapper">
         <level value="info"/>
     </logger>
+    <logger name="org.mybatis">
+        <level value="debug"/>
+    </logger>
 
     <!-- Root Logger -->
     <root>
