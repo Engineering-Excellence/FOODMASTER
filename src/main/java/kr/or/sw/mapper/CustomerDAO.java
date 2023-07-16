@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface CustomerDAO {
 
-    public List<ProductDTO> selectMenuInfo();
+    List<ProductDTO> selectMenuInfo();
 
-    public List<ProductImgDTO> selectAllImgList();
+    List<ProductImgDTO> selectAllImgList();
+
+    void insertSale(List<ProductDTO> productDTOList);
 }

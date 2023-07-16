@@ -37,24 +37,24 @@
             </tr>
             <tr>
                 <th>
-                    <label for="amount">재고수량</label></th>
+                    <label for="quantity">재고수량</label></th>
                 <td>
                     <div class="input-container">
                         <div class="input-group">
-                            <input type="number" class="form-control" id="amount" name="amount"
-                                   value="${stockDTO.getAmount()}">
+                            <input type="number" class="form-control" id="quantity" name="quantity"
+                                   value="${stockDTO.getQuantity()}">
                         </div>
                     </div>
                 </td>
             </tr>
             <tr>
                 <th>
-                    <label for="unitPrice">단가</label></th>
+                    <label for="price">단가</label></th>
                 <td>
                     <div class="input-container">
                         <div class="input-group">
-                            <input type="number" class="form-control" id="unitPrice" name="unitPrice"
-                                   value="${stockDTO.getUnitPrice()}">
+                            <input type="number" class="form-control" id="price" name="price"
+                                   value="${stockDTO.getPrice()}">
                         </div>
                     </div>
                 </td>

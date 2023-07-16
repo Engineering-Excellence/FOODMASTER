@@ -38,4 +38,17 @@ public class CustomerDAOImpl implements CustomerDAO {
             return sqlSession.selectList("selectAllImgList");
         }
     }
+
+    // CustomerDAOImpl.java
+    @Override
+    public void insertSale(List<ProductDTO> productDTOList) {
+        log.info("insertSale()");
+
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            sqlSession.update("insertSale", productDTOList);
+            log.info("insertSale() 성공");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -77,8 +77,8 @@
 
                                 <td>${stockList.get(i).getStockID()}</td>
                                 <td>${stockList.get(i).getStockName()}</td>
-                                <td>${stockList.get(i).getAmount()}</td>
-                                <td>${stockList.get(i).getUnitPrice()}</td>
+                                <td>${stockList.get(i).getQuantity()}</td>
+                                <td>${stockList.get(i).getPrice()}</td>
                                 <td>${stockList.get(i).getStockDate()}</td>
                                 <td>${stockList.get(i).getProductID()}</td>
 

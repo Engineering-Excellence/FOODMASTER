@@ -52,13 +52,12 @@ public class StockServiceImpl implements StockService {
     public boolean insert(HttpServletRequest request, HttpServletResponse response) {
         log.info("insert()");
         StockDTO stockDTO = new StockDTO(
-
                 request.getParameter("stockName"),
-                Integer.parseInt(request.getParameter("amount")),
-                Integer.parseInt(request.getParameter("unitPrice")),
+                Integer.parseInt(request.getParameter("price")),
+                Integer.parseInt(request.getParameter("quantity")),
                 request.getParameter("stockDate"),
-                Integer.parseInt(request.getParameter("productID")));
-
+                Integer.parseInt(request.getParameter("productID"))
+        );
         int result = stockDAO.stockInsert(stockDTO);
         if (result > 0)
             return true;
@@ -79,10 +78,10 @@ public class StockServiceImpl implements StockService {
         log.info("update()");
 
         int stockID = Integer.parseInt(request.getParameter("stockID"));
-        int amount = Integer.parseInt(request.getParameter("amount"));
-        int unitPrice = Integer.parseInt(request.getParameter("unitPrice"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        int price = Integer.parseInt(request.getParameter("price"));
 
-        StockDTO stockDTO = new StockDTO(stockID, amount, unitPrice);
+        StockDTO stockDTO = new StockDTO(stockID, price, quantity);
         return stockDAO.updateStock(stockDTO) == 1;
     }
 

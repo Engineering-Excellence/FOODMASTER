@@ -34,20 +34,20 @@
 					</div>
 					<br> <br>
 					<!-- 재고수량 -->
-					<div class="insert-amount">
+					<div class="insert-quantity">
 						<h3>재고수량</h3>
 						<div class="input-group mb-3">
 							<input type="number" class="form-control"
-								placeholder="재고수량을 입력해주세요" aria-label="Username" name="amount">
+								placeholder="재고수량을 입력해주세요" aria-label="Username" name="quantity">
 						</div>
 					</div>
 					<br> <br>
-					<div class="insert-unitPrice">
+					<div class="insert-price">
 						<h3>재고 단가</h3>
 						<div class="input-group mb-3">
 							<input type="number" class="form-control"
 								placeholder="재고수량을 입력해주세요" aria-label="Username"
-								name="unitPrice">
+								name="price">
 						</div>
 					</div>
 					<br> <br>
