@@ -69,7 +69,7 @@
                                 <td>${productList.get(i).getCategory()}</td>
                                 <td>${productList.get(i).getProductName()}</td>
                                 <td>${productList.get(i).getPrice()}</td>
-                                <td>${productList.get(i).getStock()}</td>
+                                <td>${productList.get(i).getQuantity()}</td>
                             </tr>
                         </c:forEach>
                     </c:if>

@@ -133,6 +133,7 @@ const addEventListenerOnMenu = () => {
         });
     });
 }
+
 const updateShoppingList = (idx, updateFlag) => {
     // updateFlag = false, minus
     // updateFlag = true, plug
@@ -143,8 +144,7 @@ const updateShoppingList = (idx, updateFlag) => {
         if (shoppingCount == 1) return;
         shoppingCount--;
         shoppingList.set(idx, shoppingList.get(idx) - 1);
-    }
-    else {
+    } else {
         shoppingCount++;
         if (!shoppingList.has(idx)) shoppingList.set(idx, 0);
         shoppingList.set(idx, shoppingList.get(idx) + 1);
@@ -341,7 +341,9 @@ const updateShoppingModal = () => {
         });
     })
 }
+
 $("#shopping-modal-btn").click(updateShoppingModal);
+
 $("#shopping-make-order").click(() => {
     if (!shoppingCount) {
         alert("장바구니가 비어있습니다");
@@ -368,7 +370,7 @@ $("#shopping-make-order").click(() => {
             order: JSON.stringify(data)
         },
         dataType: "json",
-        traditional : true,
+        traditional: true,
         success: (res) => {
             shoppingList = new Map();
             shoppingCount = 0;

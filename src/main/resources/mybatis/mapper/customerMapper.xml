@@ -4,19 +4,59 @@
 <mapper namespace="kr.or.sw.mapper.CustomerDAOImpl">
     <select id="selectMenuInfo" resultType="kr.or.sw.model.ProductDTO">
         SELECT PRODUCTID,
-               PRODUCTNAME,
-               CATEGORY,
-               PRICE
+        PRODUCTNAME,
+        CATEGORY,
+        PRICE
         FROM PRODUCT
         ORDER BY PRODUCTID ASC
     </select>
 
     <select id="selectAllImgList" resultType="kr.or.sw.model.ProductImgDTO">
         SELECT UUID,
-               RELPATH,
-               FILENAME,
-               PRODUCTID
+        RELPATH,
+        FILENAME,
+        PRODUCTID
         FROM PRODUCTIMG
         ORDER BY PRODUCTID ASC
     </select>
+
+    <update id="insertSale" parameterType="java.util.List">
+        DECLARE
+        v_saleid NUMBER;
+
+        BEGIN
+        -- 판매기록 추가
+        INSERT INTO SALE (SALEID, SALEDATE, INCOME, MEMBERID)
+        VALUES (SALEID_SEQ.nextval, SYSDATE, 0, 1)
+        RETURNING SALEID INTO v_saleid;
+
+        <foreach collection="list" item="item" separator=" " index="index">
+            -- 수입 누적
+            UPDATE /*+ NO_PARALLEL(SALE) */ SALE
+            SET INCOME = INCOME + (SELECT /*+ NO_PARALLEL(PRODUCT) */ PRICE FROM PRODUCT WHERE PRODUCTID = #{item.productID}) * #{item.quantity}
+            WHERE SALEID = v_saleid;
+            -- 상품 재고 감소
+            UPDATE PRODUCT
+            SET QUANTITY = QUANTITY - #{item.quantity}
+            WHERE PRODUCTID = #{item.productID};
+        </foreach>
+
+        -- 보유금 갱신
+        UPDATE /*+ NO_PARALLEL(BALANCE), NO_PARALLEL(SALE) */ BALANCE
+        SET AMOUNT = AMOUNT + (
+        SELECT INCOME
+        FROM (SELECT /*+ NO_PARALLEL(SALE) */ INCOME FROM SALE ORDER BY SALEID DESC)
+        WHERE ROWNUM = 1
+        ),
+        LASTUPDATED = SYSDATE;
+
+        COMMIT;
+
+        -- 예외 처리
+        EXCEPTION
+        WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+        END;
+    </update>
 </mapper>

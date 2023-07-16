@@ -42,6 +42,10 @@ public class StockController extends HttpServlet {
                 log.info("/update");
                 stockService.select(request, response);
             }
+            case "/order" -> {
+                log.info("/order");
+                // 재고 주문 페이지 이동
+            }
             default -> handleInvalidAccess(request, response);
         }
         request.setAttribute("path", request.getRequestURI().substring(request.getContextPath().length()));
@@ -59,21 +63,22 @@ public class StockController extends HttpServlet {
         switch (pathInfo) {
             case "/delete" -> {
                 log.info("/delete");
-                if (stockService.delete(request, response))
-                    log.info("재고정보 삭제 성공");
+                if (stockService.delete(request, response)) log.info("재고정보 삭제 성공");
                 request.getRequestDispatcher(request.getContextPath() + HOME_PATH).forward(request, response);
             }
             case "/insert" -> {
                 log.info("/insert");
-                if (stockService.insert(request, response))
-                    log.info("재고 추가 성공");
+                if (stockService.insert(request, response)) log.info("재고 추가 성공");
                 response.sendRedirect("/stock/list");
             }
             case "/update" -> {
                 log.info("/update");
-                if (stockService.update(request, response))
-                    log.info("재고 수정 성공");
+                if (stockService.update(request, response)) log.info("재고 수정 성공");
                 response.sendRedirect("/stock/list"); // stock/list
+            }
+            case "/order" -> {
+                log.info("/order");
+                // 재고를 주문해서 보유금이 차감되고 재고수량이 증가하는 로직 작성
             }
             default -> handleInvalidAccess(request, response);
         }

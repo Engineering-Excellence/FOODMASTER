@@ -122,6 +122,7 @@ side {
 
 nav {
   grid-area: nav;
+
   #chat {
     height: 100%;
     width: 100%;
@@ -132,15 +133,18 @@ nav {
     justify-content: center;
     align-items: center;
   }
+
   #chat #chatList {
     background-color: #ccc;
     width: 95%;
     height: 95%;
     overflow-y: auto;
   }
+
   #chat #chatList::-webkit-scrollbar {
     width: 10px;
   }
+
   #chat #chatList::-webkit-scrollbar-thumb {
     background: white;
     background-clip: padding-box;
@@ -148,20 +152,25 @@ nav {
     border-radius: 7px;
     width: 3px;
   }
+
   #chat #chatList::-webkit-scrollbar-track {
     background: rgba(30, 30, 30, 0.85);
     border-radius: 5px;
     width: 3px;
   }
+
   #chat #chatList .chatBox {
     display: flex;
   }
+
   #chat #chatList .chatBox.mine {
     justify-content: flex-end;
   }
+
   #chat #chatList .chatBox.opponent {
     justify-content: flex-start
   }
+
   #chat #chatList .chatBox .chat {
     width: fit-content;
     height: fit-content;
@@ -171,12 +180,15 @@ nav {
     margin-bottom: 10px;
     border-radius: 5px;
   }
+
   #chat #chatList .chatBox .chat.mine {
     background-color: yellow;
   }
+
   #chat #chatList .chatBox .chat.opponent {
     background-color: white;
   }
+
   #chat #chatForm {
     width: 90%;
   }
@@ -294,16 +306,16 @@ footer {
 }
 
 .foodmaster {
-	color: white;
-    display: flex;
-    align-items: center;
-    font-size: 10vh;
-    font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 10vh;
+  font-weight: bold;
 }
 
 .logout {
-    width: 4vw;
-    position: absolute;
-    top: 6%;
-    right: 0%;
+  width: 4vw;
+  position: absolute;
+  top: 6%;
+  right: 0%;
 }
