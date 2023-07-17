@@ -1,6 +1,9 @@
+'use strict'
+
 var stock;
 var selectStock = new Set();
 var root = new Trie();
+
 function throttle(callback, delay) {
     let timer
     return event => {
@@ -112,6 +115,7 @@ window.onload = () => {
         type: "post",
         async: true,
         success: (res) => {
+            // 재고 목록 가져오는 부분
             stock = res;
             res.forEach((s, idx) => {
                 console.log(s);
@@ -123,6 +127,8 @@ window.onload = () => {
             showAllStock();
         },
     });
+
+    // ajax를 한번 더 해가지고 현재 등록된 재료를 가져오기?
 };
 
 $("#close-window").click(() => {
@@ -148,7 +154,7 @@ $("#confirm-window").click(() => {
         url: "/product/recipe",
         type: "post",
         data: {
-            data: data
+            recipe: JSON.stringify(data)
         },
         dataType: "json",
         traditional: true,
@@ -156,8 +162,7 @@ $("#confirm-window").click(() => {
             if (res) {
                 alert("재료 등록 성공");
                 window.close();
-            }
-            else {
+            } else {
                 alert("재료 등록 실패")
                 window.close();
             }

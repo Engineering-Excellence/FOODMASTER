@@ -1,5 +1,6 @@
 package kr.or.sw.mapper;
 
+import kr.or.sw.model.JoinTableVO;
 import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
 
@@ -24,4 +25,6 @@ public interface ProductDAO {
     int deleteProduct(int productId);
 
     int updateProduct(ProductDTO productDTO);
+
+    int updateRecipe(List<JoinTableVO> joinTableVOList);
 }
