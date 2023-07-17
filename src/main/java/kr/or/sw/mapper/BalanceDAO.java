@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface BalanceDAO {
 
-    List<BalanceVO> selectBalanceList();
+    List<BalanceVO> selectAllBalances();
+
+	
 }

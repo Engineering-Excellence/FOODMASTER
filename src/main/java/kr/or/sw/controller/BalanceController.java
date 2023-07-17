@@ -33,7 +33,8 @@ public class BalanceController extends HttpServlet {
             case "/list" -> {
                 log.info("/list");
                 // 입출금 내역 목록 불러오기
-                handleSearch(request, response);
+//                handleSearch(request, response);
+                balanceService.selectAll(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }
@@ -63,7 +64,7 @@ public class BalanceController extends HttpServlet {
         // searchOption이 0이면 전체 검색, 0이 아닌 다른 무언가면 그에 해당하는 검색을 진행
         switch (searchOption) {
             case 0 -> balanceService.selectAll(request, response);
-//            case 1, 2, 3 -> productService.searchBy(request, response);
+//            case 1, 2, 3 -> balanceService.searchBy(request, response);
             default -> handleInvalidAccess(request, response);
         }
     }

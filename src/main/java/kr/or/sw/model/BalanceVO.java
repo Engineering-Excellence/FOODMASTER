@@ -10,5 +10,10 @@ public class BalanceVO {
 
     private String accountID;   // 계좌 ID, PK
     private int amount; // 보유금
-    private java.sql.Date lastUpdated;  // 변동일시
+//    private java.sql.Date lastUpdated;  // 변동일시
+    
+    private java.sql.Timestamp lastUpdated;
+
+
+    
 }
