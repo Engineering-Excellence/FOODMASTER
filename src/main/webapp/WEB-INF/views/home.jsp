@@ -7,6 +7,9 @@
 <c:if test='${pageContext.request.getParameter("redirect") eq "true"}'>
     <c:redirect url="/home"/>
 </c:if>
+<c:if test="${info eq null}">
+    <c:redirect url="/" />
+</c:if>
 
 <%-- fn 태그의 split은 놀랍게도 제일 앞의 빈 문자열이 없고 그 뒤부터 생겨서 길이가 2짜리로 생김에 주의 --%>
 <c:if test="${paths[0] eq 'member'}">

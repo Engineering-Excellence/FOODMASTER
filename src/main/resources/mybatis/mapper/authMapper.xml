@@ -38,4 +38,16 @@
             PASSWORD = #{password}
         WHERE EMAIL = #{email}
     </update>
+
+    <select id="selectAdminCredentials" parameterType="String" resultType="kr.or.sw.model.EmpDTO">
+        SELECT PASSWORD, SALT
+        FROM EMP
+        WHERE ACCOUNT = #{account}
+    </select>
+
+    <select id="getAdminInfo" parameterType="String" resultType="kr.or.sw.model.EmpDTO">
+        SELECT EMPID, ACCOUNT
+        FROM EMP
+        WHERE ACCOUNT = #{account}
+    </select>
 </mapper>

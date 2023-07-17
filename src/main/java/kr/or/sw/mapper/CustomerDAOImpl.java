@@ -43,10 +43,12 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public void insertSale(List<ProductDTO> productDTOList) {
         log.info("insertSale()");
+        for (ProductDTO pdto : productDTOList)
+            log.info("data : {}", pdto);
 
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            sqlSession.update("insertSale", productDTOList);
-            log.info("insertSale() 성공");
+            int ret = sqlSession.insert("insertSale", productDTOList);
+            log.info("insertSale() success : {}", ret);
         } catch (Exception e) {
             e.printStackTrace();
         }
