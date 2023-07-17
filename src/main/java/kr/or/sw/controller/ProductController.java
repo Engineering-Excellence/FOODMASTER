@@ -46,7 +46,7 @@ public class ProductController extends HttpServlet {
                 // 상품 수정
                 log.info("/update");
                 productService.select(request, response);
-                
+
             }
             default -> handleInvalidAccess(request, response);
         }
@@ -83,11 +83,6 @@ public class ProductController extends HttpServlet {
                     log.info("상품 수정 성공");
                     response.sendRedirect("/product/list");
                 }
-            }
-            case "/orderList" -> {
-                // 아직 판매하지 않은 주문 목록
-                log.info("/orderList");
-                productService.getOrder(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }
