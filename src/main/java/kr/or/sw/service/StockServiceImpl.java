@@ -59,10 +59,7 @@ public class StockServiceImpl implements StockService {
                 Integer.parseInt(request.getParameter("productID"))
         );
         int result = stockDAO.stockInsert(stockDTO);
-        if (result > 0)
-            return true;
-
-        return false;
+        return result > 0;
     }
 
     @Override

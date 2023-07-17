@@ -7,11 +7,11 @@ import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,8 +61,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void makeOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, ParseException {
-        log.info("makeOrder()");
+    @SneakyThrows
+    public boolean insert(HttpServletRequest request, HttpServletResponse response) {
+        log.info("insert()");
         String data = request.getParameter("order");
         log.info("order: {}", data);
 
@@ -84,32 +85,22 @@ public class CustomerServiceImpl implements CustomerService {
 
             productDTOList.add(productDTO);
         }
-        customerDAO.insertSale(productDTOList);
-    }
-
-    @Override
-    public boolean insert(HttpServletRequest request, HttpServletResponse response) {
-        log.info("insert()");
-        return false;
+        return customerDAO.insertSale(productDTOList) == 1;
     }
 
     @Override
     public void select(HttpServletRequest request, HttpServletResponse response) {
-        // 회원정보(본인) 보기
+        // 회원정보(본인) 보기 - Front에서 Session으로 구현 완료
         log.info("select()");
     }
 
     @Override
     public boolean delete(HttpServletRequest request, HttpServletResponse response) {
-        // 회원탈퇴
-        log.info("delete()");
         return false;
     }
 
     @Override
     public boolean update(HttpServletRequest request, HttpServletResponse response) {
-        // 회원정보 수정
-        log.info("update()");
         return false;
     }
 }
