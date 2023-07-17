@@ -364,7 +364,7 @@ $("#shopping-make-order").click(() => {
     // string으로 바꿔 보내지 않으면 ""가 붙지 않아서
     // 후에 백엔드에서 JSON.simple로 파싱하는데 문제가 생기므로 주의
     $.ajax({
-        url: "/customer/order",
+        url: "/customer/insert",
         type: "post",
         data: {
             order: JSON.stringify(data)

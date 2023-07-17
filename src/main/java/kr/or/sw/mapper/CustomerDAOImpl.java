@@ -41,16 +41,17 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     // CustomerDAOImpl.java
     @Override
-    public void insertSale(List<ProductDTO> productDTOList) {
+    public int insertSale(List<ProductDTO> productDTOList) {
         log.info("insertSale()");
         for (ProductDTO pdto : productDTOList)
             log.info("data : {}", pdto);
 
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            int ret = sqlSession.insert("insertSale", productDTOList);
-            log.info("insertSale() success : {}", ret);
+            sqlSession.insert("insertSale", productDTOList);
+            return 1;   // Procedure에서 :RESULT를 반환하는 것에 실패함
         } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
     }
 }

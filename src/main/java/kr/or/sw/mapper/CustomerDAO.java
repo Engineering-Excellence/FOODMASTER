@@ -11,5 +11,5 @@ public interface CustomerDAO {
 
     List<ProductImgDTO> selectAllImgList();
 
-    void insertSale(List<ProductDTO> productDTOList);
+    int insertSale(List<ProductDTO> productDTOList);
 }

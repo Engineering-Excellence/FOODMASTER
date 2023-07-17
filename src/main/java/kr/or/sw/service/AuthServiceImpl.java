@@ -171,7 +171,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void select(HttpServletRequest request, HttpServletResponse response) {
-        // 회원정보(본인) 보기
+        // 회원정보(본인) 보기 - Front에서 이미 구현
         log.info("select()");
     }
 

@@ -20,19 +20,15 @@
         ORDER BY PRODUCTID ASC
     </select>
 
-    <insert id="insertSale" parameterType="java.util.List">
-        INSERT INTO SALE (SALEID, ORDERDATE, SALEDATE, INCOME, MEMBERID)
-        VALUES (SALEID_SEQ.nextval, SYSDATE, NULL, 0, 1)
-    </insert>
-
-    <update id="updateSaleDate" parameterType="java.util.List">
+    <update id="insertSale" parameterType="java.util.List">
         DECLARE
         v_saleid NUMBER;
 
         BEGIN
         -- 판매기록 추가
-        UPDATE SALE SET SALEDATE = SYSDATE
-        WHERE SALEID = #{saleId}
+        INSERT INTO SALE (SALEID, SALEDATE, INCOME, MEMBERID)
+        -- 현재 memberID가 하드 코딩(1)된 상태임. 추후 로그인 세션에서 얻어온 후 변경 필요.
+        VALUES (SALEID_SEQ.nextval, SYSDATE, 0, 1)
         RETURNING SALEID INTO v_saleid;
 
         <foreach collection="list" item="item" separator=" " index="index">

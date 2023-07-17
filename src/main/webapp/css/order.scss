@@ -26,6 +26,7 @@
       font-size: 3em;
       color: white;
     }
+
     .front-font {
       font-size: 1em;
       color: white;
@@ -45,14 +46,17 @@
       font-weight: bold;
       flex-basis: 80%;
     }
+
     .main-control-container {
       flex-basis: 20%;
 
       display: flex;
       flex-direction: row;
+
       .font-pay {
         font-weight: bold;
       }
+
       .btn-outline-success {
       }
     }
