@@ -19,7 +19,7 @@ $('.product-data').each((index, element) => {
         console.log('productID:', productID)
 
         // 현재 선택한 방식
-        // 1:수정 2:삭제
+        // 1:수정 2:삭제 3:재료등록 4:재료수정
         let type = $('input[name=select-type]:checked').val()
         console.log('type:', type)
 
@@ -29,6 +29,16 @@ $('.product-data').each((index, element) => {
                 break;
             case '2':
                 deleteProduct(productID)
+                break;
+            case '3':
+                let name = '_blank';
+                let left = (screen.width - 600) / 2;
+                let top = (screen.height - 800) / 4;
+                let specs = 'menubar=no,status=no,toolbar=no,innerWidth=600,innerHeight=800,chrome=1,centerscreen=1,top=' + top +',left=' + left;
+                let newWindow = window.open("/product/ingredient?productID=" + productID, name, specs);
+                newWindow.focus();
+                break;
+            case '4':
                 break;
             default:
                 break;
