@@ -78,6 +78,11 @@ public class ProductController extends HttpServlet {
                     response.sendRedirect("/product/list");
                 }
             }
+            case "/orderList" -> {
+                // 아직 판매하지 않은 주문 목록
+                log.info("/orderList");
+                productService.getOrder(request, response);
+            }
             default -> handleInvalidAccess(request, response);
         }
     }

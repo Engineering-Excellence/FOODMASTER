@@ -41,6 +41,12 @@
         WHERE PRODUCTID = #{productID}
     </select>
 
+    <select id="selectProductOrderInfo" resultType="kr.or.sw.model.SaleVO">
+        SELECT *
+        FROM SALE
+        WHERE SALEDATE = NULL
+    </select>
+
     <insert id="insertProduct" parameterType="kr.or.sw.model.ProductDTO">
         INSERT INTO PRODUCT(PRODUCTID, PRODUCTNAME, CATEGORY, PRICE)
         VALUES (PRODUCTID_SEQ.NEXTVAL, #{productName}, #{category}, #{price})
