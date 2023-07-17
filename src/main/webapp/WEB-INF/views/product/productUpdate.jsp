@@ -17,7 +17,7 @@
 		</div>
 		<div class="insert-body-wrapper">
 			<div class="insert-image-preview-wrapper">
-				<img src="..." class="rounded" alt="..." id="preview">
+				<img src="${productDTO.image.getRelPath()}" class="rounded" alt="..." id="preview">
 			</div>
 			<div class="vertical-line"></div>
 			<div class="insert-wrapper">

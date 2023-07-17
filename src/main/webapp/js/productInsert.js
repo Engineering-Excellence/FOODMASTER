@@ -28,12 +28,12 @@ $("#image-upload").change(() => {
 $("#product-update-form").on("submit", (e) => {
 	
 	if ($("#category option:selected").val() == -1) {
-        alert("검색조건을 선택해주세요")
+        alert("카테고리를 선택해주세요")
         return false;
     }
 	
 	if (!checkValidate($("#price").val(), numberRegex)) {
-		alert("숫자만 입력해주세요");
+		alert("상품가격에 숫자만 입력해주세요");
 		return false;
 	}
 	
