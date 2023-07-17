@@ -18,6 +18,9 @@
 	src="${pageContext.request.contextPath}/js/bootstrap.min.js" defer></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/customer.js" defer></script>
+<script>
+	var memberID = ${info.getMemberID()};
+</script>
 </head>
 
 <body>
