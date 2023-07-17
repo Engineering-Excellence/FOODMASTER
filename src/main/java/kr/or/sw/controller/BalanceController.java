@@ -1,5 +1,7 @@
 package kr.or.sw.controller;
 
+import kr.or.sw.service.BalanceService;
+import kr.or.sw.service.BalanceServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
@@ -19,28 +21,17 @@ public class BalanceController extends HttpServlet {
     @Serial
     private static final long serialVersionUID = -3319583315447280816L;
 
+    private BalanceService balanceService;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("doGet()");
 
         String pathInfo = request.getPathInfo();
         switch (pathInfo) {
-            case "/" -> {
-
-            }
-            default -> handleInvalidAccess(request, response);
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.info("doPost()");
-
-        request.setCharacterEncoding("UTF-8");
-        String pathInfo = request.getPathInfo();
-        switch (pathInfo) {
-            case "/" -> {
-
+            case "/list" -> {
+                log.info("/list");
+                // 입출금 내역 목록 불러오기
             }
             default -> handleInvalidAccess(request, response);
         }
@@ -49,6 +40,7 @@ public class BalanceController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         log.info("init()");
+        balanceService = BalanceServiceImpl.getInstance();
     }
 
     @Override
