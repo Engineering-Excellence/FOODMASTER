@@ -2,6 +2,8 @@ package kr.or.sw.controller;
 
 import kr.or.sw.service.ProductService;
 import kr.or.sw.service.ProductServiceImpl;
+import kr.or.sw.service.StockService;
+import kr.or.sw.service.StockServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
@@ -13,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serial;
 
-import static kr.or.sw.controller.HomeController.HOME_PATH;
-import static kr.or.sw.controller.HomeController.handleInvalidAccess;
+import static kr.or.sw.controller.HomeController.*;
 
 @Slf4j
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
@@ -25,6 +26,7 @@ public class ProductController extends HttpServlet {
     private static final long serialVersionUID = 5019171277715891863L;
 
     private ProductService productService;
+    private StockService stockService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,7 +48,11 @@ public class ProductController extends HttpServlet {
                 // 상품 수정
                 log.info("/update");
                 productService.select(request, response);
-
+            }
+            case "/ingredient" -> {
+                log.info("/ingredient");
+                request.getRequestDispatcher(request.getContextPath() + VIEW_PATH + "product/productSearchIngredient.jsp").forward(request, response);
+                return;
             }
             default -> handleInvalidAccess(request, response);
         }
@@ -84,6 +90,10 @@ public class ProductController extends HttpServlet {
                     response.sendRedirect("/product/list");
                 }
             }
+            case "/stock" -> {
+                log.info("/stock");
+                stockService.getStocks(request, response);
+            }
             default -> handleInvalidAccess(request, response);
         }
     }
@@ -92,6 +102,7 @@ public class ProductController extends HttpServlet {
     public void init() throws ServletException {
         log.info("/product/*");
         productService = ProductServiceImpl.getInstance();
+        stockService = StockServiceImpl.getInstance();
     }
 
     @Override

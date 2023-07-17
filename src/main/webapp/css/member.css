@@ -9,7 +9,6 @@ main .search-container {
   flex-direction: column;
 }
 main .search-container .search-input-container {
-  flex-basis: 18%;
   display: flex;
   flex-direction: column;
 }

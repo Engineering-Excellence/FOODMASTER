@@ -39,6 +39,12 @@
                 <label class="btn btn-outline-secondary">
                     <input type="radio" name="select-type" id="delete" value="2"> 상품삭제
                 </label>
+                <label class="btn btn-outline-secondary">
+                    <input type="radio" name="select-type" id="view" value="3"> 재료등록
+                </label>
+                <label class="btn btn-outline-secondary">
+                    <input type="radio" name="select-type" id="update" value="4"> 재료수정
+                </label>
             </div>
             <div class="search-result-into-container">
                 ${productList.size()}개 검색되었습니다

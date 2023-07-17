@@ -1,5 +1,6 @@
 package kr.or.sw.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.or.sw.mapper.StockDAO;
 import kr.or.sw.mapper.StockDAOImpl;
 import kr.or.sw.model.StockDTO;
@@ -9,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -113,5 +116,20 @@ public class StockServiceImpl implements StockService {
         request.setAttribute("page", Objects.requireNonNullElse(request.getParameter("page"), 1));
         request.setAttribute("searchOption", searchOption);
         request.setAttribute("keyword", keyword);
+    }
+
+    public void getStocks(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        log.info("selectAll()");
+
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+
+        try (PrintWriter out = response.getWriter()) {
+            List<StockDTO> list = new ArrayList<>(stockDAO.selectAllStocks());
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            out.write(objectMapper.writeValueAsString(list));
+            out.flush();
+        }
     }
 }
