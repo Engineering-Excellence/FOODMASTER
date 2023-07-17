@@ -354,6 +354,7 @@ $("#shopping-make-order").click(() => {
     let data = [];
     sortedList.forEach((entry, idx) => {
         data.push({
+            'memberID': String(memberID),
             'productName': menu[entry[0]].productName,
             'productID': String(menu[entry[0]].productID),
             'quantity': String(entry[1])
@@ -372,14 +373,19 @@ $("#shopping-make-order").click(() => {
         dataType: "json",
         traditional: true,
         success: (res) => {
-            shoppingList = new Map();
-            shoppingCount = 0;
-            $(".customer-info-shopping-count-text").text(shoppingCount);
-            $(".customer-info-shopping-count-wrapper").removeClass("show");
-            $(".customer-info-shopping-count-wrapper").addClass("hide");
-            updateShoppingModal();
+            if (res) {
+                shoppingList = new Map();
+                shoppingCount = 0;
+                $(".customer-info-shopping-count-text").text(shoppingCount);
+                $(".customer-info-shopping-count-wrapper").removeClass("show");
+                $(".customer-info-shopping-count-wrapper").addClass("hide");
+                updateShoppingModal();
 
-            alert("주문 완료");
+                alert("주문 완료");
+            }
+            else {
+                alert("주문 중 문제가 생겼습니다");
+            }
         },
     });
 });

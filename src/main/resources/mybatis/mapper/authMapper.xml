@@ -21,7 +21,7 @@
     </select>
 
     <select id="getMemberInfo" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
-        SELECT NAME, EMAIL, CONTACT, BIRTHDATE, REGDATE, REMAINTIME
+        SELECT MEMBERID, NAME, EMAIL, CONTACT, BIRTHDATE, REGDATE, REMAINTIME
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
