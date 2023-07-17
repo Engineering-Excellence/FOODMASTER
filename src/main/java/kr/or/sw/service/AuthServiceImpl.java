@@ -41,6 +41,7 @@ public class AuthServiceImpl implements AuthService {
 
         // 입력한 이메일에 해당하는 DB의 비밀번호와 솔트를 가져옴
         MemberDTO memberDTO = authDAO.selectCredentials(email);
+        if (memberDTO == null) return false;
 
         // 입력한 비밀번호를 해싱 후 DB의 비밀번호와 일치 여부를 검사
         cipher = CipherUtil.getInstance();
@@ -128,6 +129,7 @@ public class AuthServiceImpl implements AuthService {
 
         // 입력한 이메일에 해당하는 DB의 비밀번호와 솔트를 가져옴
         EmpDTO empDTO = authDAO.selectAdminCredentials(account);
+        if (empDTO == null) return false;
 
         // 입력한 비밀번호를 해싱 후 DB의 비밀번호와 일치 여부를 검사
         cipher = CipherUtil.getInstance();

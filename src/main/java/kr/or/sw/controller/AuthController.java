@@ -4,12 +4,14 @@ import kr.or.sw.service.AuthService;
 import kr.or.sw.service.AuthServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serial;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -67,8 +69,7 @@ public class AuthController extends HttpServlet {
             }
             case "/register" -> {
                 log.info("/register");
-                if (authService.insert(request, response)) log.info("register success");
-                redirectToIndex(request, response);
+                handleRegister(request, response);
             }
             case "/checkEmail" -> {
                 log.info("/checkEmail");
@@ -80,8 +81,7 @@ public class AuthController extends HttpServlet {
             }
             case "/resetPassword" -> {
                 log.info("/resetPassword");
-                if (authService.resetPassword(request, response)) log.info("resetPassword success");
-                redirectToIndex(request, response);
+                handleResetPassword(request, response);
             }
             case "/admin" -> {
                 log.info("/admin");
@@ -111,10 +111,18 @@ public class AuthController extends HttpServlet {
     private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("handleLogin()");  // 로그인
 
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter output = response.getWriter();
+        response.setContentType("text/html");
+
         if (!authService.login(request, response)) {
             log.error("로그인 실패");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            redirectToIndex(request, response);
+            output.println("<script>" +
+                    "alert('로그인 실패');" +
+                    "window.location.href = '/'" +
+                    "</script>");
+//            redirectToIndex(request, response);
         } else {
             log.info("로그인 성공");
             authService.setMemberInfo(request, response);
@@ -127,10 +135,18 @@ public class AuthController extends HttpServlet {
     private void handleAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.info("handleAdmin()");  // 로그인
 
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter output = response.getWriter();
+        response.setContentType("text/html");
+
         if (!authService.admin(request, response)) {
             log.error("관리자 로그인 실패");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            redirectToIndex(request, response);
+            output.println("<script>" +
+                    "alert('로그인 실패');" +
+                    "window.location.href = '/'" +
+                    "</script>");
+//            redirectToIndex(request, response);
         } else {
             log.info("관리자 로그인 성공");
             authService.setAdminInfo(request, response);
@@ -138,5 +154,49 @@ public class AuthController extends HttpServlet {
             request.getSession().setAttribute("startDate", sdf.format(new Date(System.currentTimeMillis())));
             response.sendRedirect("/product/order");
         }
+    }
+
+    private void handleRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.info("handleRegister");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter output = response.getWriter();
+        response.setContentType("text/html");
+
+        if (authService.insert(request, response)) {
+            log.info("register success");
+            output.println("<script>" +
+                    "alert('회원가입 성공');" +
+                    "window.location.href = '/'" +
+                    "</script>");
+        }
+        else {
+            output.println("<script>" +
+                    "alert('회원가입 실패');" +
+                    "window.location.href = '/'" +
+                    "</script>");
+        }
+//        redirectToIndex(request, response);
+    }
+
+    private void handleResetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.info("handleResetPassword");
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter output = response.getWriter();
+        response.setContentType("text/html");
+
+        if (authService.resetPassword(request, response)) {
+            log.info("register success");
+            output.println("<script>" +
+                    "alert('비밀번호 재설정 성공');" +
+                    "window.location.href = '/'" +
+                    "</script>");
+        }
+        else {
+            output.println("<script>" +
+                    "alert('비밀번호 재설정 실패');" +
+                    "window.location.href = '/'" +
+                    "</script>");
+        }
+//        redirectToIndex(request, response);
     }
 }

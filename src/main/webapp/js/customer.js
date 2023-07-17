@@ -354,11 +354,11 @@ $("#shopping-make-order").click(() => {
     let data = [];
     sortedList.forEach((entry, idx) => {
         data.push({
+            'productName': menu[entry[0]].productName,
             'productID': String(menu[entry[0]].productID),
             'quantity': String(entry[1])
         });
-    })
-    console.log(data);
+    });
 
     // 서버에 주문을 보내는 ajax
     // string으로 바꿔 보내지 않으면 ""가 붙지 않아서

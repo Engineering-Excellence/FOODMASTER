@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/views/layouts/header.jsp" %>
 <%@ include file="/WEB-INF/views/layouts/side.jsp" %>
-<%@ include file="/WEB-INF/views/layouts/nav.jsp" %>
+<%--<%@ include file="/WEB-INF/views/layouts/nav.jsp" %>--%>
 
 <c:set var="paths" value="${fn:split(path, '/')}"/>
 <c:if test='${pageContext.request.getParameter("redirect") eq "true"}'>
@@ -32,9 +32,9 @@
     </c:if>
 </c:if>
 <c:if test="${paths[0] eq 'product'}">
-    <c:if test="${paths[1] eq 'order'}">
-        <%@ include file="/WEB-INF/views/product/productOrder.jsp" %>
-    </c:if>
+<%--    <c:if test="${paths[1] eq 'order'}">--%>
+<%--        <%@ include file="/WEB-INF/views/product/productOrder.jsp" %>--%>
+<%--    </c:if>--%>
     <c:if test="${paths[1] eq 'insert'}">
         <%@ include file="/WEB-INF/views/product/productInsert.jsp" %>
     </c:if>
