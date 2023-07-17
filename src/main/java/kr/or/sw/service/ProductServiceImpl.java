@@ -1,11 +1,9 @@
 package kr.or.sw.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.or.sw.mapper.ProductDAO;
 import kr.or.sw.mapper.ProductDAOImpl;
 import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
-import kr.or.sw.model.SaleVO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -124,24 +121,6 @@ public class ProductServiceImpl implements ProductService {
             e.printStackTrace();
         }
         return false;
-    }
-
-    @Override
-    public void getOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        log.info("getOrder()");
-        List<SaleVO> orderList;
-
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-
-        try (PrintWriter out = response.getWriter()) {
-            orderList = productDAO.selectProductOrderInfo();
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            out.write(objectMapper.writeValueAsString(orderList));
-            out.flush();
-        }
     }
 
     @Override
