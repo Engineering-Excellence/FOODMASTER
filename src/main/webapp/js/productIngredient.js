@@ -46,11 +46,21 @@ const updateSelectTable = () => {
         htmls += `<td>${stock[stockIdx].stockName}</td>`
         htmls += '<td>'
         htmls += `<input type="number" class="form-control quantity" value="1" min="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">`
+        htmls += '<div class="selected-ingredient-remove-btn-wrapper">'
+        htmls += '<button class="selected-ingredient-remove-btn">&times;</button>'
+        htmls += '</div>'
         htmls += '</td>'
         htmls += '</tr>'
     });
     $("#select-table-body").html(htmls);
     $(".select-ingredient-result-count-container").text(`재료가 ${selectStock.size}가지 선택되었습니다`)
+
+    $(".selected-ingredient-remove-btn").each((idx, element) => {
+        $(element).click(() => {
+            selectStock.delete(sortedList[idx]);
+            updateSelectTable();
+        });
+    })
 }
 const addEventListenerOnStock = (list) => {
     const sortedList = Array.from([...list].sort());

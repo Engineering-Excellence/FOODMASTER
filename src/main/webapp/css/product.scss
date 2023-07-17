@@ -97,14 +97,36 @@ main {
           tr {
             td {
               width: 33%;
+              height: 100%;
+              outline: none;
+
               &:last-child {
+                width: 100%;
                 padding: 0;
+                input {
+                  width: 85%;
+                }
+                .selected-ingredient-remove-btn-wrapper {
+                  width: 10%;
+                  display: flex;
+                  justify-items: center;
+                  border: none;
+                  .selected-ingredient-remove-btn {
+                    position: absolute;
+                    right: 1vw;
+                    transform: translateY(-3.5vh);
+                    border: none;
+                    background-color: transparent;
+                    color: red;
+                    font-weight: bold;
+                  }
+                }
               }
               .quantity {
                 border: none;
                 margin: 0;
                 position: relative;
-                top: 0.3vh;
+                transform: translateY(0.5vh);
               }
             }
           }

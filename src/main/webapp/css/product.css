@@ -76,15 +76,36 @@ main .search-container .select-ingredient-container {
 }
 main .search-container .select-ingredient-container .select-ingredient-result-container table tr td {
   width: 33%;
+  height: 100%;
+  outline: none;
 }
 main .search-container .select-ingredient-container .select-ingredient-result-container table tr td:last-child {
+  width: 100%;
   padding: 0;
+}
+main .search-container .select-ingredient-container .select-ingredient-result-container table tr td:last-child input {
+  width: 85%;
+}
+main .search-container .select-ingredient-container .select-ingredient-result-container table tr td:last-child .selected-ingredient-remove-btn-wrapper {
+  width: 10%;
+  display: flex;
+  justify-items: center;
+  border: none;
+}
+main .search-container .select-ingredient-container .select-ingredient-result-container table tr td:last-child .selected-ingredient-remove-btn-wrapper .selected-ingredient-remove-btn {
+  position: absolute;
+  right: 1vw;
+  transform: translateY(-3.5vh);
+  border: none;
+  background-color: transparent;
+  color: red;
+  font-weight: bold;
 }
 main .search-container .select-ingredient-container .select-ingredient-result-container table tr td .quantity {
   border: none;
   margin: 0;
   position: relative;
-  top: 0.3vh;
+  transform: translateY(0.5vh);
 }
 main .search-container .control-container {
   display: flex;
