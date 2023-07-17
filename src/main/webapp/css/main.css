@@ -1,9 +1,9 @@
 body {
   max-width: 100%;
   display: grid;
-  grid-template-areas: "header header" "side main" "nav main" "footer footer";
+  grid-template-areas: "header header" "side main" "footer footer";
   grid-template-columns: 1fr 6fr;
-  grid-template-rows: 0.25fr 1.75fr 0.75fr 1fr;
+  grid-template-rows: 0.25fr 2.5fr 1fr;
   gap: 1.8vw;
 }
 body a {
@@ -24,7 +24,7 @@ header {
 
 side {
   grid-area: side;
-  max-height: 45vh;
+  max-height: 60vh;
 }
 side .side-container {
   width: 100%;
@@ -49,7 +49,7 @@ side .side-container .side-wrapper .side-menu {
   justify-content: center;
 }
 side .side-container .side-wrapper:nth-child(odd) {
-  flex-basis: 14%;
+  flex-basis: 12%;
 }
 side .side-container .side-wrapper:nth-child(odd) .side-menu {
   flex-basis: 100%;
@@ -63,19 +63,19 @@ side .side-container .side-wrapper:nth-child(even) {
   display: none;
 }
 side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(1)) {
-  flex-basis: 14%;
+  flex-basis: 12%;
 }
 side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(2)) {
-  flex-basis: 28%;
+  flex-basis: 24%;
 }
 side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(3)) {
-  flex-basis: 42%;
+  flex-basis: 36%;
 }
 side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(4)) {
-  flex-basis: 56%;
+  flex-basis: 48%;
 }
 side .side-container .side-wrapper:nth-child(even):has(.side-menu:first-child:nth-last-child(5)) {
-  flex-basis: 70%;
+  flex-basis: 60%;
 }
 side .side-container .side-wrapper:nth-child(even) .side-menu {
   background-color: white;
@@ -90,6 +90,9 @@ side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-la
 }
 side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(3), side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(3) ~ .side-menu {
   flex-basis: 33.3333333333%;
+}
+side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(4), side .side-container .side-wrapper:nth-child(even) .side-menu:first-child:nth-last-child(4) ~ .side-menu {
+  flex-basis: 25%;
 }
 side .side-container .side-wrapper:nth-child(even) .side-menu:hover {
   background-color: #eee;
