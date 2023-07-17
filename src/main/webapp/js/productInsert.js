@@ -25,3 +25,17 @@ $("#image-upload").change(() => {
 });
 
 // submit시 validation 등등 하기
+$("#product-update-form").on("submit", (e) => {
+	
+	if ($("#category option:selected").val() == -1) {
+        alert("카테고리를 선택해주세요")
+        return false;
+    }
+	
+	if (!checkValidate($("#price").val(), numberRegex)) {
+		alert("상품가격에 숫자만 입력해주세요");
+		return false;
+	}
+	
+	return true;
+});

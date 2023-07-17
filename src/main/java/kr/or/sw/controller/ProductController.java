@@ -42,6 +42,12 @@ public class ProductController extends HttpServlet {
                 log.info("/list");
                 handleSearch(request, response);
             }
+            case "/update" -> {
+                // 상품 수정
+                log.info("/update");
+                productService.select(request, response);
+                
+            }
             default -> handleInvalidAccess(request, response);
         }
         request.setAttribute("path", request.getRequestURI().substring(request.getContextPath().length()));

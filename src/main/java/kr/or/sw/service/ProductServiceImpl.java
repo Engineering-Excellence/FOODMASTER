@@ -43,6 +43,8 @@ public class ProductServiceImpl implements ProductService {
 
         int productID = Integer.parseInt(request.getParameter("productID"));
         ProductDTO productDTO = productDAO.selectProduct(productID);
+        ProductImgDTO productImgDTO = productDAO.selectProductImg(productID);
+        productDTO.setImage(productImgDTO);
         request.setAttribute("productDTO", productDTO);
         log.info("productDTO: {}", productDTO);
     }
