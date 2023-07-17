@@ -152,7 +152,7 @@ public class AuthController extends HttpServlet {
             authService.setAdminInfo(request, response);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             request.getSession().setAttribute("startDate", sdf.format(new Date(System.currentTimeMillis())));
-            response.sendRedirect("/product/order");
+            response.sendRedirect("/member/search");
         }
     }
 
