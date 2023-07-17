@@ -25,9 +25,11 @@ public class BalanceDAOImpl implements BalanceDAO {
     @Override
     public List<BalanceVO> selectBalanceList() {
         log.info("selectBalanceList()");
+        List<BalanceVO> balanceList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
             // SqlSession 객체를 이용해서 모든 입출금 내역을 불러오기
-            return null;
+            balanceList = sqlSession.selectList("selectBalanceList");
         }
+        return balanceList;
     }
 }

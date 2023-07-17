@@ -51,8 +51,8 @@
                     <tr>
                         <th scope="col">계좌ID</th>
                         <th scope="col">통화</th>
-                        <th scope="col">수익</th>
-                        <th scope="col">지출</th>
+<!--                         <th scope="col">수익</th> -->
+<!--                         <th scope="col">지출</th> -->
                         <th scope="col">보유금</th>
                         <th scope="col">변동일시</th>
                     </tr>
@@ -68,8 +68,8 @@
                             <tr class="balance-data" id="balanceData${i}">
                                 <td>${balanceList.get(i).getAccountID()}</td>
                                 <td>${balanceList.get(i).getCurrency()}</td>
-                                <td>${balanceList.get(i).getProfit()}</td>
-                                <td>${balanceList.get(i).getExpense()}</td>
+<%--                                 <td>${balanceList.get(i).getProfit()}</td> --%>       
+<%--                                 <td>${balanceList.get(i).getExpense()}</td> --%>      
                                 <td>${balanceList.get(i).getAmount()}</td>
                                 <td>${balanceList.get(i).getLastUpload()}</td>
                             </tr>
