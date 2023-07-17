@@ -64,28 +64,37 @@ public class CustomerServiceImpl implements CustomerService {
     @SneakyThrows
     public boolean insert(HttpServletRequest request, HttpServletResponse response) {
         log.info("insert()");
-        String data = request.getParameter("order");
-        log.info("order: {}", data);
 
-        JSONParser parser = new JSONParser();
-        JSONArray array = (JSONArray) parser.parse(data);
-        log.info("parsing success");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        List<ProductDTO> productDTOList = new ArrayList<>();
-        for (Object order : array) {
-            JSONObject jsonObj = (JSONObject) order;
+        try (PrintWriter out = response.getWriter()) {
+            String data = request.getParameter("order");
+            log.info("order: {}", data);
 
-            String productID = (String) jsonObj.get("productID");
-            String quantity = (String) jsonObj.get("quantity");
+            JSONParser parser = new JSONParser();
+            JSONArray array = (JSONArray) parser.parse(data);
+            log.info("parsing success");
 
-            log.info("productID: {}, quantity: {}", productID, quantity);
-            ProductDTO productDTO = new ProductDTO();
-            productDTO.setProductID(Integer.parseInt(productID));
-            productDTO.setQuantity(Integer.parseInt(quantity));
+            List<ProductDTO> productDTOList = new ArrayList<>();
+            for (Object order : array) {
+                JSONObject jsonObj = (JSONObject) order;
 
-            productDTOList.add(productDTO);
+                String productID = (String) jsonObj.get("productID");
+                String quantity = (String) jsonObj.get("quantity");
+
+                log.info("productID: {}, quantity: {}", productID, quantity);
+                ProductDTO productDTO = new ProductDTO();
+                productDTO.setProductID(Integer.parseInt(productID));
+                productDTO.setQuantity(Integer.parseInt(quantity));
+                productDTOList.add(productDTO);
+            }
+            boolean result = customerDAO.insertSale(productDTOList) == 1;
+            out.write(objectMapper.writeValueAsString(result));
+            out.flush();
+            return result;
         }
-        return customerDAO.insertSale(productDTOList) == 1;
     }
 
     @Override
