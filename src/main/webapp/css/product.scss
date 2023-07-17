@@ -42,12 +42,13 @@ main {
 
     .search-result-container {
       flex-basis: 60%;
+
       &.for-ingredient {
         overflow-y: auto;
       }
     }
 
-      .search-page-container {
+    .search-page-container {
       flex-basis: 5%;
 
       .search-page-wrapper {
@@ -97,9 +98,11 @@ main {
           tr {
             td {
               width: 33%;
+
               &:last-child {
                 padding: 0;
               }
+
               .quantity {
                 border: none;
                 margin: 0;
