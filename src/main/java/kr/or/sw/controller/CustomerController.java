@@ -1,6 +1,5 @@
 package kr.or.sw.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.or.sw.service.CustomerService;
 import kr.or.sw.service.CustomerServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Serial;
 
 import static kr.or.sw.controller.HomeController.VIEW_PATH;
@@ -54,7 +52,7 @@ public class CustomerController extends HttpServlet {
             }
             case "/insert" -> {
                 log.info("/insert");
-                handleInsert(request, response);
+                customerService.insert(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }
@@ -69,24 +67,5 @@ public class CustomerController extends HttpServlet {
     @Override
     public void destroy() {
         log.info("destroy()");
-    }
-
-    private void handleInsert(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        if (customerService.insert(request, response)) {
-            try (PrintWriter out = response.getWriter()) {
-                out.write(objectMapper.writeValueAsString(true));
-                out.flush();
-            }
-        }
-        else {
-            try (PrintWriter out = response.getWriter()) {
-                out.write(objectMapper.writeValueAsString(false));
-                out.flush();
-            }
-        }
     }
 }
