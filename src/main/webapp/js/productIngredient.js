@@ -1,6 +1,9 @@
+'use strict'
+
 var stock;
 var selectStock = new Set();
 var root = new Trie();
+
 function throttle(callback, delay) {
     let timer
     return event => {
@@ -138,7 +141,7 @@ $("#confirm-window").click(() => {
         url: "/product/recipe",
         type: "post",
         data: {
-            data: data
+            recipe: JSON.stringify(data)
         },
         dataType: "json",
         traditional: true,
@@ -146,8 +149,7 @@ $("#confirm-window").click(() => {
             if (res) {
                 alert("재료 등록 성공");
                 window.close();
-            }
-            else {
+            } else {
                 alert("재료 등록 실패")
                 window.close();
             }
