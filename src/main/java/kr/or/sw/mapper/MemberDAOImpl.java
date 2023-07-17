@@ -25,87 +25,66 @@ public class MemberDAOImpl implements MemberDAO {
     @Override
     public List<MemberDTO> selectAllMembers() {
         log.info("selectAllMembers()");
-        List<MemberDTO> memberList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            memberList = sqlSession.selectList("selectAllMembers");
+            return sqlSession.selectList("selectAllMembers");
         }
-        return memberList;
     }
 
     @Override
     public List<MemberDTO> selectMemberById(int memberID) {
         log.info("selectMemberById(): {}", memberID);
-
-        List<MemberDTO> memberList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            memberList = sqlSession.selectList("selectMemberById", memberID);
+            return sqlSession.selectList("selectMemberById", memberID);
         }
-        return memberList;
     }
 
     @Override
     public List<MemberDTO> selectMemberByName(String name) {
         log.info("selectMemberByName()");
-
-        List<MemberDTO> memberList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            memberList = sqlSession.selectList("selectMemberByName", name);
+           return sqlSession.selectList("selectMemberByName", name);
         }
-        return memberList;
     }
 
     @Override
     public List<MemberDTO> selectMemberByEmail(String email) {
         log.info("selectMemberByEmail()");
 
-        List<MemberDTO> memberList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            memberList = sqlSession.selectList("selectMemberByEmail", email);
+            return sqlSession.selectList("selectMemberByEmail", email);
         }
-        return memberList;
     }
 
     @Override
     public List<MemberDTO> selectMemberByContact(String contact) {
         log.info("selectMemberByContact()");
 
-        List<MemberDTO> memberList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            memberList = sqlSession.selectList("selectMemberByContact", contact);
+            return sqlSession.selectList("selectMemberByContact", contact);
         }
-        return memberList;
     }
 
     @Override
     public MemberDTO selectMember(int memberID) {
         log.info("selectMember(): {}", memberID);
-
-        MemberDTO memberDTO;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            memberDTO = sqlSession.selectOne("selectMember", memberID);
+            return sqlSession.selectOne("selectMember", memberID);
         }
-        return memberDTO;
     }
 
     @Override
     public int updateMember(MemberDTO memberDTO) {
         log.info("updateMember(): {}", memberDTO);
-        int result;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            result = sqlSession.update("updateMember", memberDTO);
-            if (result > 0) sqlSession.commit();
+            return sqlSession.update("updateMember", memberDTO);
         }
-        return result;
     }
 
     @Override
     public int deleteMember(int memberID) {
         log.info("deleteMember(): {}", memberID);
-        int result;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            result = sqlSession.delete("deleteMember", memberID);
-            if (result > 0) sqlSession.commit();
+            return sqlSession.delete("deleteMember", memberID);
         }
-        return result;
     }
 }
