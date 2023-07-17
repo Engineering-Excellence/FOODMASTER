@@ -1,5 +1,6 @@
 package kr.or.sw.mapper;
 
+import kr.or.sw.model.JoinTableVO;
 import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
 import kr.or.sw.util.MyBatisUtil;
@@ -135,5 +136,12 @@ public class ProductDAOImpl implements ProductDAO {
             else sqlSession.rollback();
         }
         return result + imgResult;
+    }
+
+    @Override
+    public int updateRecipe(List<JoinTableVO> joinTableVOList) {
+        log.info("updateRecipe(): {}", joinTableVOList);
+
+        return 0;
     }
 }

@@ -1,12 +1,18 @@
 package kr.or.sw.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.or.sw.mapper.ProductDAO;
 import kr.or.sw.mapper.ProductDAOImpl;
+import kr.or.sw.model.JoinTableVO;
 import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -48,8 +55,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void selectAll(HttpServletRequest request, HttpServletResponse response) {
-        // 모든 상품 목록 불러오기
         log.info("selectAll()");
+        // 모든 상품 목록 불러오기
 
         List<ProductDTO> list = new ArrayList<>(productDAO.selectAllProduct());
         log.info("selectAll: {}", list);
@@ -181,5 +188,39 @@ public class ProductServiceImpl implements ProductService {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    @SneakyThrows
+    public boolean updateRecipe(HttpServletRequest request, HttpServletResponse response) {
+        log.info("updateRecipe()");
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try (PrintWriter out = response.getWriter()) {
+            String data = request.getParameter("recipe");
+            log.info("recipe: {}", data);
+
+            JSONParser parser = new JSONParser();
+            JSONArray array = (JSONArray) parser.parse(data);
+            log.info("parsing success");
+
+            List<JoinTableVO> joinTableVOList = new ArrayList<>();
+            for (Object recipe : array) {
+                JSONObject jsonObj = (JSONObject) recipe;
+
+                String productID = (String) jsonObj.get("productID");
+                String stockID = (String) jsonObj.get("stockID");
+                String quantity = (String) jsonObj.get("quantity");
+
+                joinTableVOList.add(new JoinTableVO(Integer.parseInt(productID), Integer.parseInt(stockID), Integer.parseInt(quantity)));
+            }
+            boolean result = productDAO.updateRecipe(joinTableVOList) == 1;
+            out.write(objectMapper.writeValueAsString(result));
+            out.flush();
+            return result;
+        }
     }
 }

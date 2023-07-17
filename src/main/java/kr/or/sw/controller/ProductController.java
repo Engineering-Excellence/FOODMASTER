@@ -34,10 +34,6 @@ public class ProductController extends HttpServlet {
 
         String pathInfo = request.getPathInfo();
         switch (pathInfo) {
-            case "/order" -> {
-                // 주문 목록 페이지
-                log.info("/order");
-            }
             case "/insert" -> log.info("/insert");    // 상품 추가 페이지
             case "/list" -> {
                 // 상품 목록 페이지
@@ -45,8 +41,8 @@ public class ProductController extends HttpServlet {
                 handleSearch(request, response);
             }
             case "/update" -> {
-                // 상품 수정
                 log.info("/update");
+                // 상품 수정
                 productService.select(request, response);
             }
             case "/ingredient" -> {
@@ -69,22 +65,22 @@ public class ProductController extends HttpServlet {
         String pathInfo = request.getPathInfo();
         switch (pathInfo) {
             case "/insert" -> {
-                // 상품 추가
                 log.info("/insert");
+                // 상품 추가
                 if (productService.insert(request, response)) log.info("상품 추가 성공");
                 response.sendRedirect("/product/list");
             }
             case "/delete" -> {
-                // 상품 삭제
                 log.info("/delete");
+                // 상품 삭제
                 if (productService.delete(request, response)) {
                     log.info("상품 삭제 성공");
                     response.sendRedirect("/product/list");
                 }
             }
             case "/update" -> {
-                // 상품 수정
                 log.info("/update");
+                // 상품 수정
                 if (productService.update(request, response)) {
                     log.info("상품 수정 성공");
                     response.sendRedirect("/product/list");
@@ -93,6 +89,11 @@ public class ProductController extends HttpServlet {
             case "/stock" -> {
                 log.info("/stock");
                 stockService.getStocks(request, response);
+            }
+            case "/recipe" -> {
+                log.info("/recipe");
+                // 레시피 수정
+                productService.updateRecipe(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }

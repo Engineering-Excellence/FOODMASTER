@@ -8,4 +8,6 @@ public interface ProductService extends Service {
     void selectAll(HttpServletRequest request, HttpServletResponse response);
 
     void searchBy(HttpServletRequest request, HttpServletResponse response);
+
+    boolean updateRecipe(HttpServletRequest request, HttpServletResponse response);
 }
