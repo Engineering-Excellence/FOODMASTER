@@ -3,6 +3,7 @@ package kr.or.sw.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.or.sw.mapper.AuthDAO;
 import kr.or.sw.mapper.AuthDAOImpl;
+import kr.or.sw.model.EmpDTO;
 import kr.or.sw.model.MemberDTO;
 import kr.or.sw.util.CipherUtil;
 import lombok.AccessLevel;
@@ -115,6 +116,34 @@ public class AuthServiceImpl implements AuthService {
 
         int ret = authDAO.resetPassword(memberDTO);
         return ret == 1;
+    }
+
+    @Override
+    public boolean admin(HttpServletRequest request, HttpServletResponse response) {
+        // 관리자 로그인
+        log.info("admin()");
+
+        String account = request.getParameter("account");
+        String password = request.getParameter("password");
+
+        // 입력한 이메일에 해당하는 DB의 비밀번호와 솔트를 가져옴
+        EmpDTO empDTO = authDAO.selectAdminCredentials(account);
+
+        // 입력한 비밀번호를 해싱 후 DB의 비밀번호와 일치 여부를 검사
+        cipher = CipherUtil.getInstance();
+        return cipher.hashPassword(password, empDTO.getSalt()).equals(empDTO.getPassword());
+    }
+
+    @Override
+    public void setAdminInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        log.info("getMemberInfo()");
+
+        request.setCharacterEncoding("UTF-8");
+        String account = request.getParameter("account");
+        EmpDTO ret = authDAO.getAdminInfo(account);
+        log.info("ret: " + ret);
+
+        request.getSession().setAttribute("info", ret);
     }
 
     @Override

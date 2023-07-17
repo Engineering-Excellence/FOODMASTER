@@ -83,6 +83,11 @@ public class AuthController extends HttpServlet {
                 if (authService.resetPassword(request, response)) log.info("resetPassword success");
                 redirectToIndex(request, response);
             }
+            case "/admin" -> {
+                log.info("/admin");
+                handleAdmin(request, response);
+
+            }
             default -> handleInvalidAccess(request, response);
         }
     }
@@ -116,6 +121,22 @@ public class AuthController extends HttpServlet {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             request.getSession().setAttribute("startDate", sdf.format(new Date(System.currentTimeMillis())));// 로그인 세션 저장
             response.sendRedirect("/customer/home");
+        }
+    }
+
+    private void handleAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.info("handleAdmin()");  // 로그인
+
+        if (!authService.admin(request, response)) {
+            log.error("관리자 로그인 실패");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            redirectToIndex(request, response);
+        } else {
+            log.info("관리자 로그인 성공");
+            authService.setAdminInfo(request, response);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            request.getSession().setAttribute("startDate", sdf.format(new Date(System.currentTimeMillis())));
+            response.sendRedirect("/product/order");
         }
     }
 }

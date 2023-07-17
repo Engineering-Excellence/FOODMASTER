@@ -1,5 +1,6 @@
 package kr.or.sw.mapper;
 
+import kr.or.sw.model.EmpDTO;
 import kr.or.sw.model.MemberDTO;
 import kr.or.sw.util.MyBatisUtil;
 import lombok.AccessLevel;
@@ -74,6 +75,22 @@ public class AuthDAOImpl implements AuthDAO {
             int result = sqlSession.insert("resetPassword", memberDTO);
             if (result > 0) sqlSession.commit();
             return result;
+        }
+    }
+
+    @Override
+    public EmpDTO selectAdminCredentials(String account) {
+        log.info("selectAdminCredentials(): {}", account);
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            return sqlSession.selectOne("selectAdminCredentials", account);
+        }
+    }
+
+    @Override
+    public EmpDTO getAdminInfo(String account) {
+        log.info("selectAdminCredentials(): {}", account);
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            return sqlSession.selectOne("getAdminInfo", account);
         }
     }
 }
