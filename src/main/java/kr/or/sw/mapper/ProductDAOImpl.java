@@ -2,6 +2,7 @@ package kr.or.sw.mapper;
 
 import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
+import kr.or.sw.model.SaleVO;
 import kr.or.sw.util.MyBatisUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -135,5 +136,13 @@ public class ProductDAOImpl implements ProductDAO {
             else sqlSession.rollback();
         }
         return result + imgResult;
+    }
+
+    @Override
+    public List<SaleVO> selectProductOrderInfo() {
+        log.info("selectProductOrderInfo();");
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            return sqlSession.selectList("selectProductOrderInfo");
+        }
     }
 }

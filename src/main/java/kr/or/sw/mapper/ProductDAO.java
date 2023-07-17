@@ -2,6 +2,7 @@ package kr.or.sw.mapper;
 
 import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
+import kr.or.sw.model.SaleVO;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface ProductDAO {
     int deleteProduct(int productId);
 
     int updateProduct(ProductDTO productDTO);
+
+    List<SaleVO> selectProductOrderInfo();
 }
