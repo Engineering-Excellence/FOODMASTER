@@ -41,6 +41,9 @@
     <c:if test="${paths[1] eq 'list'}">
         <%@ include file="/WEB-INF/views/product/productList.jsp" %>
     </c:if>
+    <c:if test="${paths[1] eq 'update'}">
+        <%@ include file="/WEB-INF/views/product/productUpdate.jsp" %>
+    </c:if>
 </c:if>
 
 <c:if test="${paths[0] eq 'balance'}">
