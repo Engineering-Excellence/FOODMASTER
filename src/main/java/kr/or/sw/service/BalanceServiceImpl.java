@@ -41,6 +41,4 @@ public class BalanceServiceImpl implements BalanceService{
         request.setAttribute("page", Objects.requireNonNullElse(request.getParameter("page"), 1));
 
     }
-
-
 }

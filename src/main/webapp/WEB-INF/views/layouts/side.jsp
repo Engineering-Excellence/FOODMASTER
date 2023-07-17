@@ -38,10 +38,7 @@
             <dlv class="side-menu">매출관리</dlv>
         </div>
         <div class="side-wrapper">
-            <dlv class="side-menu"><a href="/balance/list">보유금 현황</a></dlv>
             <dlv class="side-menu"><a href="/balance/list">매출 현황</a></dlv>
-            <dlv class="side-menu"><a href="/balance/list">수익 현황</a></dlv>
-            <dlv class="side-menu"><a href="/balance/list">비용 현황</a></dlv>
         </div>
     </div>
 </side>

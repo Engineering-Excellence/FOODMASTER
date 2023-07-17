@@ -17,22 +17,23 @@
 <main>
     <div class="search-container">
         <div class="search-input-container">
-<!--             <form action="/balance/list" method="get" name="searchForm" id="search-form"> -->
-<!--                 <div class="search-input-wrapper input-group"> -->
+            <form action="/balance/list" method="get" name="searchForm" id="search-form">
+                <div class="search-input-wrapper input-group">
 <!--                     <select class="custom-select" id="searchOption" name="searchOption"> -->
 <!--                         <option value="-1" selected>선택</option> -->
 <!--                         <option value="1">ID</option> -->
 <!--                         <option value="2">수익</option> -->
-<!--                         <option value="3">지출</option> --> 
-<!--                         <option value="4">날짜</option> --> 
+<!--                         <option value="3">지출</option>  -->
+<!--                         <option value="4">날짜</option>  -->
 <!--                     </select> -->
 <!--                     <input type="text" class="form-control" placeholder="검색어 입력" id="keyword" -->
 <!--                            name="keyword"> -->
 <!--                     <input type="text" id="page" name="page" value="1" hidden> -->
 <!--                     <input class="btn btn-outline-secondary" type="submit" value="검색" id="search-btn"> -->
-<!--                 </div> -->
-<!--             </form> -->
-             <div class="search-select-type-wrapper btn-group btn-group-toggle" data-toggle="buttons">
+                </div>
+            </form>
+
+<!--              <div class="search-select-type-wrapper btn-group btn-group-toggle" data-toggle="buttons"> -->
             
 <!--                 <label class="btn btn-outline-secondary active"> -->
 <!--                     <input type="radio" name="select-type" id="asset" value="1" checked> 보유금 -->
@@ -40,7 +41,8 @@
 <!--                 <label class="btn btn-outline-secondary"> -->
 <!--                     <input type="radio" name="select-type" id="sales" value="2"> 매출 -->
 <!--                 </label> -->
-             </div> 
+<!--              </div>  -->
+
             <div class="search-result-into-container">
                 ${balanceList.size()}개 검색되었습니다
             </div>
@@ -52,9 +54,9 @@
                     <tr>
                         <th scope="col">계좌ID</th>
                         <th scope="col">보유금</th>
-                        <th scope="col">변동일시</th>
                         <th scope="col">매출</th>
                         <th scope="col">비용</th>
+                        <th scope="col">변동일시</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -67,10 +69,10 @@
                                    end="${Math.min(balanceList.size() - 1, (page - 1) * 10 + 9)}">
                             <tr class="balance-data" id="balanceData${i}">
                                 <td>${balanceList.get(i).getAccountID()}</td>
-                                <td>${balanceList.get(i).getAmount()} 원</td>
-                                <td>${balanceList.get(i).getLastUpdated()}</td>
-<%--                                 <td>${balanceList.get(i).getSales()}</td> --%>
-<%--                                 <td>${balanceList.get(i).getCosts()}</td> --%>       
+                                <td>${balanceList.get(i).getAsset()}</td>
+                                <td>${balanceList.get(i).getIncome()}</td>
+                                <td>${balanceList.get(i).getExpense()}</td>   
+                                <td>${balanceList.get(i).getLastUpdated()}</td>    
                             </tr>
                         </c:forEach>
                     </c:if>
