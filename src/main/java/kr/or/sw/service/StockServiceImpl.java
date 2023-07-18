@@ -62,7 +62,7 @@ public class StockServiceImpl implements StockService {
                 Integer.parseInt(request.getParameter("quantity")),
                 request.getParameter("stockDate")
         );
-        int result = stockDAO.stockInsert(stockVO);
+        int result = stockDAO.insertStock(stockVO);
         return result > 0;
     }
 

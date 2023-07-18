@@ -38,7 +38,7 @@
 						<h3>재고 단가</h3>
 						<div class="input-group mb-3">
 							<input type="number" class="form-control"
-								placeholder="재고수량을 입력해주세요" aria-label="Username"
+								placeholder="단가를 입력해주세요" aria-label="Username"
 								name="price">
 						</div>
 					</div>
