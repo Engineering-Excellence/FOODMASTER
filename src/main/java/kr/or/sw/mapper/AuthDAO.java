@@ -20,4 +20,6 @@ public interface AuthDAO {
     EmpDTO selectAdminCredentials(String account);
 
     EmpDTO getAdminInfo(String account);
+    
+    
 }
