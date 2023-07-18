@@ -16,7 +16,6 @@ public class StockDTO { // 재고 테이블
     private int price;  // 단가
     private int quantity; // 재고수량
     private java.sql.Date stockDate;    // 최근입고일자
-    private int productID;  // 상품 ID, FK
 
     public StockDTO(int stockID, int price, int quantity) {
         this.stockID = stockID;
@@ -32,12 +31,11 @@ public class StockDTO { // 재고 테이블
 
     }
 
-    public StockDTO(String stockName, int price, int quantity, String stockDate, int productID) { // insert
+    public StockDTO(String stockName, int price, int quantity, String stockDate) { // insert
 
         this.stockName = stockName;
         this.price = price;
         this.quantity = quantity;
-        this.productID = productID;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {

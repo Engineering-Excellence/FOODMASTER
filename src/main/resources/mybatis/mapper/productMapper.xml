@@ -41,6 +41,13 @@
         WHERE PRODUCTID = #{productID}
     </select>
 
+    <select id="selectCurrentRecipe" parameterType="_int" resultType="kr.or.sw.model.StockDTO">
+        SELECT S.STOCKID STOCKID, S.STOCKNAME STOCKNAME, PS.QUANTITY QUANTITY
+        FROM STOCK S JOIN PRODUCT_STOCK PS
+        ON S.STOCKID = PS.STOCKID
+        WHERE PS.PRODUCTID = #{productID}
+    </select>
+
     <insert id="insertProduct" parameterType="kr.or.sw.model.ProductDTO">
         INSERT INTO PRODUCT(PRODUCTID, PRODUCTNAME, CATEGORY, PRICE)
         VALUES (PRODUCTID_SEQ.NEXTVAL, #{productName}, #{category}, #{price})

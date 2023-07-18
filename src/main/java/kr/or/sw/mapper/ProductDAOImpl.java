@@ -3,6 +3,7 @@ package kr.or.sw.mapper;
 import kr.or.sw.model.JoinTableVO;
 import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
+import kr.or.sw.model.StockDTO;
 import kr.or.sw.util.MyBatisUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -143,5 +144,15 @@ public class ProductDAOImpl implements ProductDAO {
         log.info("updateRecipe(): {}", joinTableVOList);
 
         return 0;
+    }
+
+    @Override
+    public List<StockDTO> selectCurrentRecipe(int productID) {
+        log.info("selectCurrentRecipe(): {}", productID);
+        List<StockDTO> recipeList;
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            recipeList = sqlSession.selectList("selectCurrentRecipe", productID);
+        }
+        return recipeList;
     }
 }
