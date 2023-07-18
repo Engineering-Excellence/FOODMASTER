@@ -147,7 +147,7 @@ const updateShoppingList = (idx, updateFlag) => {
 	} else {
 		shoppingCount++;
 		if (!shoppingList.has(idx)) shoppingList.set(idx, 0);
-		shoppingList.set(idx, shoppingList.get(idx) + 1);
+		shoppingList.set(idx, parseInt(shoppingList.get(idx) + 1));
 	}
 }
 const addEventListenerOnShoppingButton = (list) => {
