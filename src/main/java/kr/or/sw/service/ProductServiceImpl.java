@@ -196,7 +196,7 @@ public class ProductServiceImpl implements ProductService {
         log.info("updateRecipe()");
 
         response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+//        response.setCharacterEncoding("UTF-8");
         ObjectMapper objectMapper = new ObjectMapper();
 
         try (PrintWriter out = response.getWriter()) {
@@ -217,7 +217,7 @@ public class ProductServiceImpl implements ProductService {
 
                 joinTableVOList.add(new JoinTableVO(Integer.parseInt(productID), Integer.parseInt(stockID), Integer.parseInt(quantity)));
             }
-            boolean result = productDAO.updateRecipe(joinTableVOList) == 1;
+            boolean result = productDAO.updateRecipe(joinTableVOList) > 0;
             out.write(objectMapper.writeValueAsString(result));
             out.flush();
             return result;

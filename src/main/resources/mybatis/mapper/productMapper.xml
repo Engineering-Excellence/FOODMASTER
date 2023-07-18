@@ -43,8 +43,9 @@
 
     <select id="selectCurrentRecipe" parameterType="_int" resultType="kr.or.sw.model.StockVO">
         SELECT S.STOCKID STOCKID, S.STOCKNAME STOCKNAME, PS.QUANTITY QUANTITY
-        FROM STOCK S JOIN PRODUCT_STOCK PS
-        ON S.STOCKID = PS.STOCKID
+        FROM STOCK S
+                 JOIN PRODUCT_STOCK PS
+                      ON S.STOCKID = PS.STOCKID
         WHERE PS.PRODUCTID = #{productID}
     </select>
 
@@ -85,5 +86,28 @@
             RELPATH  = #{relPath},
             FILENAME = #{fileName}
         WHERE PRODUCTID = #{productID}
+    </update>
+
+    <update id="updateRecipe" parameterType="java.util.List">
+        BEGIN
+        -- 기존 레시피 삭제
+        DELETE
+        FROM PRODUCT_STOCK
+        WHERE PRODUCTID = #{list[0].productID};
+
+        <foreach collection="list" item="item" separator=" " index="index">
+            -- 레시피 추가
+            INSERT INTO PRODUCT_STOCK (PRODUCTID, STOCKID, QUANTITY)
+            VALUES (#{item.productID}, #{item.stockID}, #{item.quantity});
+        </foreach>
+
+        COMMIT;
+
+        -- 예외 처리
+        EXCEPTION
+        WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+        END;
     </update>
 </mapper>
