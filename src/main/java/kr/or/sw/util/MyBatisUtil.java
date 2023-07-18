@@ -36,6 +36,7 @@ public class MyBatisUtil {
     }
 
     public static SqlSession getSession() {
+        log.info("getSession()");
         return getSqlSessionFactory().openSession();
     }
 }

@@ -29,4 +29,10 @@ public class ProductDTO {   // 상품 테이블
         this.price = price;
         this.image = image;
     }
+
+    public ProductDTO(int productID, int price, int quantity) {
+        this.productID = productID;
+        this.price = price;
+        this.quantity = quantity;
+    }
 }
