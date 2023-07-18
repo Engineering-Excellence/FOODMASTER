@@ -8,6 +8,8 @@ var shoppingList = new Map();
 var shoppingCount = 0;
 var root = new Trie();
 
+var isUpdatePassword = false;
+
 function throttle(callback, delay) {
 	let timer
 	return event => {
@@ -425,8 +427,9 @@ $("#resign-button").on("click", function() {
 
 // 회원 수정 ajax
 $("#update-button").on("click", function() {
+	
+
 	if (confirm("수정 하시겠습니까?")) {
-		
 		let data = {
 			'memberID': String(memberID),
 			'contact': $("#update-contact").val(),
@@ -445,11 +448,45 @@ $("#update-button").on("click", function() {
 				console.log(res)
 				if (res) {
 					alert("수정 완료");
+					return true;
 				}
 				else {
 					alert("수정 실패");
+					return true;
 				}
 			}
 		})
 	}
+	else
+		return false;
 })
+
+$("#contact-update-btn").click(() => {
+	if ($("#contact-update-btn").hasClass("btn-outline-secondary")) {
+		$("#contact-update-btn").removeClass("btn-outline-secondary");
+		$("#contact-update-btn").addClass("btn-success");
+		$("#update-input-contact").removeAttr("readonly");
+	}
+	else  {
+		$("#contact-update-btn").removeClass("btn-success");
+		$("#contact-update-btn").addClass("btn-outline-secondary");
+		$("#update-input-contact").attr("readonly", "readonly");
+	}
+});
+
+$("#open-update-modal").click(() => {
+	isUpdatePassword = false;
+});
+
+$("#password-update-btn").click(() => {
+	isUpdatePassword = !isUpdatePassword;
+
+	let height = 0;
+	let mark = "▶"
+	if (isUpdatePassword) {
+		height = "fit-content";
+		mark = "▼"
+	}
+	$(".password-update-wrapper").css("height", height);
+	$("#password-update-btn").text(`비밀번호 수정 ${mark}`);
+});

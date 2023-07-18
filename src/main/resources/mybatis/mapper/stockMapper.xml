@@ -30,8 +30,8 @@
 
     <update id="updateStock" parameterType="kr.or.sw.model.StockVO">
         UPDATE STOCK
-        SET QUANTITY    = #{quantity},
-            PRICE = #{price}
+        SET QUANTITY = #{quantity},
+            PRICE    = #{price}
         WHERE STOCKID = #{stockID}
     </update>
 
@@ -41,8 +41,8 @@
         WHERE STOCKID = #{STOCKID}
     </delete>
 
-    <insert id="stockInsert" parameterType="kr.or.sw.model.StockVO">
+    <insert id="insertStock" parameterType="kr.or.sw.model.StockVO">
         INSERT INTO STOCK (STOCKID, STOCKNAME, QUANTITY, PRICE, STOCKDATE)
-        VALUES (STOCKID_SEQ.NEXTVAL, #{stockName}, #{quantity}, #{price}, #{stockDate})
+        VALUES (STOCKID_SEQ.NEXTVAL, #{stockName}, #{quantity}, #{price}, SYSDATE)
     </insert>
 </mapper>
