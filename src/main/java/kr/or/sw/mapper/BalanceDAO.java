@@ -7,5 +7,7 @@ import kr.or.sw.model.BalanceVO;
 public interface BalanceDAO {
 
     List<BalanceVO> selectAllBalances();
+    
+    
 
 }
