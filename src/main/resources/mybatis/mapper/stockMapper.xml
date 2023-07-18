@@ -30,8 +30,8 @@
 
     <update id="updateStock" parameterType="kr.or.sw.model.StockVO">
         UPDATE STOCK
-        SET QUANTITY    = #{quantity},
-            PRICE = #{price}
+        SET QUANTITY = #{quantity},
+            PRICE    = #{price}
         WHERE STOCKID = #{stockID}
     </update>
 

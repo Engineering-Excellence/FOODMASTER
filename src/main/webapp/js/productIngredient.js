@@ -123,7 +123,7 @@ window.onload = () => {
         url: "/product/stock",
         type: "post",
         data: {
-          productID: new URL(window.location.href).searchParams.get("productID")
+            productID: new URL(window.location.href).searchParams.get("productID")
         },
         async: true,
         success: (res) => {
@@ -157,10 +157,10 @@ $("#confirm-window").click(() => {
     const sortedList = Array.from([...selectStock].sort());
 
     let productID = new URL(window.location.href).searchParams.get("productID");
-    let quantities = $(".quantity").each((idx, e) => {
+    $(".quantity").each((idx, e) => {
         data.push({
             'productID': String(productID),
-            'stockID': String(stock[sortedList[idx]].stockID),
+            'stockID': String(stock[sortedList[idx][0]].stockID),
             'quantity': String($(e).val())
         })
     });

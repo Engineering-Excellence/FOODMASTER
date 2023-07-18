@@ -121,6 +121,7 @@ public class StockServiceImpl implements StockService {
 
     public void getStocks(HttpServletRequest request, HttpServletResponse response) throws IOException {
         log.info("selectAll()");
+        //
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
@@ -130,23 +131,23 @@ public class StockServiceImpl implements StockService {
             JSONArray stockList = new JSONArray();
             JSONArray recipeList = new JSONArray();
 
-            List<StockVO> list = stockDAO.selectAllStocks();
-            for (StockVO dto : list) {
+            List<StockVO> stockVOList = stockDAO.selectAllStocks();
+            for (StockVO stockVO : stockVOList) {
                 JSONObject obj = new JSONObject();
-                obj.put("stockID", dto.getStockID());
-                obj.put("stockName", dto.getStockName());
+                obj.put("stockID", stockVO.getStockID());
+                obj.put("stockName", stockVO.getStockName());
                 stockList.add(obj);
             }
             data.put("stock", stockList);
 
-            list = ProductDAOImpl.getInstance().selectCurrentRecipe(Integer.parseInt(request.getParameter("productID")));
+            stockVOList = ProductDAOImpl.getInstance().selectCurrentRecipe(Integer.parseInt(request.getParameter("productID")));
             log.info("get data success");
 
-            for (StockVO dto : list) {
+            for (StockVO stockVO : stockVOList) {
                 JSONObject obj = new JSONObject();
-                obj.put("stockID", dto.getStockID());
-                obj.put("stockName", dto.getStockName());
-                obj.put("quantity", dto.getQuantity());
+                obj.put("stockID", stockVO.getStockID());
+                obj.put("stockName", stockVO.getStockName());
+                obj.put("quantity", stockVO.getQuantity());
                 recipeList.add(obj);
             }
             data.put("recipe", recipeList);
