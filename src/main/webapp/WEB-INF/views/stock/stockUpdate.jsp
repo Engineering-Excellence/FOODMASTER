@@ -66,12 +66,8 @@
                     <div class="input-container">
                         <div class="input-group">
                             <input type="date" class="form-control" id="stockDate" name="stockDate"
-<<<<<<< Updated upstream
                                    value="${stockVO.getStockDate()}" readonly>
 
-=======
-                                   value="${stockDTO.getStockDate()}" readonly>
->>>>>>> Stashed changes
                         </div>
                     </div>
                 </td>
