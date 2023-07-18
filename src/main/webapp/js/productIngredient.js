@@ -49,11 +49,21 @@ const updateSelectTable = () => {
         htmls += `<td>${stock[stockIdx].stockName}</td>`
         htmls += '<td>'
         htmls += `<input type="number" class="form-control quantity" value="1" min="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">`
+        htmls += '<div class="selected-ingredient-remove-btn-wrapper">'
+        htmls += '<button class="selected-ingredient-remove-btn">&times;</button>'
+        htmls += '</div>'
         htmls += '</td>'
         htmls += '</tr>'
     });
     $("#select-table-body").html(htmls);
     $(".select-ingredient-result-count-container").text(`재료가 ${selectStock.size}가지 선택되었습니다`)
+
+    $(".selected-ingredient-remove-btn").each((idx, element) => {
+        $(element).click(() => {
+            selectStock.delete(sortedList[idx]);
+            updateSelectTable();
+        });
+    })
 }
 const addEventListenerOnStock = (list) => {
     const sortedList = Array.from([...list].sort());
@@ -105,6 +115,7 @@ window.onload = () => {
         type: "post",
         async: true,
         success: (res) => {
+            // 재고 목록 가져오는 부분
             stock = res;
             res.forEach((s, idx) => {
                 console.log(s);
@@ -116,6 +127,8 @@ window.onload = () => {
             showAllStock();
         },
     });
+
+    // ajax를 한번 더 해가지고 현재 등록된 재료를 가져오기?
 };
 
 $("#close-window").click(() => {
