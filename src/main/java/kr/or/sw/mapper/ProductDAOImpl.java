@@ -141,9 +141,15 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public int updateRecipe(List<JoinTableVO> joinTableVOList) {
-        log.info("updateRecipe(): {}", joinTableVOList);
+        log.info("updateRecipe()");
 
-        return 0;
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            sqlSession.update("updateRecipe", joinTableVOList);
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     @Override
@@ -152,8 +158,7 @@ public class ProductDAOImpl implements ProductDAO {
         List<StockVO> recipeList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
             recipeList = sqlSession.selectList("selectCurrentRecipe", productID);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
