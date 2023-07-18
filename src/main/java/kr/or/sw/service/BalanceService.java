@@ -7,5 +7,4 @@ public interface BalanceService {
 
     void selectAll(HttpServletRequest request, HttpServletResponse response);
 
-
 }

@@ -11,7 +11,4 @@
 <!-- 		VALUES ('ACCOUNT', #{asset}+#{income}-#{expense}, #{income}, #{expense}, SYSDATE) -->
 <!-- 	</insert> -->
 
-	
-	
-	
 </mapper>

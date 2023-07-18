@@ -67,22 +67,12 @@
                         <div class="input-group">
                             <input type="date" class="form-control" id="stockDate" name="stockDate"
                                    value="${stockVO.getStockDate()}" readonly>
+
                         </div>
                     </div>
                 </td>
             </tr>
-<!--             <tr> -->
-<!--                 <th> -->
-<!--                     <label for="productID">상품 ID</label></th> -->
-<!--                 <td> -->
-<!--                     <div class="input-container"> -->
-<!--                         <div class="input-group"> -->
-<!--                             <input type="number" class="form-control" id="productID" name="productID" -->
-<%--                                    value="${stockVO.getProductID()}" readonly> --%>
-<!--                         </div> -->
-<!--                     </div> -->
-<!--                 </td> -->
-<!--             </tr> -->
+
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" class="btn btn-primary" value="수정">

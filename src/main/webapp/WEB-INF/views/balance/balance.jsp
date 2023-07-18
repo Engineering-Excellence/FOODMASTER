@@ -70,8 +70,8 @@
                             <tr class="balance-data" id="balanceData${i}">
                                 <td>${balanceList.get(i).getAccountID()}</td>
                                 <td>${balanceList.get(i).getAssets()}</td>
-                                <td>${balanceList.get(i).getIncome()}</td>
-                                <td>${balanceList.get(i).getExpense()}</td>   
+<%--                                 <td>${balanceList.get(i).getIncome()}</td> --%>
+<%--                                 <td>${balanceList.get(i).getExpense()}</td>    --%>
                                 <td>${balanceList.get(i).getLastUpdated()}</td>    
                             </tr>
                         </c:forEach>
