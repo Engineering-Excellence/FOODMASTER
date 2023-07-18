@@ -149,21 +149,14 @@ const updateShoppingList = (idx, updateFlag) => {
 		if (!shoppingList.has(idx)) shoppingList.set(idx, 0);
 		shoppingList.set(idx, shoppingList.get(idx) + 1);
 	}
-
-	$(".customer-info-shopping-count-text").text(shoppingCount);
 }
 const addEventListenerOnShoppingButton = (list) => {
 	console.log(list);
 	$(".shopping-btn").each((idx, element) => {
 		$(element).click(() => {
-			if (!shoppingCount) {
-				$(".customer-info-shopping-count-wrapper").removeClass("hide");
-				$(".customer-info-shopping-count-wrapper").addClass("show");
-			}
-
 			updateShoppingList(list[idx], true);
-
 			console.log(shoppingList);
+			updateShoppingModal();
 		});
 	});
 }
@@ -321,13 +314,19 @@ const updateShoppingModal = () => {
 			updateShoppingList(sortedList[idx][0], false);
 			updateShoppingModal();
 		});
-	})
+	});
+	$(".shopping-product-count").each((idx, element) => {
+		$(element).keyup(() => {
+			shoppingList.set(sortedList[idx][0], $(element).val());
+			updateShoppingModal();
+		});
+	});
 	$(".shopping-product-count-plus").each((idx, element) => {
 		$(element).click(() => {
 			updateShoppingList(sortedList[idx][0], true);
 			updateShoppingModal();
 		});
-	})
+	});
 	$(".product-remove-btn").each((idx, element) => {
 		$(element).click(() => {
 			shoppingList.delete(sortedList[idx][0]);
@@ -342,7 +341,7 @@ const updateShoppingModal = () => {
 	})
 }
 
-$("#shopping-modal-btn").click(updateShoppingModal);
+// $("#shopping-modal-btn").click(updateShoppingModal);
 
 $("#shopping-make-order").click(() => {
 	if (!shoppingCount) {
