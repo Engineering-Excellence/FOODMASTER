@@ -13,6 +13,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.compiler.ast.Member;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -161,13 +162,29 @@ public class CustomerServiceImpl implements CustomerService {
 			int memberID = Integer.parseInt((String)object.get("memberID"));
 			String contact = (String)object.get("contact");
 			String password = (String) object.get("password");
+
 			log.info("data: {}, {}", contact, password);
-			
-			MemberDTO memberDTO = new MemberDTO(memberID, contact, password);
-			
-			out.write(objectMapper.writeValueAsString(null));
+
+            MemberDTO memberDTO = new MemberDTO();
+            memberDTO.setMemberID(memberID);
+            memberDTO.setContact(contact);
+            int ret = 0;
+            if (password == null) {
+                log.info("password is null");
+                ret = MemberDAOImpl.getInstance().updateMemberSelfWOPassword(memberDTO);
+            }
+            else {
+                log.info("password is not null");
+                String salt = CipherUtil.getInstance().generateSalt();
+                memberDTO.setSalt(salt);
+                memberDTO.setPassword(CipherUtil.getInstance().hashPassword(password, salt));
+                ret = MemberDAOImpl.getInstance().updateMemberSelf(memberDTO);
+                log.info("ret: {}", ret);
+            }
+
+			out.write(objectMapper.writeValueAsString(ret == 1));
 			out.flush();
-			return MemberDAOImpl.getInstance().updateMember(memberDTO) == 1;
+			return ret == 1;
 		}
 	}
 }

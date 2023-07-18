@@ -167,7 +167,7 @@
 						</div>
 						<div class="form-group">
 							<label>연락처</label> <input type="text" class="form-control"
-								readonly value="${info.getContact()}">
+								readonly value="${info.getContact()}" id="info-contact">
 						</div>
 					</form>
 				</div>
