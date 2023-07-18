@@ -427,13 +427,28 @@ $("#resign-button").on("click", function() {
 
 // 회원 수정 ajax
 $("#update-button").on("click", function() {
-	
+	if (!checkValidate($("#update-input-contact").val(), contactRegex)) {
+		alert("올바른 연락처가 아닙니다");
+		return false;
+	}
+
+	if (isUpdatePassword) {
+		if (!checkValidate($("#update-input-password").val(), passwordRegex)) {
+			alert("비밀번호가 조건에 맞지 않습니다\n8자 이상, 대소문자 1개 이상, 숫자 1개 이상, 특수문자 1개 이상이 포함되어야 합니다");
+			return false;
+		}
+
+		if ($("#update-input-password").val() != $("#update-input-confirm-password").val()) {
+			alert("비밀번호가 일치하지 않습니다")
+			return false;
+		}
+	}
 
 	if (confirm("수정 하시겠습니까?")) {
 		let data = {
 			'memberID': String(memberID),
-			'contact': $("#update-contact").val(),
-			'password': $("#update-password").val()
+			'contact': $("#update-input-contact").val(),
+			'password': $("#update-input-password").val()
 		}
 
 		console.log(data);
