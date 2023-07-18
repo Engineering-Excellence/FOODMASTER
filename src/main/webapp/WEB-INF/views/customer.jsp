@@ -19,6 +19,7 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/customer.js" defer></script>
 <script>
+	// el 정렬 하지 말것
 	var memberID = ${info.getMemberID()};
 </script>
 </head>
@@ -108,13 +109,14 @@
 					</div>
 
 					<div class="customer-info-button-row-wrapper">
-						<button type="button" class="btn btn-secondary user-button" id="shopping-modal-btn"
-							data-toggle="modal" data-target="#shopping">장바구니</button>
+						<button type="button" class="btn btn-secondary user-button"
+							id="shopping-modal-btn" data-toggle="modal"
+							data-target="#shopping">장바구니</button>
 						<div class="customer-info-shopping-count-wrapper hide">
 							<div class="customer-info-shopping-count-text">0</div>
 						</div>
 						<button type="button" class="btn btn-secondary user-button"
-							data-toggle="modal" data-target="#time">시간충전</button>
+							id="resign-modal-btn" data-toggle="modal" data-target="#resign">회원탈퇴</button>
 					</div>
 					<div class="customer-info-button-row-wrapper">
 						<a href="/auth/logout" class="btn btn-danger quit-button">사용종료</a>
@@ -124,92 +126,119 @@
 		</div>
 	</div>
 
-<!-- 회원정보 Modal -->
-<div class="modal fade" id="info" data-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">회원정보</h3>
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label>이름</label>
-                        <input type="text" class="form-control" readonly value="${info.getName()}">
-                    </div>
-                    <div class="form-group">
-                        <label>이메일</label>
-                        <input type="text" class="form-control" readonly value="${info.getEmail()}">
-                    </div>
-                    <div class="form-group">
-                        <label>생년월일</label>
-                        <input type="text" class="form-control" readonly value="${info.getBirthDate()}">
-                    </div>
-                    <div class="form-group">
-                        <label>연락처</label>
-                        <input type="text" class="form-control" readonly value="${info.getContact()}">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary"
-                        data-dismiss="modal">닫기
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+	<!-- 회원정보 Modal -->
+	<div class="modal fade" id="info" data-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">회원정보</h3>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label>이름</label> <input type="text" class="form-control"
+								readonly value="${info.getName()}">
+						</div>
+						<div class="form-group">
+							<label>이메일</label> <input type="text" class="form-control"
+								readonly value="${info.getEmail()}">
+						</div>
+						<div class="form-group">
+							<label>생년월일</label> <input type="text" class="form-control"
+								readonly value="${info.getBirthDate()}">
+						</div>
+						<div class="form-group">
+							<label>연락처</label> <input type="text" class="form-control"
+								readonly value="${info.getContact()}">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- 장바구니 Modal -->
 	<div class="modal fade" id="shopping" data-backdrop="static"
 		data-keyboard="false" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">장바구니</h5>
-						<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+				<div class="modal-header">
+					<h5 class="modal-title">장바구니</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="shopping-modal-body">
+					<%--						<div class="card border-secondary mb-3" style="max-width: 100%;">--%>
+					<%--							<div class="card-header">--%>
+					<%--								<div class="product-name-wrapper">신라면</div>--%>
+					<%--								<div class="product-remove-btn-wrapper">--%>
+					<%--									<button class="product-remove-btn">&times;</button>--%>
+					<%--								</div>--%>
+					<%--							</div>--%>
+					<%--							<div class="card-body text-secondary">--%>
+					<%--								<div class="shopping-count-wrapper">--%>
+					<%--									<button class="btn btn-outline-secondary shopping-product-count-minus">-</button>--%>
+					<%--									<input type="number" class="form-control shopping-product-count" readonly="readonly" value="1" style="text-align: center">--%>
+					<%--									<button class="btn btn-outline-secondary shopping-product-count-plus">+</button>--%>
+					<%--								</div>--%>
+					<%--								<div class="shopping-price-wrapper">--%>
+					<%--									<div class="shopping-price">5000원</div>--%>
+					<%--								</div>--%>
+					<%--							</div>--%>
+					<%--						</div>--%>
+				</div>
+				<div class="modal-footer">
+					<div class="shopping-total-wrapper">
+						<div class="shopping-total-text first-text">총 주문금액</div>
+						<div class="shopping-total-text price" id="total-price">
+							15000원</div>
 					</div>
-					<div class="modal-body" id="shopping-modal-body">
-<%--						<div class="card border-secondary mb-3" style="max-width: 100%;">--%>
-<%--							<div class="card-header">--%>
-<%--								<div class="product-name-wrapper">신라면</div>--%>
-<%--								<div class="product-remove-btn-wrapper">--%>
-<%--									<button class="product-remove-btn">&times;</button>--%>
-<%--								</div>--%>
-<%--							</div>--%>
-<%--							<div class="card-body text-secondary">--%>
-<%--								<div class="shopping-count-wrapper">--%>
-<%--									<button class="btn btn-outline-secondary shopping-product-count-minus">-</button>--%>
-<%--									<input type="number" class="form-control shopping-product-count" readonly="readonly" value="1" style="text-align: center">--%>
-<%--									<button class="btn btn-outline-secondary shopping-product-count-plus">+</button>--%>
-<%--								</div>--%>
-<%--								<div class="shopping-price-wrapper">--%>
-<%--									<div class="shopping-price">5000원</div>--%>
-<%--								</div>--%>
-<%--							</div>--%>
-<%--						</div>--%>
+					<div class="shopping-modal-control-wrapper">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-primary"
+							id="shopping-make-order" data-dismiss="modal">주문</button>
 					</div>
-					<div class="modal-footer">
-						<div class="shopping-total-wrapper">
-							<div class="shopping-total-text first-text">총 주문금액</div>
-							<div class="shopping-total-text price" id="total-price">
-								15000원
-							</div>
-						</div>
-						<div class="shopping-modal-control-wrapper">
-							<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">닫기</button>
-							<button type="button" class="btn btn-primary" id="shopping-make-order" data-dismiss="modal">주문</button>
-						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 회원탈퇴 Modal -->
+	<div class="modal fade" id="resign" data-backdrop="static"
+		tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">회원탈퇴</h3>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>이메일</label> <input type="email" class="form-control"
+							id="resign-email" readonly value="${info.getEmail()}">
 					</div>
+					<div class="form-group">
+						<label>비밀번호</label> <input type="password" class="form-control"
+							id="resign-password" >
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" id="resign-button" data-dismiss="modal">탈퇴</button>
+				</div>
 			</div>
 		</div>
 	</div>
