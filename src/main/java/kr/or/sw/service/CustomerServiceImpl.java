@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)    // Singleton
@@ -77,20 +79,25 @@ public class CustomerServiceImpl implements CustomerService {
             JSONArray array = (JSONArray) parser.parse(data);
             log.info("parsing success");
 
+            String memberID = null;
             List<ProductDTO> productDTOList = new ArrayList<>();
             for (Object order : array) {
                 JSONObject jsonObj = (JSONObject) order;
 
                 String productID = (String) jsonObj.get("productID");
+                String price = (String) jsonObj.get("price");   // 여기서 price는 단가가 아니라 품목별 합계임
                 String quantity = (String) jsonObj.get("quantity");
+                memberID = (String) jsonObj.get("memberID");
 
-                log.info("productID: {}, quantity: {}", productID, quantity);
-                ProductDTO productDTO = new ProductDTO();
-                productDTO.setProductID(Integer.parseInt(productID));
-                productDTO.setQuantity(Integer.parseInt(quantity));
+                log.info("productID: {}, price:{}, quantity: {}", productID, price, quantity);
+                ProductDTO productDTO = new ProductDTO(Integer.parseInt(productID), Integer.parseInt(price), Integer.parseInt(quantity));
                 productDTOList.add(productDTO);
             }
-            boolean result = customerDAO.insertSale(productDTOList) == 1;
+            Map<String, Object> map = new HashMap<>();
+            assert memberID != null;
+            map.put("memberID", Integer.parseInt(memberID));
+            map.put("productDTOList", productDTOList);
+            boolean result = customerDAO.insertSale(map) == 1;
             out.write(objectMapper.writeValueAsString(result));
             out.flush();
             return result;

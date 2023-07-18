@@ -78,6 +78,7 @@
                     </div>
                 </td>
             </tr>
+<<<<<<< HEAD
 <!--             <tr> -->
 <!--                 <th> -->
 <!--                     <label for="remainTime">잔여시간(분)</label></th> -->
@@ -90,6 +91,8 @@
 <!--                     </div> -->
 <!--                 </td> -->
 <!--             </tr> -->
+=======
+>>>>>>> f3367ec795816893d7e8a448c0c0e70b71692ec7
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" class="btn btn-primary" value="수정">
