@@ -47,8 +47,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         log.info("insertSale()");
 
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            sqlSession.insert("insertSale", map);
-            return 1;   // Procedure에서 :RESULT를 반환하는 것에 실패함
+            sqlSession.update("insertSale", map);
+            return 1;   // Procedure에서 :RESULT를 반환할 수 없음
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
