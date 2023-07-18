@@ -1,12 +1,17 @@
 package kr.or.sw.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kr.or.sw.mapper.ProductDAO;
+import kr.or.sw.mapper.ProductDAOImpl;
 import kr.or.sw.mapper.StockDAO;
 import kr.or.sw.mapper.StockDAOImpl;
+import kr.or.sw.model.JoinTableVO;
 import kr.or.sw.model.StockDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,8 +63,7 @@ public class StockServiceImpl implements StockService {
                 request.getParameter("stockName"),
                 Integer.parseInt(request.getParameter("price")),
                 Integer.parseInt(request.getParameter("quantity")),
-                request.getParameter("stockDate"),
-                Integer.parseInt(request.getParameter("productID"))
+                request.getParameter("stockDate")
         );
         int result = stockDAO.stockInsert(stockDTO);
         return result > 0;
@@ -125,10 +129,32 @@ public class StockServiceImpl implements StockService {
         response.setContentType("application/json");
 
         try (PrintWriter out = response.getWriter()) {
-            List<StockDTO> list = new ArrayList<>(stockDAO.selectAllStocks());
+            JSONObject data = new JSONObject();
+            JSONArray stockList = new JSONArray();
+            JSONArray recipeList = new JSONArray();
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            out.write(objectMapper.writeValueAsString(list));
+            List<StockDTO> list = stockDAO.selectAllStocks();
+            for (StockDTO dto : list) {
+                JSONObject obj = new JSONObject();
+                obj.put("stockID", dto.getStockID());
+                obj.put("stockName", dto.getStockName());
+                stockList.add(obj);
+            }
+            data.put("stock", stockList);
+
+            list = ProductDAOImpl.getInstance().selectCurrentRecipe(Integer.parseInt(request.getParameter("productID")));
+            log.info("get data success");
+
+            for (StockDTO dto : list) {
+                JSONObject obj = new JSONObject();
+                obj.put("stockID", dto.getStockID());
+                obj.put("stockName", dto.getStockName());
+                obj.put("quantity", dto.getQuantity());
+                recipeList.add(obj);
+            }
+            data.put("recipe", recipeList);
+
+            out.write(data.toJSONString());
             out.flush();
         }
     }
