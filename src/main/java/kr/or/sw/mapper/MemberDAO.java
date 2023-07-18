@@ -21,4 +21,8 @@ public interface MemberDAO {
     int updateMember(MemberDTO memberDTO);
 
     int deleteMember(int memberID);
+
+    int updateMemberSelf(MemberDTO memberDTO);
+
+    int updateMemberSelfWOPassword(MemberDTO memberDTO);
 }

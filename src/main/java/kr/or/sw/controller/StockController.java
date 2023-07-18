@@ -45,6 +45,7 @@ public class StockController extends HttpServlet {
             case "/order" -> {
                 log.info("/order");
                 // 재고 주문 페이지 이동
+                stockService.select(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }

@@ -463,6 +463,12 @@ $("#update-button").on("click", function() {
 				console.log(res)
 				if (res) {
 					alert("수정 완료");
+					$("#info-contact").val($("#update-input-contact").val());
+					$("#contact-update-btn").removeClass("btn-success");
+					$("#contact-update-btn").addClass("btn-outline-secondary");
+					$("#update-input-contact").attr("readonly", "readonly");
+					$("#update-input-confirm-password").val("") ;
+					$("#update-input-password").val("");
 					return true;
 				}
 				else {

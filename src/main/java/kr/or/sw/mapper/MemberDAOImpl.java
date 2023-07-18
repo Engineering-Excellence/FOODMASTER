@@ -97,4 +97,23 @@ public class MemberDAOImpl implements MemberDAO {
         }
         return result;
     }
+
+    @Override
+    public int updateMemberSelf(MemberDTO memberDTO) {
+        log.info("updateMemberSelf()");
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            int ret = sqlSession.update("updateMemberSelf", memberDTO);
+            sqlSession.commit();
+            return ret;
+        }
+    }
+
+    public int updateMemberSelfWOPassword(MemberDTO memberDTO) {
+        log.info("updateMemberSelfWOPassword()");
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            int ret = sqlSession.update("updateMemberSelfWOPassword", memberDTO);
+            sqlSession.commit();
+            return ret;
+        }
+    }
 }
