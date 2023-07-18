@@ -6,22 +6,10 @@
 		FROM BALANCE
 		ORDER BY LASTUPDATED DESC
 	</select>
-<<<<<<< Updated upstream
-
 <!-- 	<insert id="insertBalances" parameterType="kr.or.sw.model.BalanceVO"> -->
 <!-- 		INSERT INTO BALANCE(ACCOUNTID, ASSET, INCOME, EXPENSE, LASTUPDATED) -->
 <!-- 		VALUES ('ACCOUNT', #{asset}+#{income}-#{expense}, #{income}, #{expense}, SYSDATE) -->
 <!-- 	</insert> -->
 
 
-=======
-	<insert id="insertBalances" parameterType="kr.or.sw.model.BalanceVO">
-		INSERT INTO BALANCE(ACCOUNTID, ASSET, INCOME, EXPENSE, LASTUPDATED)
-		VALUES ('ACCOUNT', #{asset}+#{income}-#{expense}, #{income}, #{expense}, SYSDATE)
-	</insert>
-
-	
-	
-	
->>>>>>> Stashed changes
 </mapper>
