@@ -120,7 +120,8 @@
 						<!-- Button modal -->
 						<button type="button" class="btn btn-secondary user-button"
 							data-toggle="modal" data-target="#info">회원정보</button>
-						<button class="btn btn-secondary user-button">메세지</button>
+						<button type="button" class="btn btn-secondary user-button"
+							data-toggle="modal" data-target="#update">회원수정</button>
 					</div>
 
 					<div class="customer-info-button-row-wrapper">
@@ -200,6 +201,46 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" id="resign-button" data-dismiss="modal">탈퇴</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 회원정보 Modal -->
+	<div class="modal fade" id="update" data-backdrop="static" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">회원수정</h3>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+							<label>이름</label> <input type="text" class="form-control"
+								readonly value="${info.getName()}">
+						</div>
+						<div class="form-group">
+							<label>이메일</label> <input type="text" class="form-control"
+								readonly value="${info.getEmail()}">
+						</div>
+						<div class="form-group">
+							<label>생년월일</label> <input type="text" class="form-control"
+								readonly value="${info.getBirthDate()}">
+						</div>
+						<div class="form-group">
+							<label>연락처</label> <input type="text" class="form-control"
+								id="update-contact" value="${info.getContact()}">
+						</div>
+						<div class="form-group">
+							<label>비밀번호</label> <input type="password" class="form-control" id="update-password">
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" id="update-button"
+						data-dismiss="modal">수정</button>
 				</div>
 			</div>
 		</div>

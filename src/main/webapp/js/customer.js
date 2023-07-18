@@ -422,3 +422,34 @@ $("#resign-button").on("click", function() {
 		})
 	}
 })
+
+// 회원 수정 ajax
+$("#update-button").on("click", function() {
+	if (confirm("수정 하시겠습니까?")) {
+		
+		let data = {
+			'memberID': String(memberID),
+			'contact': $("#update-contact").val(),
+			'password': $("#update-password").val()
+		}
+
+		console.log(data);
+		$.ajax({
+			url: "/customer/update",
+			type: "post",
+			data: {
+				customerUpdate: JSON.stringify(data)
+			},
+			dataType: "json",
+			success: (res) => {
+				console.log(res)
+				if (res) {
+					alert("수정 완료");
+				}
+				else {
+					alert("수정 실패");
+				}
+			}
+		})
+	}
+})

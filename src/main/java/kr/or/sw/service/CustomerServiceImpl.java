@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.or.sw.mapper.AuthDAOImpl;
 import kr.or.sw.mapper.CustomerDAO;
 import kr.or.sw.mapper.CustomerDAOImpl;
+import kr.or.sw.mapper.MemberDAO;
 import kr.or.sw.mapper.MemberDAOImpl;
 import kr.or.sw.model.MemberDTO;
 import kr.or.sw.model.ProductDTO;
@@ -152,7 +153,25 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	@SneakyThrows
 	public boolean update(HttpServletRequest request, HttpServletResponse response) {
-		return false;
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		try (PrintWriter out = response.getWriter()) {
+			JSONParser parser = new JSONParser();
+			JSONObject object = (JSONObject)parser.parse(request.getParameter("customerUpdate"));
+			
+			int memberID = Integer.parseInt((String)object.get("memberID"));
+			String contact = (String)object.get("contact");
+			String password = (String) object.get("password");
+			log.info("data: {}, {}", contact, password);
+			
+			MemberDTO memberDTO = new MemberDTO(memberID, contact, password);
+			
+			out.write(objectMapper.writeValueAsString(null));
+			out.flush();
+			return MemberDAOImpl.getInstance().updateMember(memberDTO) == 1;
+		}
 	}
 }
