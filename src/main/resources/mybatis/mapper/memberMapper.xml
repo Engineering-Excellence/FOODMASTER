@@ -69,6 +69,19 @@
         WHERE MEMBERID = #{memberID}
     </update>
 
+    <update id="updateMemberSelf" parameterType="kr.or.sw.model.MemberDTO">
+        UPDATE MEMBER
+        SET PASSWORD   = #{password},
+            SALT       = #{salt},
+            CONTACT    = #{contact}
+        WHERE MEMBERID = #{memberID}
+    </update>
+    <update id="updateMemberSelfWOPassword" parameterType="kr.or.sw.model.MemberDTO">
+        UPDATE MEMBER
+        SET CONTACT    = #{contact}
+        WHERE MEMBERID = #{memberID}
+    </update>
+
     <delete id="deleteMember" parameterType="_int">
         DELETE
         FROM MEMBER
