@@ -357,6 +357,7 @@ $("#shopping-make-order").click(() => {
             'memberID': String(memberID),
             'productName': menu[entry[0]].productName,
             'productID': String(menu[entry[0]].productID),
+            'price':String(menu[entry[0]].price * entry[1]),
             'quantity': String(entry[1])
         });
     });

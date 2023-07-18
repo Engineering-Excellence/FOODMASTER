@@ -42,7 +42,7 @@ public class MemberDAOImpl implements MemberDAO {
     public List<MemberDTO> selectMemberByName(String name) {
         log.info("selectMemberByName()");
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-           return sqlSession.selectList("selectMemberByName", name);
+            return sqlSession.selectList("selectMemberByName", name);
         }
     }
 
@@ -75,16 +75,26 @@ public class MemberDAOImpl implements MemberDAO {
     @Override
     public int updateMember(MemberDTO memberDTO) {
         log.info("updateMember(): {}", memberDTO);
+        int result = 0;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            return sqlSession.update("updateMember", memberDTO);
+            result = sqlSession.update("updateMember", memberDTO);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return result;
     }
 
     @Override
     public int deleteMember(int memberID) {
         log.info("deleteMember(): {}", memberID);
+        int result = 0;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            return sqlSession.delete("deleteMember", memberID);
+            result = sqlSession.delete("deleteMember", memberID);
+            sqlSession.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return result;
     }
 }
