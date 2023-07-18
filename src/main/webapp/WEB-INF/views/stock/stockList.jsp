@@ -62,7 +62,6 @@
                         <th scope="col">재고수량</th>
                         <th scope="col">단가</th>
                         <th scope="col">최근입고일자</th>
-                        <th scope="col">상품 ID</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -74,14 +73,11 @@
                         <c:forEach var="i" begin="${(page - 1) * 10}"
                                    end="${Math.min(stockList.size() - 1, (page - 1) * 10 + 9)}">
                             <tr class="stock-data" id="stockData${i}">
-
                                 <td>${stockList.get(i).getStockID()}</td>
                                 <td>${stockList.get(i).getStockName()}</td>
                                 <td>${stockList.get(i).getQuantity()}</td>
                                 <td>${stockList.get(i).getPrice()}</td>
                                 <td>${stockList.get(i).getStockDate()}</td>
-                                <td>${stockList.get(i).getProductID()}</td>
-
                             </tr>
                         </c:forEach>
                     </c:if>

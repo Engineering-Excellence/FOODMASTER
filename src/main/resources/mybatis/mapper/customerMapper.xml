@@ -26,9 +26,9 @@
 
         BEGIN
         -- 판매기록 추가
-        INSERT INTO SALE (SALEID, SALEDATE, INCOME, MEMBERID)
+        INSERT INTO SALE (SALEID, SALEDATE, INCOME, MEMBERID, ACCOUNTID)
         -- 현재 memberID가 하드 코딩(1)된 상태임. 추후 로그인 세션에서 얻어온 후 변경 필요.
-        VALUES (SALEID_SEQ.nextval, SYSDATE, 0, 1)
+        VALUES (SALEID_SEQ.nextval, SYSDATE, 0, 1, 'account')
         RETURNING SALEID INTO v_saleid;
 
         <foreach collection="list" item="item" separator=" " index="index">
@@ -44,7 +44,7 @@
 
         -- 보유금 갱신
         UPDATE /*+ NO_PARALLEL(BALANCE), NO_PARALLEL(SALE) */ BALANCE
-        SET AMOUNT = AMOUNT + (
+        SET ASSETS = ASSETS + (
         SELECT INCOME
         FROM (SELECT /*+ NO_PARALLEL(SALE) */ INCOME FROM SALE ORDER BY SALEID DESC)
         WHERE ROWNUM = 1

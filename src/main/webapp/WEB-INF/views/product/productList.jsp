@@ -5,7 +5,7 @@
 
 <%-- 페이지가 범위를 벗어날 경우 (0이하 혹은 전체 데이터 개수를 넘어감) 다시 1페이지로 리다이렉트 --%>
 <%-- page는 1부터 시작하며, 한 페이지에 총 10개의 데이터가 담긴다 => 가능한 최대 페이지 수는 (전체 데이터 개수) / 10 를 올림한 값과 같다--%>
-<c:if test="${page <= 0 || Math.ceil(productList.size() / 10) < page}">
+<c:if test="${page <= 0 || Math.ceil(productList.size() / 10) < page && productList.size() > 0}">
     이때, keyword 값이 null이 아니면, 검색을 통한 데이터이므로, 검색 현황을 유지시킨 상태에서 1페이지로 리다이렉트
     <c:if test="${keyword != null}">
         <c:redirect url="/product/list?searchOption=${searchOption}&keyword=${keyword}&page=1"/>

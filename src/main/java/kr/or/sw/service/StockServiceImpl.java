@@ -1,12 +1,9 @@
 package kr.or.sw.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import kr.or.sw.mapper.ProductDAO;
 import kr.or.sw.mapper.ProductDAOImpl;
 import kr.or.sw.mapper.StockDAO;
 import kr.or.sw.mapper.StockDAOImpl;
-import kr.or.sw.model.JoinTableVO;
-import kr.or.sw.model.StockDTO;
+import kr.or.sw.model.StockVO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,16 +38,16 @@ public class StockServiceImpl implements StockService {
         log.info("select()");
 
         int stockID = Integer.parseInt(request.getParameter("stockID"));
-        StockDTO stockDTO = stockDAO.selectStock(stockID);
-        request.setAttribute("stockDTO", stockDTO);
-        log.info("stockDTO:{}", stockDTO);
+        StockVO stockVO = stockDAO.selectStock(stockID);
+        request.setAttribute("stockVO", stockVO);
+        log.info("stockVO:{}", stockVO);
     }
 
     @Override
     public void selectAll(HttpServletRequest request, HttpServletResponse response) {
         log.info("selectAll()");
 
-        List<StockDTO> list = new ArrayList<>(stockDAO.selectAllStocks());
+        List<StockVO> list = new ArrayList<>(stockDAO.selectAllStocks());
 
         request.setAttribute("stockList", list);
         request.setAttribute("page", Objects.requireNonNullElse(request.getParameter("page"), 1));
@@ -59,13 +56,13 @@ public class StockServiceImpl implements StockService {
     @Override
     public boolean insert(HttpServletRequest request, HttpServletResponse response) {
         log.info("insert()");
-        StockDTO stockDTO = new StockDTO(
+        StockVO stockVO = new StockVO(
                 request.getParameter("stockName"),
                 Integer.parseInt(request.getParameter("price")),
                 Integer.parseInt(request.getParameter("quantity")),
                 request.getParameter("stockDate")
         );
-        int result = stockDAO.stockInsert(stockDTO);
+        int result = stockDAO.stockInsert(stockVO);
         return result > 0;
     }
 
@@ -85,8 +82,8 @@ public class StockServiceImpl implements StockService {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int price = Integer.parseInt(request.getParameter("price"));
 
-        StockDTO stockDTO = new StockDTO(stockID, price, quantity);
-        return stockDAO.updateStock(stockDTO) == 1;
+        StockVO stockVO = new StockVO(stockID, price, quantity);
+        return stockDAO.updateStock(stockVO) == 1;
     }
 
     @Override
@@ -94,7 +91,7 @@ public class StockServiceImpl implements StockService {
 
         log.info("searchBy()");
 
-        List<StockDTO> result;
+        List<StockVO> result;
 
         String keyword = request.getParameter("keyword");
 
@@ -113,7 +110,7 @@ public class StockServiceImpl implements StockService {
             case 3 -> stockDAO.selectStockByName(keyword);
             default -> throw new IllegalStateException("Unexpected value: " + searchOption);
         };
-        List<StockDTO> list = new ArrayList<>(result);
+        List<StockVO> list = new ArrayList<>(result);
         log.info("size: {}", list.size());
 
         request.setAttribute("stockList", list);
@@ -133,8 +130,8 @@ public class StockServiceImpl implements StockService {
             JSONArray stockList = new JSONArray();
             JSONArray recipeList = new JSONArray();
 
-            List<StockDTO> list = stockDAO.selectAllStocks();
-            for (StockDTO dto : list) {
+            List<StockVO> list = stockDAO.selectAllStocks();
+            for (StockVO dto : list) {
                 JSONObject obj = new JSONObject();
                 obj.put("stockID", dto.getStockID());
                 obj.put("stockName", dto.getStockName());
@@ -145,7 +142,7 @@ public class StockServiceImpl implements StockService {
             list = ProductDAOImpl.getInstance().selectCurrentRecipe(Integer.parseInt(request.getParameter("productID")));
             log.info("get data success");
 
-            for (StockDTO dto : list) {
+            for (StockVO dto : list) {
                 JSONObject obj = new JSONObject();
                 obj.put("stockID", dto.getStockID());
                 obj.put("stockName", dto.getStockName());
