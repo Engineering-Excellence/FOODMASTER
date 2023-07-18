@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.sw.mapper.AuthDAOImpl">
-    <select id="selectCredentials" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
+    <select id="selectCredentials" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
         SELECT PASSWORD, SALT
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
 
-    <select id="checkEmail" parameterType="String" resultType="_int">
+    <select id="checkEmail" parameterType="java.lang.String" resultType="_int">
         SELECT COUNT(*)
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
 
-    <select id="getQuestion" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
+    <select id="getQuestion" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
         SELECT QUESTION, ANSWER
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
 
-    <select id="getMemberInfo" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
-        SELECT MEMBERID, NAME, EMAIL, CONTACT, BIRTHDATE, REGDATE, REMAINTIME
+    <select id="getMemberInfo" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
+        SELECT MEMBERID, NAME, EMAIL, CONTACT, BIRTHDATE, REGDATE
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
@@ -29,7 +29,7 @@
     <insert id="insertMember" parameterType="kr.or.sw.model.MemberDTO">
         INSERT INTO MEMBER
         VALUES (PCMASTER.MEMBERID_SEQ.NEXTVAL, #{name}, #{email}, #{password}, #{salt}, #{contact}, #{question},
-                #{answer}, #{birthDate}, SYSDATE, 0)
+                #{answer}, #{birthDate}, SYSDATE)
     </insert>
 
     <update id="resetPassword" parameterType="kr.or.sw.model.MemberDTO">
@@ -39,15 +39,15 @@
         WHERE EMAIL = #{email}
     </update>
 
-    <select id="selectAdminCredentials" parameterType="String" resultType="kr.or.sw.model.EmpDTO">
+    <select id="selectAdminCredentials" parameterType="java.lang.String" resultType="kr.or.sw.model.EmpDTO">
         SELECT PASSWORD, SALT
         FROM EMP
-        WHERE ACCOUNT = #{account}
+        WHERE ADMIN = #{ADMIN}
     </select>
 
-    <select id="getAdminInfo" parameterType="String" resultType="kr.or.sw.model.EmpDTO">
-        SELECT EMPID, ACCOUNT
+    <select id="getAdminInfo" parameterType="java.lang.String" resultType="kr.or.sw.model.EmpDTO">
+        SELECT EMPID, ADMIN
         FROM EMP
-        WHERE ACCOUNT = #{account}
+        WHERE ADMIN = #{ADMIN}
     </select>
 </mapper>

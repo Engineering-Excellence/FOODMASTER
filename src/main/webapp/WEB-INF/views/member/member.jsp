@@ -55,7 +55,6 @@
                         <th scope="col">연락처</th>
                         <th scope="col">생년월일</th>
                         <th scope="col">가입일</th>
-                        <th scope="col">남은시간(분)</th>
                         <th scope="col">최근방문일</th>
                     </tr>
                     </thead>
@@ -74,7 +73,6 @@
                                 <td>${memberList.get(i).getContact()}</td>
                                 <td>${memberList.get(i).getBirthDate()}</td>
                                 <td>${memberList.get(i).getRegDate()}</td>
-                                <td>${memberList.get(i).getRemainTime()}</td>
                                 <td>-</td>
                             </tr>
                         </c:forEach>

@@ -15,14 +15,14 @@
         ORDER BY PRODUCTID ASC
     </select>
 
-    <select id="selectProductByCategory" parameterType="String" resultType="kr.or.sw.model.ProductDTO">
+    <select id="selectProductByCategory" parameterType="java.lang.String" resultType="kr.or.sw.model.ProductDTO">
         SELECT *
         FROM PRODUCT
         WHERE CATEGORY LIKE #{category}
         ORDER BY PRODUCTID ASC
     </select>
 
-    <select id="selectProductByName" parameterType="String" resultType="kr.or.sw.model.ProductDTO">
+    <select id="selectProductByName" parameterType="java.lang.String" resultType="kr.or.sw.model.ProductDTO">
         SELECT *
         FROM PRODUCT
         WHERE PRODUCTNAME LIKE #{productName}
@@ -41,7 +41,7 @@
         WHERE PRODUCTID = #{productID}
     </select>
 
-    <select id="selectCurrentRecipe" parameterType="_int" resultType="kr.or.sw.model.StockDTO">
+    <select id="selectCurrentRecipe" parameterType="_int" resultType="kr.or.sw.model.StockVO">
         SELECT S.STOCKID STOCKID, S.STOCKNAME STOCKNAME, PS.QUANTITY QUANTITY
         FROM STOCK S JOIN PRODUCT_STOCK PS
         ON S.STOCKID = PS.STOCKID
