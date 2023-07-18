@@ -1,6 +1,6 @@
 package kr.or.sw.mapper;
 
-import kr.or.sw.model.StockDTO;
+import kr.or.sw.model.StockVO;
 import kr.or.sw.util.MyBatisUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -23,9 +23,9 @@ public class StockDAOImpl implements StockDAO {
     }
 
     @Override
-    public List<StockDTO> selectAllStocks() {
+    public List<StockVO> selectAllStocks() {
         log.info("selectAllStocks()");
-        List<StockDTO> stockList;
+        List<StockVO> stockList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
             stockList = sqlSession.selectList("selectAllStocks");
         }
@@ -33,21 +33,21 @@ public class StockDAOImpl implements StockDAO {
     }
 
     @Override
-    public StockDTO selectStock(int stockID) {
+    public StockVO selectStock(int stockID) {
         log.info("selectStock(): {}", stockID);
-        StockDTO stockDTO;
+        StockVO stockVO;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
 
-            stockDTO = sqlSession.selectOne("selectStock", stockID);
+            stockVO = sqlSession.selectOne("selectStock", stockID);
         }
-        return stockDTO;
+        return stockVO;
     }
 
     @Override
-    public List<StockDTO> selectStockById(int stockID) {
+    public List<StockVO> selectStockById(int stockID) {
         log.info("selectStockById: {}", stockID);
 
-        List<StockDTO> stockList;
+        List<StockVO> stockList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
 
             stockList = sqlSession.selectList("selectStockById", stockID);
@@ -56,10 +56,10 @@ public class StockDAOImpl implements StockDAO {
     }
 
     @Override
-    public List<StockDTO> selectStockByProductID(int productID) {
+    public List<StockVO> selectStockByProductID(int productID) {
         log.info("selectStockByProductID: {}", productID);
 
-        List<StockDTO> stockList;
+        List<StockVO> stockList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
 
             stockList = sqlSession.selectList("selectStockByProductID", productID);
@@ -68,10 +68,10 @@ public class StockDAOImpl implements StockDAO {
     }
 
     @Override
-    public List<StockDTO> selectStockByName(String stockName) {
+    public List<StockVO> selectStockByName(String stockName) {
         log.info("selectStockByName():{}", stockName);
 
-        List<StockDTO> stockList;
+        List<StockVO> stockList;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
 
             stockList = sqlSession.selectList("selectStockByName", stockName);
@@ -91,26 +91,26 @@ public class StockDAOImpl implements StockDAO {
     }
 
     @Override
-    public int updateStock(StockDTO stockDTO) {
-        log.info("updateStock(): {}", stockDTO);
+    public int updateStock(StockVO stockVO) {
+        log.info("updateStock(): {}", stockVO);
         int result;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            result = sqlSession.update("updateStock", stockDTO);
+            result = sqlSession.update("updateStock", stockVO);
             if (result > 0) sqlSession.commit();
         }
         return result;
     }
 
     @Override
-    public int stockInsert(StockDTO stockDTO) {
-        log.info("stockInsert(): {}", stockDTO);
+    public int stockInsert(StockVO stockVO) {
+        log.info("stockInsert(): {}", stockVO);
 
         int result;
 
-        if (stockDTO == null)
+        if (stockVO == null)
             return 0;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            result = sqlSession.insert("stockInsert", stockDTO);
+            result = sqlSession.insert("stockInsert", stockVO);
             if (result > 0)
                 sqlSession.commit();
             else

@@ -7,8 +7,7 @@
                NAME,
                EMAIL,
                CONTACT,
-               REGDATE,
-               REMAINTIME
+               REGDATE
         FROM MEMBER
         ORDER BY MEMBERID ASC
     </select>
@@ -18,44 +17,40 @@
                NAME,
                EMAIL,
                CONTACT,
-               REGDATE,
-               REMAINTIME
+               REGDATE
         FROM MEMBER
         WHERE MEMBERID = #{id}
         ORDER BY MEMBERID ASC
     </select>
 
-    <select id="selectMemberByName" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
+    <select id="selectMemberByName" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
         SELECT MEMBERID,
                NAME,
                EMAIL,
                CONTACT,
-               REGDATE,
-               REMAINTIME
+               REGDATE
         FROM MEMBER
         WHERE NAME LIKE #{name}
         ORDER BY MEMBERID ASC
     </select>
 
-    <select id="selectMemberByEmail" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
+    <select id="selectMemberByEmail" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
         SELECT MEMBERID,
                NAME,
                EMAIL,
                CONTACT,
-               REGDATE,
-               REMAINTIME
+               REGDATE
         FROM MEMBER
         WHERE EMAIL LIKE #{email}
         ORDER BY MEMBERID ASC
     </select>
 
-    <select id="selectMemberByContact" parameterType="String" resultType="kr.or.sw.model.MemberDTO">
+    <select id="selectMemberByContact" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
         SELECT MEMBERID,
                NAME,
                EMAIL,
                CONTACT,
-               REGDATE,
-               REMAINTIME
+               REGDATE
         FROM MEMBER
         WHERE CONTACT LIKE #{contact}
         ORDER BY MEMBERID ASC
@@ -71,7 +66,6 @@
         UPDATE MEMBER
         SET EMAIL      = #{email},
             CONTACT    = #{contact},
-            REMAINTIME = #{remainTime}
         WHERE MEMBERID = #{memberID}
     </update>
 

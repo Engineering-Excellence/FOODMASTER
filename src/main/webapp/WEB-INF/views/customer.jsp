@@ -96,7 +96,7 @@
 					</div>
 					<div class="customer-info-user-row">
 						<div class="customer-info-user-head">남은시간</div>
-						<div class="customer-info-user-data">${info.getRemainTime()}</div>
+						<div class="customer-info-user-data">0</div>
 					</div>
 				</div>
 				<div class="customer-info-button-container">
