@@ -18,6 +18,7 @@
 	src="${pageContext.request.contextPath}/js/bootstrap.min.js" defer></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/customer.js" defer></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/validation.js" defer></script>
 <script>
 	// el 정렬 하지 말것
 	var memberID = ${info.getMemberID()};
@@ -75,7 +76,7 @@
 		<div class="customer-info-container">
 			<div class="customer-info-header-container">
 				<div class="customer-info-header-wrapper">
-					<div class="customer-info-header-logo">PC MASTER</div>
+					<div class="customer-info-header-logo">FOOD MASTER</div>
 				</div>
 			</div>
 			<div class="customer-info-body-container">
@@ -84,24 +85,24 @@
 							<h5 class="modal-title">장바구니</h5>
 						</div>
 						<div class="modal-body" id="shopping-modal-body">
-							<%--						<div class="card border-secondary mb-3" style="max-width: 100%;">--%>
-							<%--							<div class="card-header">--%>
-							<%--								<div class="product-name-wrapper">신라면</div>--%>
-							<%--								<div class="product-remove-btn-wrapper">--%>
-							<%--									<button class="product-remove-btn">&times;</button>--%>
-							<%--								</div>--%>
-							<%--							</div>--%>
-							<%--							<div class="card-body text-secondary">--%>
-							<%--								<div class="shopping-count-wrapper">--%>
-							<%--									<button class="btn btn-outline-secondary shopping-product-count-minus">-</button>--%>
-							<%--									<input type="number" class="form-control shopping-product-count" readonly="readonly" value="1" style="text-align: center">--%>
-							<%--									<button class="btn btn-outline-secondary shopping-product-count-plus">+</button>--%>
-							<%--								</div>--%>
-							<%--								<div class="shopping-price-wrapper">--%>
-							<%--									<div class="shopping-price">5000원</div>--%>
-							<%--								</div>--%>
-							<%--							</div>--%>
-							<%--						</div>--%>
+<%--						<div class="card border-secondary mb-3" style="max-width: 100%;">--%>
+<%--							<div class="card-header">--%>
+<%--								<div class="product-name-wrapper">신라면</div>--%>
+<%--								<div class="product-remove-btn-wrapper">--%>
+<%--									<button class="product-remove-btn">&times;</button>--%>
+<%--								</div>--%>
+<%--							</div>--%>
+<%--							<div class="card-body text-secondary">--%>
+<%--								<div class="shopping-count-wrapper">--%>
+<%--									<button class="btn btn-outline-secondary shopping-product-count-minus">-</button>--%>
+<%--									<input type="number" class="form-control shopping-product-count" readonly="readonly" value="1" style="text-align: center">--%>
+<%--									<button class="btn btn-outline-secondary shopping-product-count-plus">+</button>--%>
+<%--								</div>--%>
+<%--								<div class="shopping-price-wrapper">--%>
+<%--									<div class="shopping-price">5000원</div>--%>
+<%--								</div>--%>
+<%--							</div>--%>
+<%--						</div>--%>
 						</div>
 						<div class="modal-footer">
 							<div class="shopping-total-wrapper">
@@ -120,7 +121,9 @@
 						<!-- Button modal -->
 						<button type="button" class="btn btn-secondary user-button"
 							data-toggle="modal" data-target="#info">회원정보</button>
-						<button class="btn btn-secondary user-button">메세지</button>
+						<button type="button" class="btn btn-secondary user-button"
+							data-toggle="modal" data-target="#update"
+							id="open-update-modal">회원수정</button>
 					</div>
 
 					<div class="customer-info-button-row-wrapper">
@@ -144,7 +147,7 @@
 				<div class="modal-header">
 					<h3 class="modal-title">회원정보</h3>
 					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+						aria-label="Close" id="close-update-modal">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
@@ -200,6 +203,72 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" id="resign-button" data-dismiss="modal">탈퇴</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 회원정보 Modal -->
+	<div class="modal fade" id="update" data-backdrop="static" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">회원수정</h3>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<label for="update-input-name">이름</label>
+					<div class="input-group">
+						<input type="text" class="form-control"
+							   readonly value="${info.getName()}"
+								id="update-input-name">
+					</div>
+					<br>
+
+					<label for="update-input-email">이메일</label>
+					<div class="input-group">
+						<input type="text" class="form-control"
+							readonly value="${info.getEmail()}"
+							id="update-input-email">
+					</div>
+					<br>
+
+					<label for="update-input-birthdate">생년월일</label>
+					<div class="input-group">
+						<input type="text" class="form-control"
+							readonly value="${info.getBirthDate()}"
+						   	id="update-input-birthdate">
+					</div>
+					<br>
+
+					<label for="update-input-contact">연락처</label>
+					<div class="input-group">
+						<input type="text" class="form-control" readonly="readonly"
+							id="update-input-contact" value="${info.getContact()}">
+						<button class="btn btn-outline-secondary" type="button" id="contact-update-btn">수정
+						</button>
+					</div>
+					<br>
+
+					<button id="password-update-btn">비밀번호 수정 ▶</button>
+					<div class="password-update-wrapper">
+						<label for="update-input-password">비밀번호</label>
+						<div class="input-group">
+							<input type="password" class="form-control" id="update-input-password">
+						</div>
+						<br>
+						<label for="update-input-confirm-password">비밀번호 확인</label>
+						<div class="input-group">
+							<input type="password" class="form-control" id="update-input-confirm-password">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" id="update-button"
+						data-dismiss="modal">제출</button>
 				</div>
 			</div>
 		</div>

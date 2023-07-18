@@ -8,6 +8,8 @@ var shoppingList = new Map();
 var shoppingCount = 0;
 var root = new Trie();
 
+var isUpdatePassword = false;
+
 function throttle(callback, delay) {
 	let timer
 	return event => {
@@ -422,3 +424,84 @@ $("#resign-button").on("click", function() {
 		})
 	}
 })
+
+// 회원 수정 ajax
+$("#update-button").on("click", function() {
+	if (!checkValidate($("#update-input-contact").val(), contactRegex)) {
+		alert("올바른 연락처가 아닙니다");
+		return false;
+	}
+
+	if (isUpdatePassword) {
+		if (!checkValidate($("#update-input-password").val(), passwordRegex)) {
+			alert("비밀번호가 조건에 맞지 않습니다\n8자 이상, 대소문자 1개 이상, 숫자 1개 이상, 특수문자 1개 이상이 포함되어야 합니다");
+			return false;
+		}
+
+		if ($("#update-input-password").val() != $("#update-input-confirm-password").val()) {
+			alert("비밀번호가 일치하지 않습니다")
+			return false;
+		}
+	}
+
+	if (confirm("수정 하시겠습니까?")) {
+		let data = {
+			'memberID': String(memberID),
+			'contact': $("#update-input-contact").val(),
+			'password': $("#update-input-password").val()
+		}
+
+		console.log(data);
+		$.ajax({
+			url: "/customer/update",
+			type: "post",
+			data: {
+				customerUpdate: JSON.stringify(data)
+			},
+			dataType: "json",
+			success: (res) => {
+				console.log(res)
+				if (res) {
+					alert("수정 완료");
+					return true;
+				}
+				else {
+					alert("수정 실패");
+					return true;
+				}
+			}
+		})
+	}
+	else
+		return false;
+})
+
+$("#contact-update-btn").click(() => {
+	if ($("#contact-update-btn").hasClass("btn-outline-secondary")) {
+		$("#contact-update-btn").removeClass("btn-outline-secondary");
+		$("#contact-update-btn").addClass("btn-success");
+		$("#update-input-contact").removeAttr("readonly");
+	}
+	else  {
+		$("#contact-update-btn").removeClass("btn-success");
+		$("#contact-update-btn").addClass("btn-outline-secondary");
+		$("#update-input-contact").attr("readonly", "readonly");
+	}
+});
+
+$("#open-update-modal").click(() => {
+	isUpdatePassword = false;
+});
+
+$("#password-update-btn").click(() => {
+	isUpdatePassword = !isUpdatePassword;
+
+	let height = 0;
+	let mark = "▶"
+	if (isUpdatePassword) {
+		height = "fit-content";
+		mark = "▼"
+	}
+	$(".password-update-wrapper").css("height", height);
+	$("#password-update-btn").text(`비밀번호 수정 ${mark}`);
+});

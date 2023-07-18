@@ -148,8 +148,26 @@ public class CustomerServiceImpl implements CustomerService {
         return false;
     }
 
-    @Override
-    public boolean update(HttpServletRequest request, HttpServletResponse response) {
-        return false;
-    }
+	@Override
+	@SneakyThrows
+	public boolean update(HttpServletRequest request, HttpServletResponse response) {
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		try (PrintWriter out = response.getWriter()) {
+			JSONParser parser = new JSONParser();
+			JSONObject object = (JSONObject)parser.parse(request.getParameter("customerUpdate"));
+			
+			int memberID = Integer.parseInt((String)object.get("memberID"));
+			String contact = (String)object.get("contact");
+			String password = (String) object.get("password");
+			log.info("data: {}, {}", contact, password);
+			
+			MemberDTO memberDTO = new MemberDTO(memberID, contact, password);
+			
+			out.write(objectMapper.writeValueAsString(null));
+			out.flush();
+			return MemberDAOImpl.getInstance().updateMember(memberDTO) == 1;
+		}
+	}
 }
