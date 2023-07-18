@@ -3,6 +3,7 @@ package kr.or.sw.mapper;
 import kr.or.sw.model.JoinTableVO;
 import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
+import kr.or.sw.model.StockDTO;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface ProductDAO {
     int updateProduct(ProductDTO productDTO);
 
     int updateRecipe(List<JoinTableVO> joinTableVOList);
+
+    List<StockDTO> selectCurrentRecipe(int productID);
 }

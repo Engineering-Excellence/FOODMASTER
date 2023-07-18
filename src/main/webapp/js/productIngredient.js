@@ -1,7 +1,7 @@
 'use strict'
 
 var stock;
-var selectStock = new Set();
+var selectStock = new Map();
 var root = new Trie();
 
 function throttle(callback, delay) {
@@ -38,17 +38,25 @@ Trie.prototype.find = (self, key, stringIdx) => {
     if (!self.next.has(curr)) return [];
     return self.next.get(curr).find(self.next.get(curr), key, stringIdx + 1);
 }
-
+const addEventListenerInput = () => {
+    $(".quantity").each((idx, e) => {
+        $(e).change(() => {
+            selectStock.set(idx, $(e).val());
+            updateSelectTable();
+        });
+    });
+}
 const updateSelectTable = () => {
     let htmls = "";
     const sortedList = Array.from([...selectStock].sort());
     console.log(sortedList);
-    sortedList.forEach((stockIdx, idx) => {
+    sortedList.forEach((entry, idx) => {
+        console.log(entry);
         htmls += `<tr class="product-data">`
-        htmls += `<td>${stock[stockIdx].stockID}</td>`
-        htmls += `<td>${stock[stockIdx].stockName}</td>`
+        htmls += `<td>${stock[entry[0]].stockID}</td>`
+        htmls += `<td>${stock[entry[0]].stockName}</td>`
         htmls += '<td>'
-        htmls += `<input type="number" class="form-control quantity" value="1" min="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">`
+        htmls += `<input type="number" class="form-control quantity" value="${entry[1]}" min="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">`
         htmls += '<div class="selected-ingredient-remove-btn-wrapper">'
         htmls += '<button class="selected-ingredient-remove-btn">&times;</button>'
         htmls += '</div>'
@@ -60,10 +68,11 @@ const updateSelectTable = () => {
 
     $(".selected-ingredient-remove-btn").each((idx, element) => {
         $(element).click(() => {
-            selectStock.delete(sortedList[idx]);
+            selectStock.delete(sortedList[idx][0]);
             updateSelectTable();
         });
     })
+    addEventListenerInput();
 }
 const addEventListenerOnStock = (list) => {
     const sortedList = Array.from([...list].sort());
@@ -72,7 +81,7 @@ const addEventListenerOnStock = (list) => {
             console.log(idx);
             console.log(element);
             if (!selectStock.has(sortedList[idx])) {
-                selectStock.add(sortedList[idx]);
+                selectStock.set(sortedList[idx], 1);
                 updateSelectTable();
             }
         });
@@ -113,22 +122,30 @@ window.onload = () => {
     $.ajax({
         url: "/product/stock",
         type: "post",
+        data: {
+          productID: new URL(window.location.href).searchParams.get("productID")
+        },
         async: true,
         success: (res) => {
             // 재고 목록 가져오는 부분
-            stock = res;
-            res.forEach((s, idx) => {
-                console.log(s);
-                console.log(idx)
+            console.log(res);
+            stock = res.stock;
+
+            let curr = 0;
+            stock.forEach((s, idx) => {
+                if (curr < res.recipe.length && s.stockID == res.recipe[curr].stockID) {
+                    selectStock.set(idx, res.recipe[curr].quantity);
+                    curr++;
+                }
+
                 for (let i = 0; i < s.stockName.length; i++)
                     root.insert(root, s.stockName.substring(i), 0, idx);
             });
 
+            updateSelectTable();
             showAllStock();
         },
     });
-
-    // ajax를 한번 더 해가지고 현재 등록된 재료를 가져오기?
 };
 
 $("#close-window").click(() => {
