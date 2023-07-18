@@ -106,12 +106,8 @@ public class StockDAOImpl implements StockDAO {
         log.info("stockInsert(): {}", stockVO);
 
         int result;
-<<<<<<< HEAD
-        if (stockDTO == null)
-=======
 
         if (stockVO == null)
->>>>>>> 5ec5c4cbfa9982f653a41a1ca0e467cab19389b0
             return 0;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
             result = sqlSession.insert("stockInsert", stockVO);

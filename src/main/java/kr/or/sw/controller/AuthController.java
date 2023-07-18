@@ -1,23 +1,23 @@
 package kr.or.sw.controller;
 
-import kr.or.sw.service.AuthService;
-import kr.or.sw.service.AuthServiceImpl;
-import lombok.extern.slf4j.Slf4j;
+import static kr.or.sw.controller.HomeController.VIEW_PATH;
+import static kr.or.sw.controller.HomeController.handleInvalidAccess;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serial;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import static kr.or.sw.controller.HomeController.VIEW_PATH;
-import static kr.or.sw.controller.HomeController.handleInvalidAccess;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.or.sw.service.AuthService;
+import kr.or.sw.service.AuthServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @WebServlet(name = "AuthController", urlPatterns = {"/auth/*"})

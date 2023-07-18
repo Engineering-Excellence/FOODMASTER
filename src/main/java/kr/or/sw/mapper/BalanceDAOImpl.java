@@ -1,6 +1,7 @@
 package kr.or.sw.mapper;
 
 import kr.or.sw.model.BalanceVO;
+import kr.or.sw.model.ProductDTO;
 import kr.or.sw.util.MyBatisUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -32,4 +33,6 @@ public class BalanceDAOImpl implements BalanceDAO {
         }
         return balanceList;
     }
+
+    
 }

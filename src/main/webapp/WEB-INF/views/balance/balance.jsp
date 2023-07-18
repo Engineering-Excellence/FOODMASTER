@@ -69,7 +69,7 @@
                                    end="${Math.min(balanceList.size() - 1, (page - 1) * 10 + 9)}">
                             <tr class="balance-data" id="balanceData${i}">
                                 <td>${balanceList.get(i).getAccountID()}</td>
-                                <td>${balanceList.get(i).getAsset()}</td>
+                                <td>${balanceList.get(i).getAssets()}</td>
                                 <td>${balanceList.get(i).getIncome()}</td>
                                 <td>${balanceList.get(i).getExpense()}</td>   
                                 <td>${balanceList.get(i).getLastUpdated()}</td>    

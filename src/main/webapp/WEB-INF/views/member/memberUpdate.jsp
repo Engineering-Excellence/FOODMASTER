@@ -78,18 +78,18 @@
                     </div>
                 </td>
             </tr>
-            <tr>
-                <th>
-                    <label for="remainTime">잔여시간(분)</label></th>
-                <td>
-                    <div class="input-container">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="remainTime" name="remainTime"
-                                   value="${memberDTO.getRemainTime()}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
+<!--             <tr> -->
+<!--                 <th> -->
+<!--                     <label for="remainTime">잔여시간(분)</label></th> -->
+<!--                 <td> -->
+<!--                     <div class="input-container"> -->
+<!--                         <div class="input-group"> -->
+<!--                             <input type="text" class="form-control" id="remainTime" name="remainTime" -->
+<%--                                    value="${memberDTO.getRemainTime()}"> --%>
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </td> -->
+<!--             </tr> -->
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" class="btn btn-primary" value="수정">

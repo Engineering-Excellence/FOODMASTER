@@ -1,12 +1,11 @@
 package kr.or.sw.mapper;
 
-import kr.or.sw.model.BalanceVO;
-
 import java.util.List;
+
+import kr.or.sw.model.BalanceVO;
 
 public interface BalanceDAO {
 
     List<BalanceVO> selectAllBalances();
-
-	
+    
 }
