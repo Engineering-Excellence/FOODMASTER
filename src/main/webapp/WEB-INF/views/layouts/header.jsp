@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="JSP Project for Internet Cafe Management System">
     <meta name="author" content="PC Master">
-    <title>PC Master</title>
+    <title>FOOD Master</title>
     <link rel="icon" href="${pageContext.request.contextPath}/favicon.ico">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
