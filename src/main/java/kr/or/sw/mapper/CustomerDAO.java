@@ -1,5 +1,6 @@
 package kr.or.sw.mapper;
 
+import kr.or.sw.model.MemberDTO;
 import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
 
