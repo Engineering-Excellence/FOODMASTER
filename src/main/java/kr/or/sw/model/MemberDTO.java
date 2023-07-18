@@ -21,13 +21,11 @@ public class MemberDTO {    // 회원 테이블
     private String answer;    // 본인확인정답
     private java.sql.Date birthDate; // 생년월일
     private java.sql.Date regDate;  // 등록일
-    private int remainTime; // 잔여시간
 
-    public MemberDTO(int memberID, String email, String contact, int remainTime) {
+    public MemberDTO(int memberID, String email, String contact) {
         this.memberID = memberID;
         this.email = email;
         this.contact = contact;
-        this.remainTime = remainTime;
     }
 
     public MemberDTO(String name, String email, String password, String salt, String contact, String question, String answer, String birthDate) {

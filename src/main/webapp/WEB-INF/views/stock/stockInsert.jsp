@@ -17,14 +17,6 @@
 			<div class="insert-wrapper">
 				<form action="/stock/insert" method="post">
 					<br> <br>
-<!-- 					<div class="insert-stockID"> -->
-<!-- 						<h3>재고 ID</h3> -->
-<!-- 						<div class="input-group mb-3"> -->
-<!-- 							<input type="number" class="form-control" -->
-<!-- 								placeholder="재고ID를 입력해주세요" aria-label="Username" name="stockID"> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<br> <br> -->
 					<div class="insert-stockName">
 						<h3>재고명</h3>
 						<div class="input-group mb-3">
@@ -57,15 +49,6 @@
 							<input type="date" class="form-control"
 								placeholder="재고 입고일을 입력해주세요" aria-label="Username"
 								name="stockDate">
-						</div>
-					</div>
-					<br> <br>
-					<div class="insert-productID">
-						<h3>상품 ID</h3>
-						<div class="input-group mb-3">
-							<input type="number" class="form-control"
-								placeholder="상품ID를 입력해주세요" aria-label="Username"
-								name="productID">
 						</div>
 					</div>
 					<br> <br>

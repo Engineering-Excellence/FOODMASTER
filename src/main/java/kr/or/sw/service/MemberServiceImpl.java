@@ -90,9 +90,8 @@ public class MemberServiceImpl implements MemberService {
         int memberID = Integer.parseInt(request.getParameter("memberID"));
         String email = request.getParameter("email");
         String contact = request.getParameter("contact");
-        int remainTime = Integer.parseInt(request.getParameter("remainTime"));
 
-        MemberDTO memberDTO = new MemberDTO(memberID, email, contact, remainTime);
+        MemberDTO memberDTO = new MemberDTO(memberID, email, contact);
         return memberDAO.updateMember(memberDTO) == 1;
     }
 

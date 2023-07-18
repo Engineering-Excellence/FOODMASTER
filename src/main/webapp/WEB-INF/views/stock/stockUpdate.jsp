@@ -16,7 +16,7 @@
                     <div class="input-container">
                         <div class="input-group">
                             <input type="text" class="form-control" id="stockID" name="stockID"
-                                   value="${stockDTO.getStockID()}"
+                                   value="${stockVO.getStockID()}"
                                    readonly>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                     <div class="input-container">
                         <div class="input-group">
                             <input type="text" class="form-control" id="stockName" name="stockName"
-                                   value="${stockDTO.getStockName()}"
+                                   value="${stockVO.getStockName()}"
                                    readonly>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                     <div class="input-container">
                         <div class="input-group">
                             <input type="number" class="form-control" id="quantity" name="quantity"
-                                   value="${stockDTO.getQuantity()}">
+                                   value="${stockVO.getQuantity()}">
                         </div>
                     </div>
                 </td>
@@ -54,7 +54,7 @@
                     <div class="input-container">
                         <div class="input-group">
                             <input type="number" class="form-control" id="price" name="price"
-                                   value="${stockDTO.getPrice()}">
+                                   value="${stockVO.getPrice()}">
                         </div>
                     </div>
                 </td>
@@ -66,7 +66,7 @@
                     <div class="input-container">
                         <div class="input-group">
                             <input type="date" class="form-control" id="stockDate" name="stockDate"
-                                   value="${stockDTO.getStockDate()}" readonly>
+                                   value="${stockVO.getStockDate()}" readonly>
                         </div>
                     </div>
                 </td>
@@ -78,7 +78,7 @@
                     <div class="input-container">
                         <div class="input-group">
                             <input type="number" class="form-control" id="productID" name="productID"
-                                   value="${stockDTO.getProductID()}" readonly>
+                                   value="${stockVO.getProductID()}" readonly>
                         </div>
                     </div>
                 </td>
