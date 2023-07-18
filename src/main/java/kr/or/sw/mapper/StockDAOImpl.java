@@ -102,15 +102,15 @@ public class StockDAOImpl implements StockDAO {
     }
 
     @Override
-    public int stockInsert(StockVO stockVO) {
-        log.info("stockInsert(): {}", stockVO);
+    public int insertStock(StockVO stockVO) {
+        log.info("insertStock(): {}", stockVO);
 
         int result;
 
         if (stockVO == null)
             return 0;
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            result = sqlSession.insert("stockInsert", stockVO);
+            result = sqlSession.insert("insertStock", stockVO);
             if (result > 0)
                 sqlSession.commit();
             else

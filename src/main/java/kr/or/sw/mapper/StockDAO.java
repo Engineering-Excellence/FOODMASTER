@@ -20,5 +20,5 @@ public interface StockDAO {
 
     StockVO selectStock(int stockID);
 
-    int stockInsert(StockVO stockVO);
+    int insertStock(StockVO stockVO);
 }
