@@ -58,6 +58,10 @@ public class CustomerController extends HttpServlet {
             	log.info("/delete");
             	customerService.delete(request, response);
             }
+            case "/update" -> {
+            	log.info("/update");
+            	customerService.update(request, response);
+            }
             default -> handleInvalidAccess(request, response);
         }
     }

@@ -153,6 +153,10 @@ public class ProductDAOImpl implements ProductDAO {
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
             recipeList = sqlSession.selectList("selectCurrentRecipe", productID);
         }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
         return recipeList;
     }
 }
