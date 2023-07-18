@@ -4,6 +4,7 @@ import kr.or.sw.model.ProductDTO;
 import kr.or.sw.model.ProductImgDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CustomerDAO {
 
@@ -11,5 +12,5 @@ public interface CustomerDAO {
 
     List<ProductImgDTO> selectAllImgList();
 
-    int insertSale(List<ProductDTO> productDTOList);
+    int insertSale(Map<String, Object> map);
 }

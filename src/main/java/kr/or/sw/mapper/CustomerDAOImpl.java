@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)    // Singleton
@@ -41,13 +42,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     // CustomerDAOImpl.java
     @Override
-    public int insertSale(List<ProductDTO> productDTOList) {
+    public int insertSale(Map<String, Object> map) {
         log.info("insertSale()");
-        for (ProductDTO pdto : productDTOList)
-            log.info("data : {}", pdto);
 
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
-            sqlSession.insert("insertSale", productDTOList);
+            sqlSession.insert("insertSale", map);
             return 1;   // Procedure에서 :RESULT를 반환하는 것에 실패함
         } catch (Exception e) {
             e.printStackTrace();

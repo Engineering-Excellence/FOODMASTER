@@ -65,7 +65,7 @@
     <update id="updateMember" parameterType="kr.or.sw.model.MemberDTO">
         UPDATE MEMBER
         SET EMAIL      = #{email},
-            CONTACT    = #{contact},
+            CONTACT    = #{contact}
         WHERE MEMBERID = #{memberID}
     </update>
 
