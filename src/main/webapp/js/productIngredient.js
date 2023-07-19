@@ -38,6 +38,7 @@ Trie.prototype.find = (self, key, stringIdx) => {
     if (!self.next.has(curr)) return [];
     return self.next.get(curr).find(self.next.get(curr), key, stringIdx + 1);
 }
+
 const addEventListenerInput = () => {
     $(".quantity").each((idx, e) => {
         $(e).change(() => {
@@ -46,6 +47,7 @@ const addEventListenerInput = () => {
         });
     });
 }
+
 const updateSelectTable = () => {
     let htmls = "";
     const sortedList = Array.from([...selectStock].sort());
@@ -74,6 +76,7 @@ const updateSelectTable = () => {
     })
     addEventListenerInput();
 }
+
 const addEventListenerOnStock = (list) => {
     const sortedList = Array.from([...list].sort());
     $("#search-table-body tr").each((idx, element) => {
@@ -88,6 +91,7 @@ const addEventListenerOnStock = (list) => {
     })
     console.log(list);
 }
+
 const showAllStock = () => {
     let htmls = "";
     stock.forEach((s, idx) => {
@@ -151,6 +155,7 @@ window.onload = () => {
 $("#close-window").click(() => {
     window.close();
 });
+
 $("#confirm-window").click(() => {
     // {상품 ID, 재고 ID, 수량} 로 리스트로 해서 보내기
     let data = [];
@@ -190,6 +195,7 @@ $("#confirm-window").click(() => {
             if (res) {
                 alert("재료 등록 성공");
                 window.close();
+                window.opener.location.reload();
             } else {
                 alert("재료 등록 실패")
                 window.close();
