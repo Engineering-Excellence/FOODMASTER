@@ -27,7 +27,6 @@
         BEGIN
         -- 판매기록 추가
         INSERT INTO SALE (SALEID, SALEDATE, INCOME, MEMBERID, ACCOUNTID)
-        -- 현재 memberID가 하드 코딩(1)된 상태임. 추후 로그인 세션에서 얻어온 후 변경 필요.
         VALUES (SALEID_SEQ.nextval, SYSDATE, 0, #{memberID}, 'account')
         RETURNING SALEID INTO v_saleid;
 
@@ -36,10 +35,24 @@
             UPDATE /*+ NO_PARALLEL(SALE) */ SALE
             SET INCOME = INCOME + #{item.price}
             WHERE SALEID = v_saleid;
+
             -- 상품 재고 감소
             UPDATE PRODUCT
             SET QUANTITY = QUANTITY - #{item.quantity}
             WHERE PRODUCTID = #{item.productID};
+
+            -- 상품 감소에 따른 재료 감소
+            UPDATE STOCK S
+            SET S.QUANTITY = S.QUANTITY - (
+            SELECT #{item.quantity} * PS.QUANTITY
+            FROM PRODUCT_STOCK PS
+            WHERE PS.STOCKID = S.STOCKID
+            AND PS.PRODUCTID = #{item.productID}
+            )
+            WHERE S.STOCKID IN (
+            SELECT PS.STOCKID
+            FROM PRODUCT_STOCK PS
+            );
         </foreach>
 
         -- 보유금 갱신
