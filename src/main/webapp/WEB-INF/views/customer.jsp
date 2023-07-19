@@ -19,6 +19,11 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/customer.js" defer></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/validation.js" defer></script>
+
+	<c:if test="${info eq null}">
+		<c:redirect url="/" />
+	</c:if>
+
 <script>
 	// el 정렬 하지 말것
 	var memberID = ${info.getMemberID()};
@@ -26,10 +31,6 @@
 </head>
 
 <body>
-	<c:if test="${info eq null}">
-		<c:redirect url="/" />
-	</c:if>
-
 	<div class="customer-container">
 		<div class="customer-menu-container">
 			<div class="customer-menu-header-container">

@@ -9,7 +9,7 @@
 <script src="${pageContext.request.contextPath}/js/productIngredient.js" type="text/javascript" defer></script>
 
 <!-- c:redirect가 안먹혀서 일단 이거로 -->
-<c:if test="${info eq null}">
+<c:if test="${adminInfo eq null}">
     <script>
         window.location.href = "/";
     </script>

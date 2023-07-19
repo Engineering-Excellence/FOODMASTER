@@ -14,6 +14,7 @@ public class ProductDTO {   // 상품 테이블
     private int price;  // 가격
     private int quantity;  // 상품수량
     private ProductImgDTO image;    // 상품 이미지 정보
+    private boolean isRecipe;       // 재료 등록 여부
 
     public ProductDTO(String productName, String category, int price, ProductImgDTO image) {
         this.productName = productName;

@@ -7,7 +7,7 @@
 <c:if test='${pageContext.request.getParameter("redirect") eq "true"}'>
     <c:redirect url="/home"/>
 </c:if>
-<c:if test="${info eq null}">
+<c:if test="${adminInfo eq null}">
     <c:redirect url="/" />
 </c:if>
 
@@ -53,10 +53,6 @@
     <c:if test="${paths[1] eq 'list'}">
         <%@ include file="/WEB-INF/views/balance/balance.jsp" %>
     </c:if>
-</c:if>
-
-<c:if test="${paths[0] eq 'home'}">
-    <%@ include file="/WEB-INF/views/main.jsp" %>
 </c:if>
 
 <%@ include file="/WEB-INF/views/layouts/footer.jsp" %>
