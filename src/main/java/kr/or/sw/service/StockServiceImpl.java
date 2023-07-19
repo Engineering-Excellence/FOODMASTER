@@ -58,9 +58,7 @@ public class StockServiceImpl implements StockService {
         log.info("insert()");
         StockVO stockVO = new StockVO(
                 request.getParameter("stockName"),
-                Integer.parseInt(request.getParameter("price")),
-                Integer.parseInt(request.getParameter("quantity")),
-                request.getParameter("stockDate")
+                Integer.parseInt(request.getParameter("price"))
         );
         int result = stockDAO.insertStock(stockVO);
         return result > 0;

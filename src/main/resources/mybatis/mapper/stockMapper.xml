@@ -43,6 +43,6 @@
 
     <insert id="insertStock" parameterType="kr.or.sw.model.StockVO">
         INSERT INTO STOCK (STOCKID, STOCKNAME, QUANTITY, PRICE, STOCKDATE)
-        VALUES (STOCKID_SEQ.NEXTVAL, #{stockName}, #{quantity}, #{price}, SYSDATE)
+        VALUES (STOCKID_SEQ.NEXTVAL, #{stockName}, 0, #{price}, SYSDATE)
     </insert>
 </mapper>

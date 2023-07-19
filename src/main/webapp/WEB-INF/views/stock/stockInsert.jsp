@@ -25,30 +25,12 @@
 						</div>
 					</div>
 					<br> <br>
-					<!-- 재고수량 -->
-					<div class="insert-quantity">
-						<h3>재고수량</h3>
-						<div class="input-group mb-3">
-							<input type="number" class="form-control"
-								placeholder="재고수량을 입력해주세요" aria-label="Username" name="quantity">
-						</div>
-					</div>
-					<br> <br>
 					<div class="insert-price">
 						<h3>재고 단가</h3>
 						<div class="input-group mb-3">
 							<input type="number" class="form-control"
 								placeholder="단가를 입력해주세요" aria-label="Username"
 								name="price">
-						</div>
-					</div>
-					<br> <br>
-					<div class="insert-stockDate">
-						<h3>재고 입고일</h3>
-						<div class="input-group mb-3">
-							<input type="date" class="form-control"
-								placeholder="재고 입고일을 입력해주세요" aria-label="Username"
-								name="stockDate">
 						</div>
 					</div>
 					<br> <br>
