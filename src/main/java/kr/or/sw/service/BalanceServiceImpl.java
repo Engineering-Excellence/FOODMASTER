@@ -1,26 +1,20 @@
 package kr.or.sw.service;
 
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import kr.or.sw.mapper.BalanceDAO;
 import kr.or.sw.mapper.BalanceDAOImpl;
-import kr.or.sw.model.BalanceVO;
-import kr.or.sw.model.ProductDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -43,12 +37,23 @@ public class BalanceServiceImpl implements BalanceService {
         log.info("selectAll()");
         // 모든 입출금 내역을 불러와서 최신순으로 정렬
         
-        List<BalanceVO> list = new ArrayList<>(balanceDAO.selectAllBalances());
+        List<HashMap<String,Object>> list = balanceDAO.selectAllincome();
+        list.addAll(balanceDAO.selectAllExpense());
+        
+        list.sort((m1, m2) -> {
+        	Timestamp ts1 = (Timestamp)m1.get("DAY");
+        	Timestamp ts2 = (Timestamp)m2.get("DAY");
+				return -ts1.compareTo(ts2);
+        });
+        
         log.info("selectAll: {}", list);
 
         request.setAttribute("balanceList", list);
         request.setAttribute("page", Objects.requireNonNullElse(request.getParameter("page"), 1));
 
     }
+    
+
+    
 
 }

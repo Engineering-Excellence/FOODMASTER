@@ -3,14 +3,7 @@ package kr.or.sw.controller;
 import static kr.or.sw.controller.HomeController.VIEW_PATH;
 import static kr.or.sw.controller.HomeController.handleInvalidAccess;
 
-<<<<<<< HEAD
-=======
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
->>>>>>> 62536b1791866a4c96b98e5a429b833b722046b2
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serial;

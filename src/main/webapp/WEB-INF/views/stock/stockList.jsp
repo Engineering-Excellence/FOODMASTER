@@ -31,7 +31,7 @@
                     <select class="custom-select" id="searchOption" name="searchOption">
                         <option value="-1" selected>선택</option>
                         <option value="1">재고 ID</option>
-                        <option value="2">상품 ID</option>
+<!--                         <option value="2">상품 ID</option> -->
                         <option value="3">재고명</option>
 
                     </select> <input type="text" class="form-control" placeholder="검색어 입력"

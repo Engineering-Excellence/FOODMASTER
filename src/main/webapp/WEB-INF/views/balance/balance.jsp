@@ -54,7 +54,6 @@
                     <tr>
                         <th scope="col">계좌ID</th>
                         <th scope="col">보유금</th>
-                        <th scope="col">매출</th>
                         <th scope="col">비용</th>
                         <th scope="col">변동일시</th>
                     </tr>
@@ -68,11 +67,19 @@
                         <c:forEach var="i" begin="${(page - 1) * 10}"
                                    end="${Math.min(balanceList.size() - 1, (page - 1) * 10 + 9)}">
                             <tr class="balance-data" id="balanceData${i}">
-                                <td>${balanceList.get(i).getAccountID()}</td>
-                                <td>${balanceList.get(i).getAssets()}</td>
-<%--                                 <td>${balanceList.get(i).getIncome()}</td> --%>
-<%--                                 <td>${balanceList.get(i).getExpense()}</td>    --%>
-                                <td>${balanceList.get(i).getLastUpdated()}</td>    
+                                <td>${balanceList.get(i).get("ACCOUNTID")}</td>
+                                <td><fmt:formatNumber value="${balanceList.get(i).get('ASSETS')}" pattern="###,###,###" /></td>
+<%--                                 <td>${balanceList.get(i).get("ASSETS")}</td> --%>
+                                <td>
+                                	<c:if test='${balanceList.get(i).get("FLAG") eq 0}'>
+                                		+ ${balanceList.get(i).get("COST")}
+                                	</c:if>
+                                	<c:if test='${balanceList.get(i).get("FLAG") eq 1}'>
+                                		- ${balanceList.get(i).get("COST")}
+                                	</c:if>
+                                </td>
+                                <td>${balanceList.get(i).get("DAY")}</td>
+                                
                             </tr>
                         </c:forEach>
                     </c:if>

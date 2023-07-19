@@ -64,13 +64,9 @@
 
         -- 보유금 증가
         UPDATE /*+ NO_PARALLEL(BALANCE), NO_PARALLEL(SALE) */ BALANCE
-<<<<<<< Updated upstream
-
         SET ASSETS = ASSETS + (
 
-=======
-        SET ASSET = ASSET + (
->>>>>>> Stashed changes
+
         SELECT INCOME
         FROM (SELECT /*+ NO_PARALLEL(SALE) */ INCOME FROM SALE ORDER BY SALEID DESC)
         WHERE ROWNUM = 1
