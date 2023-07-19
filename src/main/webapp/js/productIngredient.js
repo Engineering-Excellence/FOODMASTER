@@ -41,7 +41,7 @@ Trie.prototype.find = (self, key, stringIdx) => {
 const addEventListenerInput = () => {
     $(".quantity").each((idx, e) => {
         $(e).change(() => {
-            selectStock.set(idx, $(e).val());
+            selectStock.set(selectStock[idx][0], $(e).val());
             updateSelectTable();
         });
     });
@@ -157,13 +157,24 @@ $("#confirm-window").click(() => {
     const sortedList = Array.from([...selectStock].sort());
 
     let productID = new URL(window.location.href).searchParams.get("productID");
+    let chk = true;
     $(".quantity").each((idx, e) => {
+        if ($(e).val() == 0) {
+            chk = false;
+            return;
+        }
+
         data.push({
             'productID': String(productID),
             'stockID': String(stock[sortedList[idx][0]].stockID),
             'quantity': String($(e).val())
         })
     });
+
+    if (!chk) {
+        alert("수량은 0 이하가 될 수 없습니다");
+        return;
+    }
 
     console.log(data)
 
