@@ -19,13 +19,12 @@
 .logo .logo-img {
   width: 40vw;
   position: relative;
-  bottom: 25%;
 }
 .logo .logo-title {
   font-size: 6vw;
   font-weight: bolder;
   position: relative;
-  bottom: 25%;
+  color: white;
 }
 
 .login-container {
