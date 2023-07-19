@@ -19,16 +19,11 @@
 <main>
     <div class="search-container">
         <div class="search-input-container for-ingredient">
-            <form action="/product/ingredient" method="get" name="searchForm" id="search-form">
-                <div class="search-input-wrapper input-group for-ingredient">
-                    <input type="text" class="form-control" placeholder="재고 이름 입력" id="keyword"
-                           name="keyword">
-                </div>
-            </form>
-            <div class="search-result-into-container">
-                ${stockList.size()}개 검색되었습니다
-            </div>
-        </div>
+			<div class="search-input-wrapper input-group for-ingredient">
+				<input type="text" class="form-control" placeholder="재고 이름 입력"
+					id="keyword" name="keyword">
+			</div>
+		</div>
         <div class="search-result-container for-ingredient">
             <div class="search-result-wrapper">
                 <table class="table table-bordered table-hover">
