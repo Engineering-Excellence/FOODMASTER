@@ -3,6 +3,14 @@ package kr.or.sw.controller;
 import static kr.or.sw.controller.HomeController.VIEW_PATH;
 import static kr.or.sw.controller.HomeController.handleInvalidAccess;
 
+<<<<<<< HEAD
+=======
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+>>>>>>> 62536b1791866a4c96b98e5a429b833b722046b2
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serial;
@@ -146,7 +154,6 @@ public class AuthController extends HttpServlet {
                     "alert('로그인 실패');" +
                     "window.location.href = '/'" +
                     "</script>");
-//            redirectToIndex(request, response);
         } else {
             log.info("관리자 로그인 성공");
             authService.setAdminInfo(request, response);
@@ -168,14 +175,12 @@ public class AuthController extends HttpServlet {
                     "alert('회원가입 성공');" +
                     "window.location.href = '/'" +
                     "</script>");
-        }
-        else {
+        } else {
             output.println("<script>" +
                     "alert('회원가입 실패');" +
                     "window.location.href = '/'" +
                     "</script>");
         }
-//        redirectToIndex(request, response);
     }
 
     private void handleResetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -190,13 +195,11 @@ public class AuthController extends HttpServlet {
                     "alert('비밀번호 재설정 성공');" +
                     "window.location.href = '/'" +
                     "</script>");
-        }
-        else {
+        } else {
             output.println("<script>" +
                     "alert('비밀번호 재설정 실패');" +
                     "window.location.href = '/'" +
                     "</script>");
         }
-//        redirectToIndex(request, response);
     }
 }

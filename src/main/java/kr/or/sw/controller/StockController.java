@@ -80,9 +80,14 @@ public class StockController extends HttpServlet {
             case "/order" -> {
                 log.info("/order");
                 // 재고를 주문해서 보유금이 차감되고 재고수량이 증가하는 로직 작성
+<<<<<<< HEAD
                 
                 
                 
+=======
+                if (stockService.order(request, response)) log.info("재료 발주 성공");
+                response.sendRedirect("/stock/list");
+>>>>>>> 62536b1791866a4c96b98e5a429b833b722046b2
             }
             default -> handleInvalidAccess(request, response);
         }

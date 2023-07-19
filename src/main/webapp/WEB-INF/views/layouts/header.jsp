@@ -37,5 +37,5 @@
     %>
 
 <header class="foodmaster">FOOD MASTER
-	<a href="/auth/logout"><img class="logout" src="/images/home.png"></a>
+    <a href="/auth/logout"><img class="logout" src="/images/home.png"></a>
 </header>

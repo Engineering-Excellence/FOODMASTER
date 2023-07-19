@@ -34,7 +34,7 @@ $('.product-data').each((index, element) => {
                 let name = '_blank';
                 let left = (screen.width - 600) / 2;
                 let top = (screen.height - 800) / 4;
-                let specs = 'menubar=no,status=no,toolbar=no,innerWidth=600,innerHeight=800,chrome=1,centerscreen=1,top=' + top +',left=' + left;
+                let specs = 'menubar=no,status=no,toolbar=no,innerWidth=600,innerHeight=800,chrome=1,centerscreen=1,top=' + top + ',left=' + left;
                 let newWindow = window.open("/product/ingredient?productID=" + productID, name, specs);
                 newWindow.focus();
                 break;

@@ -4,9 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class StockVO { // 재고 테이블
@@ -30,17 +27,8 @@ public class StockVO { // 재고 테이블
         this.price = price;
     }
 
-    public StockVO(String stockName, int price, int quantity, String stockDate) { // insert
-
+    public StockVO(String stockName, int price) { // insert
         this.stockName = stockName;
         this.price = price;
-        this.quantity = quantity;
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            this.stockDate = new Date(sdf.parse(stockDate).getTime());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

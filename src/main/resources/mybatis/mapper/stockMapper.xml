@@ -43,6 +43,27 @@
 
     <insert id="insertStock" parameterType="kr.or.sw.model.StockVO">
         INSERT INTO STOCK (STOCKID, STOCKNAME, QUANTITY, PRICE, STOCKDATE)
-        VALUES (STOCKID_SEQ.NEXTVAL, #{stockName}, #{quantity}, #{price}, SYSDATE)
+        VALUES (STOCKID_SEQ.NEXTVAL, #{stockName}, 0, #{price}, SYSDATE)
     </insert>
+
+    <update id="orderStock" parameterType="kr.or.sw.model.StockVO">
+        BEGIN
+        -- 재료 개수 증가
+        UPDATE STOCK
+        SET QUANTITY = QUANTITY + #{quantity}
+        WHERE STOCKID = #{stockID};
+
+        -- 보유금 감소
+        UPDATE BALANCE
+        SET ASSETS = ASSETS - #{price} * #{quantity};
+
+        COMMIT;
+
+        -- 예외 처리
+        EXCEPTION
+        WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+        END;
+    </update>
 </mapper>

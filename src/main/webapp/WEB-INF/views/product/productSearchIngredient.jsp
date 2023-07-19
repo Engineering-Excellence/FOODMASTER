@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
@@ -9,7 +10,7 @@
 <script src="${pageContext.request.contextPath}/js/productIngredient.js" type="text/javascript" defer></script>
 
 <!-- c:redirect가 안먹혀서 일단 이거로 -->
-<c:if test="${info eq null}">
+<c:if test="${adminInfo eq null}">
     <script>
         window.location.href = "/";
     </script>

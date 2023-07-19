@@ -4,10 +4,16 @@
 <mapper namespace="kr.or.sw.mapper.CustomerDAOImpl">
     <select id="selectMenuInfo" resultType="kr.or.sw.model.ProductDTO">
         SELECT PRODUCTID,
-        PRODUCTNAME,
-        CATEGORY,
-        PRICE
+               PRODUCTNAME,
+               CATEGORY,
+               PRICE
         FROM PRODUCT
+        WHERE PRODUCTID IN (
+            SELECT P.PRODUCTID
+            FROM PRODUCT P JOIN PRODUCT_STOCK PS
+                                ON P.PRODUCTID = PS.PRODUCTID
+            GROUP BY P.PRODUCTID
+        )
         ORDER BY PRODUCTID ASC
     </select>
 

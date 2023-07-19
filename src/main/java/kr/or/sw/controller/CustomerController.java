@@ -55,12 +55,12 @@ public class CustomerController extends HttpServlet {
                 customerService.insert(request, response);
             }
             case "/delete" -> {
-            	log.info("/delete");
-            	customerService.delete(request, response);
+                log.info("/delete");
+                customerService.delete(request, response);
             }
             case "/update" -> {
-            	log.info("/update");
-            	customerService.update(request, response);
+                log.info("/update");
+                customerService.update(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }
