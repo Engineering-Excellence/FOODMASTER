@@ -135,6 +135,18 @@
             VALUES (#{item.productID}, #{item.stockID}, #{item.quantity});
         </foreach>
 
+        -- 상품 개수 갱신
+        MERGE INTO PRODUCT P
+        USING (
+        SELECT PS.PRODUCTID, TRUNC(MIN(S.QUANTITY / PS.QUANTITY)) AS MIN_AVAILABLE
+        FROM PRODUCT_STOCK PS
+        JOIN STOCK S ON PS.STOCKID = S.STOCKID
+        GROUP BY PS.PRODUCTID
+        ) UPD
+        ON (P.PRODUCTID = UPD.PRODUCTID)
+        WHEN MATCHED THEN
+        UPDATE SET P.QUANTITY = UPD.MIN_AVAILABLE;
+
         COMMIT;
 
         -- 예외 처리
