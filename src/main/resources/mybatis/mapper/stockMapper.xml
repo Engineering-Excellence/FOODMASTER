@@ -49,28 +49,37 @@
     <update id="orderStock" parameterType="kr.or.sw.model.StockVO">
         DECLARE
         v_orderid NUMBER;
-
         BEGIN
         -- 발주기록 추가
-        INSERT /*+ NO_PARALLEL(STOCKORDER) */ INTO STOCKORDER (ORDERID, QUANTITY, EXPENSE, ASSETS, ORDERDATE, STOCKID,
+        INSERT INTO STOCKORDER (ORDERID, QUANTITY, EXPENSE, ASSETS, ORDERDATE, STOCKID,
                                                                EMPID, ACCOUNTID)
         VALUES (ORDERID_SEQ.nextval, #{quantity}, #{price} * #{quantity}, 0, SYSDATE, #{stockID}, 1,
                 'account') RETURNING ORDERID
         INTO v_orderid;
 
         -- 재료 개수 증가 및 보유 금액 감소
-        UPDATE /*+ NO_PARALLEL(STOCK) */ STOCK
+        UPDATE STOCK
         SET QUANTITY = QUANTITY + #{quantity}
         WHERE STOCKID = #{stockID};
 
         -- 보유금 감소
-        UPDATE /*+ NO_PARALLEL(BALANCE) */ BALANCE
+        UPDATE BALANCE
         SET ASSETS = ASSETS - #{price} * #{quantity};
 
         -- 발주 직후 보유 금액 기록
-        UPDATE /*+ NO_PARALLEL(STOCKORDER) */ STOCKORDER
+        UPDATE STOCKORDER
         SET ASSETS = (SELECT ASSETS FROM BALANCE)
         WHERE ORDERID = v_orderid;
+
+        -- 상품 개수 갱신
+        MERGE INTO PRODUCT P
+            USING (SELECT PS.PRODUCTID, TRUNC(MIN(S.QUANTITY / PS.QUANTITY)) AS MIN_AVAILABLE
+                   FROM PRODUCT_STOCK PS
+                            JOIN STOCK S ON PS.STOCKID = S.STOCKID
+                   GROUP BY PS.PRODUCTID) UPD
+            ON (P.PRODUCTID = UPD.PRODUCTID)
+            WHEN MATCHED THEN
+                UPDATE SET P.QUANTITY = UPD.MIN_AVAILABLE;
 
         COMMIT;
 
