@@ -119,7 +119,6 @@ public class StockServiceImpl implements StockService {
 
     public void getStocks(HttpServletRequest request, HttpServletResponse response) throws IOException {
         log.info("selectAll()");
-        //
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
@@ -153,5 +152,20 @@ public class StockServiceImpl implements StockService {
             out.write(data.toJSONString());
             out.flush();
         }
+    }
+
+    @Override
+    public boolean order(HttpServletRequest request, HttpServletResponse response) {
+        log.info("order()");
+
+        int stockID = Integer.parseInt(request.getParameter("stockID"));
+        String stockName = request.getParameter("stockName");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        int price = Integer.parseInt(request.getParameter("price"));
+
+        log.info("stockID: {}, stockName: {}, quantity: {}, price: {}", stockID, stockName, quantity, price);
+        StockVO stockVO = new StockVO(stockID, stockName, quantity, price);
+
+        return stockDAO.orderStock(stockVO) == 1;
     }
 }

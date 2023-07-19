@@ -3,14 +3,20 @@
 
 <mapper namespace="kr.or.sw.mapper.ProductDAOImpl">
     <select id="selectAllProducts" resultType="kr.or.sw.model.ProductDTO">
-        SELECT PRODUCTID, PRODUCTNAME, CATEGORY, PRICE, QUANTITY, (
-                CASE WHEN PRODUCTID IN (
-                    SELECT P.PRODUCTID
-                    FROM PRODUCT P JOIN PRODUCT_STOCK PS
-                                        ON P.PRODUCTID = PS.PRODUCTID
-                    GROUP BY P.PRODUCTID
-                ) THEN 1 ELSE 0 END
-            ) AS ISRECIPE
+        SELECT PRODUCTID,
+               PRODUCTNAME,
+               CATEGORY,
+               PRICE,
+               QUANTITY,
+               (
+                   CASE
+                       WHEN PRODUCTID IN (SELECT P.PRODUCTID
+                                          FROM PRODUCT P
+                                                   JOIN PRODUCT_STOCK PS
+                                                        ON P.PRODUCTID = PS.PRODUCTID
+                                          GROUP BY P.PRODUCTID) THEN 1
+                       ELSE 0 END
+                   ) AS ISRECIPE
         FROM PRODUCT
         ORDER BY PRODUCTID ASC
     </select>

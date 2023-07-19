@@ -13,7 +13,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.javassist.compiler.ast.Member;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -114,7 +113,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void select(HttpServletRequest request, HttpServletResponse response) {
         // 회원정보(본인) 보기 - Front에서 Session으로 구현 완료
-        log.info("select()");
     }
 
     @Override
@@ -149,21 +147,21 @@ public class CustomerServiceImpl implements CustomerService {
         return false;
     }
 
-	@Override
-	@SneakyThrows
-	public boolean update(HttpServletRequest request, HttpServletResponse response) {
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-		
-		try (PrintWriter out = response.getWriter()) {
-			JSONParser parser = new JSONParser();
-			JSONObject object = (JSONObject)parser.parse(request.getParameter("customerUpdate"));
-			
-			int memberID = Integer.parseInt((String)object.get("memberID"));
-			String contact = (String)object.get("contact");
-			String password = (String) object.get("password");
+    @Override
+    @SneakyThrows
+    public boolean update(HttpServletRequest request, HttpServletResponse response) {
 
-			log.info("data: {}, {}", contact, password);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try (PrintWriter out = response.getWriter()) {
+            JSONParser parser = new JSONParser();
+            JSONObject object = (JSONObject) parser.parse(request.getParameter("customerUpdate"));
+
+            int memberID = Integer.parseInt((String) object.get("memberID"));
+            String contact = (String) object.get("contact");
+            String password = (String) object.get("password");
+
+            log.info("data: {}, {}", contact, password);
 
             MemberDTO memberDTO = new MemberDTO();
             memberDTO.setMemberID(memberID);
@@ -172,8 +170,7 @@ public class CustomerServiceImpl implements CustomerService {
             if (password == null) {
                 log.info("password is null");
                 ret = MemberDAOImpl.getInstance().updateMemberSelfWOPassword(memberDTO);
-            }
-            else {
+            } else {
                 log.info("password is not null");
                 String salt = CipherUtil.getInstance().generateSalt();
                 memberDTO.setSalt(salt);
@@ -182,9 +179,9 @@ public class CustomerServiceImpl implements CustomerService {
                 log.info("ret: {}", ret);
             }
 
-			out.write(objectMapper.writeValueAsString(ret == 1));
-			out.flush();
-			return ret == 1;
-		}
-	}
+            out.write(objectMapper.writeValueAsString(ret == 1));
+            out.flush();
+            return ret == 1;
+        }
+    }
 }

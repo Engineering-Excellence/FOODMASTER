@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class BalanceServiceImpl implements BalanceService{
+public class BalanceServiceImpl implements BalanceService {
 
     private static BalanceService instance;
 
