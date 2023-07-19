@@ -28,12 +28,13 @@
 
     <update id="insertSale" parameterType="java.util.Map">
         DECLARE
+        -- 판매기록 ID 저장변수 선언
         v_saleid NUMBER;
 
         BEGIN
         -- 판매기록 추가
-        INSERT INTO SALE (SALEID, SALEDATE, INCOME, MEMBERID, ACCOUNTID)
-        VALUES (SALEID_SEQ.nextval, SYSDATE, 0, #{memberID}, 'account')
+        INSERT INTO SALE (SALEID, INCOME, ASSETS, SALEDATE, MEMBERID, ACCOUNTID)
+        VALUES (SALEID_SEQ.nextval, 0, 0, SYSDATE, #{memberID}, 'account')
         RETURNING SALEID INTO v_saleid;
 
         <foreach collection="productDTOList" item="item" separator=" " index="index">
@@ -61,7 +62,7 @@
             );
         </foreach>
 
-        -- 보유금 갱신
+        -- 보유금 증가
         UPDATE /*+ NO_PARALLEL(BALANCE), NO_PARALLEL(SALE) */ BALANCE
         SET ASSETS = ASSETS + (
         SELECT INCOME
@@ -69,6 +70,11 @@
         WHERE ROWNUM = 1
         ),
         LASTUPDATED = SYSDATE;
+
+        -- 판매 직후 보유금 기록
+        UPDATE SALE
+        SET ASSETS = (SELECT ASSETS FROM BALANCE)
+        WHERE SALEID = v_saleid;
 
         COMMIT;
 

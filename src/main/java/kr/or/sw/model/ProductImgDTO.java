@@ -13,7 +13,7 @@ public class ProductImgDTO {
     private String uuid;    // 중복이름 방지를 위한 랜덤 UUID, PK
     private String absPath; // 업로드 절대경로
     private String relPath; // 업로드 상대경로
-    private String fileName;
+    private String fileName;    // 파일명
     private int productID;  // 상품 ID, FK
 
     public ProductImgDTO(String uuid, String absPath, String relPath, String fileName) {
