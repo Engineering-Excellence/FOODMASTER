@@ -48,26 +48,27 @@
 
     <update id="orderStock" parameterType="kr.or.sw.model.StockVO">
         DECLARE
-        -- 발주기록 ID 저장변수 선언
         v_orderid NUMBER;
 
         BEGIN
         -- 발주기록 추가
-        INSERT INTO STOCKORDER (ORDERID, QUANTITY, EXPENSE, ASSETS, ORDERDATE, STOCKID, EMPID, ACCOUNTID)
-        VALUES (ORDERID_SEQ.nextval, #{quantity}, #{price} * #{quantity}, 0, SYSDATE, #{stockID}, 1, 'account')
-        RETURNING ORDERID INTO v_orderid;
+        INSERT /*+ NO_PARALLEL(STOCKORDER) */ INTO STOCKORDER (ORDERID, QUANTITY, EXPENSE, ASSETS, ORDERDATE, STOCKID,
+                                                               EMPID, ACCOUNTID)
+        VALUES (ORDERID_SEQ.nextval, #{quantity}, #{price} * #{quantity}, 0, SYSDATE, #{stockID}, 1,
+                'account') RETURNING ORDERID
+        INTO v_orderid;
 
-        -- 재료 개수 증가
-        UPDATE STOCK
+        -- 재료 개수 증가 및 보유 금액 감소
+        UPDATE /*+ NO_PARALLEL(STOCK) */ STOCK
         SET QUANTITY = QUANTITY + #{quantity}
         WHERE STOCKID = #{stockID};
 
         -- 보유금 감소
-        UPDATE BALANCE
+        UPDATE /*+ NO_PARALLEL(BALANCE) */ BALANCE
         SET ASSETS = ASSETS - #{price} * #{quantity};
 
-        -- 발주 직후 보유금 기록
-        UPDATE STOCKORDER
+        -- 발주 직후 보유 금액 기록
+        UPDATE /*+ NO_PARALLEL(STOCKORDER) */ STOCKORDER
         SET ASSETS = (SELECT ASSETS FROM BALANCE)
         WHERE ORDERID = v_orderid;
 
