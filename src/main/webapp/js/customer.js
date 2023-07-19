@@ -143,11 +143,12 @@ const updateShoppingList = (idx, updateFlag) => {
     // 감소는 일단 1보다는 안내려가게 하고, 그냥 삭제가 있음
     if (!updateFlag) {
         if (!shoppingList.has(idx)) return;
-        if (shoppingCount == 1) return;
-        shoppingCount--;
+        if (shoppingList.get(idx) <= 1) {
+            shoppingList.set(idx, 1);
+            return;
+        }
         shoppingList.set(idx, shoppingList.get(idx) - 1);
     } else {
-        shoppingCount++;
         if (!shoppingList.has(idx)) shoppingList.set(idx, 0);
         shoppingList.set(idx, parseInt(shoppingList.get(idx) + 1));
     }
@@ -294,7 +295,7 @@ const updateShoppingModal = () => {
         htmls += '<div class="card-body text-secondary">'
         htmls += '<div class="shopping-count-wrapper">'
         htmls += '<button class="btn btn-outline-secondary shopping-product-count-minus">-</button>'
-        htmls += `<input type="number" class="form-control shopping-product-count" name="keyword" value="${entry[1]}" style="text-align: center">`
+        htmls += `<input type="number" class="form-control shopping-product-count" name="keyword" value="${entry[1]}" style="text-align: center" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" readonly>`
         htmls += '<button class="btn btn-outline-secondary shopping-product-count-plus">+</button>'
         htmls += '</div>'
         htmls += '<div class="shopping-price-wrapper">'
@@ -317,12 +318,15 @@ const updateShoppingModal = () => {
             updateShoppingModal();
         });
     });
-    $(".shopping-product-count").each((idx, element) => {
-        $(element).keyup(() => {
-            shoppingList.set(sortedList[idx][0], $(element).val());
-            updateShoppingModal();
-        });
-    });
+    // $(".shopping-product-count").each((idx, element) => {
+    //     $(element).keyup(() => {
+    //         if (parseInt($(element).val()) <= 1)
+    //             shoppingList.set(sortedList[idx][0], 1);
+    //         else
+    //             shoppingList.set(sortedList[idx][0], $(element).val());
+    //         updateShoppingModal();
+    //     });
+    // });
     $(".shopping-product-count-plus").each((idx, element) => {
         $(element).click(() => {
             updateShoppingList(sortedList[idx][0], true);
