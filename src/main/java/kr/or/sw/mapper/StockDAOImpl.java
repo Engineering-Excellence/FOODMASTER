@@ -118,4 +118,17 @@ public class StockDAOImpl implements StockDAO {
         }
         return result;
     }
+
+    @Override
+    public int orderStock(StockVO stockVO) {
+        log.info("orderStock(): {}", stockVO);
+
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            sqlSession.update("orderStock", stockVO);
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

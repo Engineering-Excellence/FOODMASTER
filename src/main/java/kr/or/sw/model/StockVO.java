@@ -4,9 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class StockVO { // 재고 테이블

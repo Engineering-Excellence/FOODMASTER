@@ -11,4 +11,6 @@ public interface StockService extends Service {
     void searchBy(HttpServletRequest request, HttpServletResponse response);
 
     void getStocks(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
+    boolean order(HttpServletRequest request, HttpServletResponse response);
 }

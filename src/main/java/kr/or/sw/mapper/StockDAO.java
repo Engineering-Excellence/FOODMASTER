@@ -21,4 +21,6 @@ public interface StockDAO {
     StockVO selectStock(int stockID);
 
     int insertStock(StockVO stockVO);
+
+    int orderStock(StockVO stockVO);
 }
