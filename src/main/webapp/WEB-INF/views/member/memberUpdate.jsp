@@ -1,8 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/validation.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/memberUpdate.js" defer></script>
 
 <main>
     <h1 class="mt-4">회원 정보 수정</h1>
-    <form action="/member/update" method="post">
+    <form action="/member/update" method="post" id="updateMember">
         <table class="table mt-4">
             <tr>
                 <th>
@@ -36,7 +40,7 @@
                     <div class="input-container">
                         <div class="input-group">
                             <input type="text" class="form-control" id="email" name="email"
-                                   value="${memberDTO.getEmail()}">
+                                   value="${memberDTO.getEmail()}" readonly>
                         </div>
                     </div>
                 </td>
