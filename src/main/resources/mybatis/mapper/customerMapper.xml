@@ -50,12 +50,12 @@
 
             -- 상품 감소에 따른 재료 감소
             UPDATE STOCK S
-            SET S.QUANTITY = S.QUANTITY - (
-            SELECT #{item.quantity} * PS.QUANTITY
+            SET S.QUANTITY = S.QUANTITY - NVL(
+            (SELECT #{item.quantity} * PS.QUANTITY
             FROM PRODUCT_STOCK PS
             WHERE PS.STOCKID = S.STOCKID
             AND PS.PRODUCTID = #{item.productID}
-            )
+            ), 0)
             WHERE S.STOCKID IN (
             SELECT PS.STOCKID
             FROM PRODUCT_STOCK PS
