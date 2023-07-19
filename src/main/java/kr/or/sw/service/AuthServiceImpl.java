@@ -145,7 +145,7 @@ public class AuthServiceImpl implements AuthService {
         EmpDTO ret = authDAO.getAdminInfo(account);
         log.info("ret: " + ret);
 
-        request.getSession().setAttribute("info", ret);
+        request.getSession().setAttribute("adminInfo", ret);
     }
 
     @Override

@@ -57,6 +57,7 @@
                         <th scope="col">상품명</th>
                         <th scope="col">상품가격</th>
                         <th scope="col">재고</th>
+                        <th scope="col">재료등록</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -73,6 +74,12 @@
                                 <td>${productList.get(i).getProductName()}</td>
                                 <td>${productList.get(i).getPrice()}</td>
                                 <td>${productList.get(i).getQuantity()}</td>
+                                <c:if test="${productList.get(i).isRecipe()}">
+                                    <td>완료</td>
+                                </c:if>
+                                <c:if test="${!productList.get(i).isRecipe()}">
+                                    <td>미완료</td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                     </c:if>
