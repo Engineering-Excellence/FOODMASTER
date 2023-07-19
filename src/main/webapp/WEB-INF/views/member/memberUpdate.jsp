@@ -82,6 +82,7 @@
                     </div>
                 </td>
             </tr>
+
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" class="btn btn-primary" value="수정">

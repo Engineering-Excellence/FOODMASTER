@@ -118,7 +118,8 @@ public class StockServiceImpl implements StockService {
     }
 
     public void getStocks(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        log.info("selectAll()");
+
+        log.info("getStocks()");
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");

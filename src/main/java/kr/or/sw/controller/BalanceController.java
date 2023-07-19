@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serial;
 
+import static kr.or.sw.controller.HomeController.HOME_PATH;
 import static kr.or.sw.controller.HomeController.handleInvalidAccess;
 
 @Slf4j
@@ -32,9 +33,12 @@ public class BalanceController extends HttpServlet {
             case "/list" -> {
                 log.info("/list");
                 // 입출금 내역 목록 불러오기
+                balanceService.selectAll(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }
+        request.setAttribute("path", request.getRequestURI().substring(request.getContextPath().length()));
+        request.getRequestDispatcher(request.getContextPath() + HOME_PATH).forward(request, response);       
     }
 
     @Override
@@ -47,4 +51,8 @@ public class BalanceController extends HttpServlet {
     public void destroy() {
         log.info("destroy()");
     }
+    
+
+    
+    
 }

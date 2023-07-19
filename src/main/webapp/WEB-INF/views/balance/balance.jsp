@@ -19,27 +19,30 @@
         <div class="search-input-container">
             <form action="/balance/list" method="get" name="searchForm" id="search-form">
                 <div class="search-input-wrapper input-group">
-                    <select class="custom-select" id="searchOption" name="searchOption">
-                        <option value="-1" selected>선택</option>
-                        <option value="1">ID</option>
-                        <option value="2">수익</option>
-                        <option value="3">지출</option>
-                        <option value="4">날짜</option>
-                    </select>
-                    <input type="text" class="form-control" placeholder="검색어 입력" id="keyword"
-                           name="keyword">
-                    <input type="text" id="page" name="page" value="1" hidden>
-                    <input class="btn btn-outline-secondary" type="submit" value="검색" id="search-btn">
+<!--                     <select class="custom-select" id="searchOption" name="searchOption"> -->
+<!--                         <option value="-1" selected>선택</option> -->
+<!--                         <option value="1">ID</option> -->
+<!--                         <option value="2">수익</option> -->
+<!--                         <option value="3">지출</option>  -->
+<!--                         <option value="4">날짜</option>  -->
+<!--                     </select> -->
+<!--                     <input type="text" class="form-control" placeholder="검색어 입력" id="keyword" -->
+<!--                            name="keyword"> -->
+<!--                     <input type="text" id="page" name="page" value="1" hidden> -->
+<!--                     <input class="btn btn-outline-secondary" type="submit" value="검색" id="search-btn"> -->
                 </div>
             </form>
-            <div class="search-select-type-wrapper btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-outline-secondary active">
-                    <input type="radio" name="select-type" id="edit" value="1" checked> 매출수정
-                </label>
-                <label class="btn btn-outline-secondary">
-                    <input type="radio" name="select-type" id="delete" value="2"> 매출삭제
-                </label>
-            </div>
+
+<!--              <div class="search-select-type-wrapper btn-group btn-group-toggle" data-toggle="buttons"> -->
+            
+<!--                 <label class="btn btn-outline-secondary active"> -->
+<!--                     <input type="radio" name="select-type" id="asset" value="1" checked> 보유금 -->
+<!--                 </label> -->
+<!--                 <label class="btn btn-outline-secondary"> -->
+<!--                     <input type="radio" name="select-type" id="sales" value="2"> 매출 -->
+<!--                 </label> -->
+<!--              </div>  -->
+
             <div class="search-result-into-container">
                 ${balanceList.size()}개 검색되었습니다
             </div>
@@ -50,10 +53,8 @@
                     <thead>
                     <tr>
                         <th scope="col">계좌ID</th>
-                        <th scope="col">통화</th>
-                        <th scope="col">수익</th>
-                        <th scope="col">지출</th>
                         <th scope="col">보유금</th>
+                        <th scope="col">비용</th>
                         <th scope="col">변동일시</th>
                     </tr>
                     </thead>
@@ -66,12 +67,19 @@
                         <c:forEach var="i" begin="${(page - 1) * 10}"
                                    end="${Math.min(balanceList.size() - 1, (page - 1) * 10 + 9)}">
                             <tr class="balance-data" id="balanceData${i}">
-                                <td>${balanceList.get(i).getAccountID()}</td>
-                                <td>${balanceList.get(i).getCurrency()}</td>
-                                <td>${balanceList.get(i).getProfit()}</td>
-                                <td>${balanceList.get(i).getExpense()}</td>
-                                <td>${balanceList.get(i).getAmount()}</td>
-                                <td>${balanceList.get(i).getLastUpload()}</td>
+                                <td>${balanceList.get(i).get("ACCOUNTID")}</td>
+                                <td><fmt:formatNumber value="${balanceList.get(i).get('ASSETS')}" pattern="###,###,###" /></td>
+<%--                                 <td>${balanceList.get(i).get("ASSETS")}</td> --%>
+                                <td>
+                                	<c:if test='${balanceList.get(i).get("FLAG") eq 0}'>
+                                		+ ${balanceList.get(i).get("COST")}
+                                	</c:if>
+                                	<c:if test='${balanceList.get(i).get("FLAG") eq 1}'>
+                                		- ${balanceList.get(i).get("COST")}
+                                	</c:if>
+                                </td>
+                                <td>${balanceList.get(i).get("DAY")}</td>
+                                
                             </tr>
                         </c:forEach>
                     </c:if>
