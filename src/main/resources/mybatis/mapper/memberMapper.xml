@@ -7,6 +7,7 @@
                NAME,
                EMAIL,
                CONTACT,
+               BIRTHDATE,
                REGDATE
         FROM MEMBER
         ORDER BY MEMBERID ASC
@@ -17,6 +18,7 @@
                NAME,
                EMAIL,
                CONTACT,
+               BIRTHDATE,
                REGDATE
         FROM MEMBER
         WHERE MEMBERID = #{id}
@@ -28,6 +30,7 @@
                NAME,
                EMAIL,
                CONTACT,
+               BIRTHDATE,
                REGDATE
         FROM MEMBER
         WHERE NAME LIKE #{name}
@@ -39,6 +42,7 @@
                NAME,
                EMAIL,
                CONTACT,
+               BIRTHDATE,
                REGDATE
         FROM MEMBER
         WHERE EMAIL LIKE #{email}
@@ -50,6 +54,7 @@
                NAME,
                EMAIL,
                CONTACT,
+               BIRTHDATE,
                REGDATE
         FROM MEMBER
         WHERE CONTACT LIKE #{contact}
