@@ -93,9 +93,6 @@ main .search-container .select-ingredient-container .select-ingredient-result-co
   border: none;
 }
 main .search-container .select-ingredient-container .select-ingredient-result-container table tr td:last-child .selected-ingredient-remove-btn-wrapper .selected-ingredient-remove-btn {
-  position: absolute;
-  right: 1vw;
-  transform: translateY(-3.5vh);
   border: none;
   background-color: transparent;
   color: red;

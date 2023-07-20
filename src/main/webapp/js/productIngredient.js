@@ -50,7 +50,9 @@ const addEventListenerInput = () => {
 
 const updateSelectTable = () => {
     let htmls = "";
-    const sortedList = Array.from([...selectStock].sort());
+    const sortedList = Array.from([...selectStock].sort((e1, e2) => {
+        return e1[0] - e2[0];
+    }));
     console.log(sortedList);
     sortedList.forEach((entry, idx) => {
         console.log(entry);
@@ -78,11 +80,14 @@ const updateSelectTable = () => {
 }
 
 const addEventListenerOnStock = (list) => {
-    const sortedList = Array.from([...list].sort());
+    const sortedList = Array.from([...list].sort((e1, e2) => {
+        return e1 - e2;
+    }));
     $("#search-table-body tr").each((idx, element) => {
         $(element).click(() => {
             console.log(idx);
             console.log(element);
+            console.log(sortedList);
             if (!selectStock.has(sortedList[idx])) {
                 selectStock.set(sortedList[idx], 1);
                 updateSelectTable();
