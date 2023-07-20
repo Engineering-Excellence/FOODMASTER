@@ -14,8 +14,8 @@
             <div class="col-sm-12 col-md-4 mb-4 mb-md-0">
                 <h6>About US</h6>
                 <p class="text-justify">
-                    PC Master는 특별함보다는 기본에 충실하여<br>
-                    PC방 업무 효율화를 증진하고<br>
+                    Food Master는 특별함보다는 기본에 충실하여<br>
+                    음식점 업무 효율화를 증진하고<br>
                     고객분들의 즐거운 일상을 조성하는<br>
                     프로젝트 팀입니다.<br>
                 </p>
