@@ -82,6 +82,7 @@ main .search-container .select-ingredient-container .select-ingredient-result-co
 main .search-container .select-ingredient-container .select-ingredient-result-container table tr td:last-child {
   width: 100%;
   padding: 0;
+  display: flex;
 }
 main .search-container .select-ingredient-container .select-ingredient-result-container table tr td:last-child input {
   width: 85%;
