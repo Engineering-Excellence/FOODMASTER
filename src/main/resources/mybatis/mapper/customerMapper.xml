@@ -42,6 +42,10 @@
             SET INCOME = INCOME + #{item.price}
             WHERE SALEID = v_saleid;
 
+            -- 누적 수입 갱신
+            UPDATE BALANCE
+            SET ACCINCOME = ACCINCOME + #{item.price};
+
             -- 상품 재고 감소
             UPDATE PRODUCT
             SET QUANTITY = QUANTITY - #{item.quantity}
