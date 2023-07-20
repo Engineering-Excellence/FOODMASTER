@@ -149,7 +149,37 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean insert(HttpServletRequest request, HttpServletResponse response) {
+    public boolean confirmQuestion(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        log.info("confirmQuestion()");
+
+        String inputAnswer = request.getParameter("answer");    // 사용자가 입력한 값
+
+        MemberDTO memberDTO = authDAO.selectCredentials(request.getParameter("email"));
+        if (memberDTO == null) return false;
+        String answer = memberDTO.getAnswer();  // DB에 저장된 정답
+        String salt = memberDTO.getSalt();
+
+        try (PrintWriter out = response.getWriter()) {
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            cipher = CipherUtil.getInstance();
+            boolean ret = cipher.hashPassword(inputAnswer, salt).equals(answer);
+            log.info("ret: " + ret);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            out.write(objectMapper.writeValueAsString(ret));
+            out.flush();
+            log.info("confirm question done");
+            return ret;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean register(HttpServletRequest request, HttpServletResponse response) {
         log.info("insert()");
         // 회원가입
 
@@ -160,32 +190,12 @@ public class AuthServiceImpl implements AuthService {
                 password = cipher.hashPassword(request.getParameter("password"), salt),
                 contact = request.getParameter("contact"),
                 question = request.getParameter("question"),
-                answer = request.getParameter("answer"),
+                answer = cipher.hashPassword(request.getParameter("answer"), salt),
                 birthDate = request.getParameter("birthDate");
 
         MemberDTO memberDTO = new MemberDTO(name, email, password, salt, contact, question, answer, birthDate);
 
         int ret = authDAO.insertMember(memberDTO);
         return ret == 1;
-    }
-
-    @Override
-    public void select(HttpServletRequest request, HttpServletResponse response) {
-        // 회원정보(본인) 보기 - Front에서 이미 구현
-        log.info("select()");
-    }
-
-    @Override
-    public boolean delete(HttpServletRequest request, HttpServletResponse response) {
-        // 회원탈퇴
-        log.info("delete()");
-        return false;
-    }
-
-    @Override
-    public boolean update(HttpServletRequest request, HttpServletResponse response) {
-        // 회원정보 수정
-        log.info("update()");
-        return false;
     }
 }

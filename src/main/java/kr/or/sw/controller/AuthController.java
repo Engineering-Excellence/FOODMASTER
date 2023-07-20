@@ -59,6 +59,7 @@ public class AuthController extends HttpServlet {
         log.info("doPost()");
 
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String pathInfo = request.getPathInfo();
         log.info("pathInfo: {}", pathInfo);
         switch (pathInfo) {
@@ -85,7 +86,10 @@ public class AuthController extends HttpServlet {
             case "/admin" -> {
                 log.info("/admin");
                 handleAdmin(request, response);
-
+            }
+            case "/confirmQuestion" -> {
+                log.info("/confirmQuestion");
+                authService.confirmQuestion(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }
@@ -121,7 +125,6 @@ public class AuthController extends HttpServlet {
                     "alert('로그인 실패');" +
                     "window.location.href = '/'" +
                     "</script>");
-//            redirectToIndex(request, response);
         } else {
             log.info("로그인 성공");
             authService.setMemberInfo(request, response);
@@ -160,7 +163,7 @@ public class AuthController extends HttpServlet {
         PrintWriter output = response.getWriter();
         response.setContentType("text/html");
 
-        if (authService.insert(request, response)) {
+        if (authService.register(request, response)) {
             log.info("register success");
             output.println("<script>" +
                     "alert('회원가입 성공');" +
