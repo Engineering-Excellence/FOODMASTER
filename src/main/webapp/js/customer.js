@@ -85,6 +85,7 @@ Trie.prototype.find = (self, key, stringIdx) => {
     if (!self.next.has(curr)) return [];
     return self.next.get(curr).find(self.next.get(curr), key, stringIdx + 1);
 }
+// 상품 이름으로 트라이 자료구조를 만들어서 실시간 검색에 용이하게 만듬
 
 // const makeFailure = (root) => {
 //     let q = new Queue();
@@ -135,6 +136,8 @@ const addEventListenerOnMenu = () => {
         });
     });
 }
+// 카테고리 혹은 검색 등으로 메뉴 리스트에 변경이 생겼을 때,
+// 메뉴 리스트에 이벤트 리스너를 추가해주는 함수
 
 const updateShoppingList = (idx, updateFlag) => {
     // updateFlag = false, minus
@@ -152,6 +155,9 @@ const updateShoppingList = (idx, updateFlag) => {
         shoppingList.set(idx, parseInt(shoppingList.get(idx) + 1));
     }
 }
+// 장바구니에 넣은 상품의 수량에 변화가 생겼을 때,
+// 그 갯수에 맞춰서 변화하는 함수
+
 const addEventListenerOnShoppingButton = (list) => {
     console.log(list);
     $(".shopping-btn").each((idx, element) => {
@@ -162,6 +168,8 @@ const addEventListenerOnShoppingButton = (list) => {
         });
     });
 }
+// 담기 버튼에 이벤트 리스너를 추가하는 함수
+
 
 const showAllMenu = () => {
     let htmls = "";
@@ -183,6 +191,7 @@ const showAllMenu = () => {
     addEventListenerOnMenu();
     addEventListenerOnShoppingButton(Array.from(Array(menu.length).keys()));
 }
+// 모든 메뉴 리스트를 추가하는 함수
 
 const showCategoryMenu = (category) => {
     let htmls = "";
@@ -206,6 +215,7 @@ const showCategoryMenu = (category) => {
     addEventListenerOnMenu();
     addEventListenerOnShoppingButton(menuMaps.get(category));
 }
+// 각 카테고리에 해당하는 메뉴를 추가하는 함수
 
 const showListMenu = (list) => {
     let htmls = "";
@@ -227,10 +237,12 @@ const showListMenu = (list) => {
     addEventListenerOnMenu();
     addEventListenerOnShoppingButton(Array.from(list));
 }
+// 검색 등으로 인해 특정 메뉴만 추가하는 함수
 
 $('.customer-menu-header-category').each((i, e) => {
     menuOrderMaps.set($(e).text().trim(), i);
 })
+// 각 카테고리에 인덱스를 부여하는 부분
 
 $(".customer-menu-header-category-wrapper").each((i, e) => {
     $(e).click(() => {
@@ -248,6 +260,8 @@ $(".customer-menu-header-category-wrapper").each((i, e) => {
         }
     });
 });
+// 선택된 카테고리를 하이라이트 해주는 이벤트리스너
+
 
 $("#search-input").keyup(throttle(() => {
     $(".customer-menu-header-category-wrapper").each((i, e) => {
@@ -258,6 +272,9 @@ $("#search-input").keyup(throttle(() => {
     let list = root.find(root, $("#search-input").val(), 0);
     showListMenu(list);
 }, 250));
+// 검색어 변화에 따른 실시간(부하 방지를 위해 0.25초 마다)으로 트라이에 검색을 진행하여
+// 검색어에 해당하는 메뉴를 다시 불러오는 부분
+
 
 window.onload = () => {
     $.ajax({
@@ -284,6 +301,7 @@ window.onload = () => {
         },
     });
 }
+// 맨 처음 로드시, 메뉴를 1차적으로 가져온 후 전체 메뉴를 보여주는 부분
 
 const updateShoppingModal = () => {
     let htmls = "";
@@ -348,7 +366,8 @@ const updateShoppingModal = () => {
         });
     })
 }
-
+// 장바구니를 종합적으로 업데이트하는 부분
+// 새로 추가된 상품, 수량으로부터 가격 계산까지 모두 담당
 // $("#shopping-modal-btn").click(updateShoppingModal);
 
 $("#shopping-make-order").click(() => {
@@ -396,6 +415,7 @@ $("#shopping-make-order").click(() => {
         },
     });
 });
+// 주문 ajax
 
 // 회원 탈퇴 ajax
 $("#resign-button").on("click", function () {
@@ -495,6 +515,7 @@ $("#contact-update-btn").click(() => {
         $("#update-input-contact").attr("readonly", "readonly");
     }
 });
+// 연락처를 수정하는 버튼
 
 $("#open-update-modal").click(() => {
     isUpdatePassword = false;
@@ -512,3 +533,4 @@ $("#password-update-btn").click(() => {
     $(".password-update-wrapper").css("height", height);
     $("#password-update-btn").text(`비밀번호 수정 ${mark}`);
 });
+// 비밀번호를 수정하는 버튼
