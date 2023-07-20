@@ -59,7 +59,11 @@
   grid-gap: 1vw;
   overflow-y: scroll;
 }
-.customer-container .customer-menu-container .customer-menu-body-container .customer-menu {
+.customer-container .customer-menu-container .customer-menu-body-container .customer-menu-wrapper {
+  width: 100%;
+  height: 24vh;
+}
+.customer-container .customer-menu-container .customer-menu-body-container .customer-menu-wrapper .customer-menu {
   flex-basis: 20%;
   height: 24vh;
   background-color: white;
@@ -72,13 +76,13 @@
   align-items: center;
   border: 1px solid #ccc;
 }
-.customer-container .customer-menu-container .customer-menu-body-container .customer-menu .menu-img {
+.customer-container .customer-menu-container .customer-menu-body-container .customer-menu-wrapper .customer-menu .menu-img {
   flex-basis: 60%;
   height: 12vh;
   width: fit-content;
   margin: 1vw;
 }
-.customer-container .customer-menu-container .customer-menu-body-container .customer-menu .menu-info-container {
+.customer-container .customer-menu-container .customer-menu-body-container .customer-menu-wrapper .customer-menu .menu-info-container {
   flex-basis: 40%;
   width: 100%;
   display: flex;
@@ -87,8 +91,9 @@
   align-items: center;
   border-top: 1px solid #ccc;
 }
-.customer-container .customer-menu-container .customer-menu-body-container .customer-menu .menu-shop-btn-wrapper {
-  position: absolute;
+.customer-container .customer-menu-container .customer-menu-body-container .customer-menu-wrapper .menu-shop-btn-wrapper {
+  position: relative;
+  transform: translate(1.1vw, -26vh);
   background-color: rgba(100, 100, 100, 0.5);
   height: 24vh;
   width: 15.2vw;
@@ -97,10 +102,10 @@
   justify-content: center;
   align-items: center;
 }
-.customer-container .customer-menu-container .customer-menu-body-container .customer-menu .menu-shop-btn-wrapper.hide {
+.customer-container .customer-menu-container .customer-menu-body-container .customer-menu-wrapper .menu-shop-btn-wrapper.hide {
   display: none;
 }
-.customer-container .customer-menu-container .customer-menu-body-container .customer-menu .menu-shop-btn-wrapper.show {
+.customer-container .customer-menu-container .customer-menu-body-container .customer-menu-wrapper .menu-shop-btn-wrapper.show {
   display: flex;
 }
 .customer-container .customer-info-container {
