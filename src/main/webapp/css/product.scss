@@ -104,6 +104,7 @@ main {
               &:last-child {
                 width: 100%;
                 padding: 0;
+                display: flex;
 
                 input {
                   width: 85%;
@@ -116,9 +117,6 @@ main {
                   border: none;
 
                   .selected-ingredient-remove-btn {
-                    position: absolute;
-                    right: 1vw;
-                    transform: translateY(-3.5vh);
                     border: none;
                     background-color: transparent;
                     color: red;
