@@ -124,7 +124,7 @@ Trie.prototype.find = (self, key, stringIdx) => {
 // 다시 생각해보니 Trie만으로도 가능해서 사용안함
 
 const addEventListenerOnMenu = () => {
-    $(".customer-menu").each((idx, element) => {
+    $(".customer-menu-wrapper").each((idx, element) => {
         $(element).mouseenter(() => {
             $(`.menu-shop-btn-wrapper:eq(${idx})`).removeClass("hide");
             $(`.menu-shop-btn-wrapper:eq(${idx})`).addClass("show");
@@ -166,11 +166,13 @@ const addEventListenerOnShoppingButton = (list) => {
 const showAllMenu = () => {
     let htmls = "";
     menu.forEach((m) => {
+        htmls += '<div class="customer-menu-wrapper">';
         htmls += '<div class="customer-menu">';
         htmls += `<img class="menu-img" alt="상품" src="..${m.image.relPath}">`;
         htmls += '<div class="menu-info-container">';
         htmls += `<div class="menu-name">${m.productName}</div>`;
         htmls += `<div class="menu-price">${m.price}원</div>`;
+        htmls += '</div>';
         htmls += '</div>';
         htmls += '<div class="menu-shop-btn-wrapper hide">';
         htmls += '<button class="shopping-btn btn btn-warning">담기</button>';
@@ -186,11 +188,13 @@ const showCategoryMenu = (category) => {
     let htmls = "";
     if (menuMaps.has(category)) {
         menuMaps.get(category).forEach(idx => {
+            htmls += '<div class="customer-menu-wrapper">';
             htmls += '<div class="customer-menu">';
             htmls += `<img class="menu-img" alt="상품" src="${menu[idx].image.relPath}">`;
             htmls += '<div class="menu-info-container">';
             htmls += `<div class="menu-name">${menu[idx].productName}</div>`;
             htmls += `<div class="menu-price">${menu[idx].price}원</div>`;
+            htmls += '</div>';
             htmls += '</div>';
             htmls += '<div class="menu-shop-btn-wrapper hide">';
             htmls += '<button class="shopping-btn btn btn-warning">담기</button>';
@@ -206,11 +210,13 @@ const showCategoryMenu = (category) => {
 const showListMenu = (list) => {
     let htmls = "";
     list.forEach(idx => {
+        htmls += '<div class="customer-menu-wrapper">';
         htmls += '<div class="customer-menu">';
         htmls += `<img class="menu-img" alt="상품" src="${menu[idx].image.relPath}">`;
         htmls += '<div class="menu-info-container">';
         htmls += `<div class="menu-name">${menu[idx].productName}</div>`;
         htmls += `<div class="menu-price">${menu[idx].price}원</div>`;
+        htmls += '</div>';
         htmls += '</div>';
         htmls += '<div class="menu-shop-btn-wrapper hide">';
         htmls += '<button class="shopping-btn btn btn-warning">담기</button>';
