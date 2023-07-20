@@ -69,21 +69,21 @@
 
     <update id="updateMember" parameterType="kr.or.sw.model.MemberDTO">
         UPDATE MEMBER
-        SET EMAIL      = #{email},
-            CONTACT    = #{contact}
+        SET EMAIL   = #{email},
+            CONTACT = #{contact}
         WHERE MEMBERID = #{memberID}
     </update>
 
     <update id="updateMemberSelf" parameterType="kr.or.sw.model.MemberDTO">
         UPDATE MEMBER
-        SET PASSWORD   = #{password},
-            SALT       = #{salt},
-            CONTACT    = #{contact}
+        SET PASSWORD = #{password},
+            SALT     = #{salt},
+            CONTACT  = #{contact}
         WHERE MEMBERID = #{memberID}
     </update>
     <update id="updateMemberSelfWOPassword" parameterType="kr.or.sw.model.MemberDTO">
         UPDATE MEMBER
-        SET CONTACT    = #{contact}
+        SET CONTACT = #{contact}
         WHERE MEMBERID = #{memberID}
     </update>
 
