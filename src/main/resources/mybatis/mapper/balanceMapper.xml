@@ -10,7 +10,9 @@
 	</select>
 
 	<select id="selectBalance" resultType="kr.or.sw.model.BalanceVO">
-		SELECT ASSETS
+		SELECT ASSETS,
+		       ACCINCOME,
+		       ACCEXPENSE
 		FROM BALANCE
 	</select>
 </mapper>
