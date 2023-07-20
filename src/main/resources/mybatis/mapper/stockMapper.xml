@@ -30,8 +30,6 @@
 		ORDER BY STOCKNAME ASC
 	</select>
 
-
-
 	<select id="selectStockByProductID" parameterType="_int"
 		resultType="kr.or.sw.model.StockVO">
 		SELECT *
