@@ -52,7 +52,7 @@
         BEGIN
         -- 발주기록 추가
         INSERT INTO STOCKORDER (ORDERID, QUANTITY, EXPENSE, ASSETS, ORDERDATE, STOCKID,
-                                                               EMPID, ACCOUNTID)
+                                EMPID, ACCOUNTID)
         VALUES (ORDERID_SEQ.nextval, #{quantity}, #{price} * #{quantity}, 0, SYSDATE, #{stockID}, 1,
                 'account') RETURNING ORDERID
         INTO v_orderid;

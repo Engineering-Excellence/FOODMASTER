@@ -38,7 +38,7 @@ public class BalanceController extends HttpServlet {
             default -> handleInvalidAccess(request, response);
         }
         request.setAttribute("path", request.getRequestURI().substring(request.getContextPath().length()));
-        request.getRequestDispatcher(request.getContextPath() + HOME_PATH).forward(request, response);       
+        request.getRequestDispatcher(request.getContextPath() + HOME_PATH).forward(request, response);
     }
 
     @Override
@@ -51,8 +51,6 @@ public class BalanceController extends HttpServlet {
     public void destroy() {
         log.info("destroy()");
     }
-    
 
-    
-    
+
 }
