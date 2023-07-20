@@ -167,7 +167,7 @@ const showAllMenu = () => {
     let htmls = "";
     menu.forEach((m) => {
         htmls += '<div class="customer-menu">';
-        htmls += `<img class="menu-img" alt="상품" src="${m.image.relPath}">`;
+        htmls += `<img class="menu-img" alt="상품" src="..${m.image.relPath}">`;
         htmls += '<div class="menu-info-container">';
         htmls += `<div class="menu-name">${m.productName}</div>`;
         htmls += `<div class="menu-price">${m.price}원</div>`;
