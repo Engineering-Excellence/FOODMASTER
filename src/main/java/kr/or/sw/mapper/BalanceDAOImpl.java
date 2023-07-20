@@ -1,5 +1,6 @@
 package kr.or.sw.mapper;
 
+import kr.or.sw.model.BalanceVO;
 import kr.or.sw.util.MyBatisUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -48,5 +49,13 @@ public class BalanceDAOImpl implements BalanceDAO {
             }
         }
         return balanceExpense;
+    }
+
+    @Override
+    public BalanceVO selectBalance() {
+        log.info("selectBalance()");
+        try (SqlSession sqlSession = MyBatisUtil.getSession()) {
+            return sqlSession.selectOne("selectBalance");
+        }
     }
 }

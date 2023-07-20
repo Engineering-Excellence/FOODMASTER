@@ -34,6 +34,7 @@ public class BalanceController extends HttpServlet {
                 log.info("/list");
                 // 입출금 내역 목록 불러오기
                 balanceService.selectAll(request, response);
+                balanceService.selectBalance(request, response);
             }
             default -> handleInvalidAccess(request, response);
         }

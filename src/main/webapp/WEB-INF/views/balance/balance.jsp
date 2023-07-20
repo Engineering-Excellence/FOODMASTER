@@ -21,22 +21,9 @@
 <main>
     <div class="search-container">
         <div class="search-input-container">
-            <form action="/balance/list" method="get" name="searchForm"
-                  id="search-form">
-                <div class="search-input-wrapper input-group">
-                    <!--                     <select class="custom-select" id="searchOption" name="searchOption"> -->
-                    <!--                         <option value="-1" selected>선택</option> -->
-                    <!--                         <option value="1">ID</option> -->
-                    <!--                         <option value="2">수익</option> -->
-                    <!--                         <option value="3">지출</option>  -->
-                    <!--                         <option value="4">날짜</option>  -->
-                    <!--                     </select> -->
-                    <!--                     <input type="text" class="form-control" placeholder="검색어 입력" id="keyword" -->
-                    <!--                            name="keyword"> -->
-                    <!--                     <input type="text" id="page" name="page" value="1" hidden> -->
-                    <!--                     <input class="btn btn-outline-secondary" type="submit" value="검색" id="search-btn"> -->
-                </div>
-            </form>
+            <div class="balance">
+                보유금 : ${balance.getAssets()}
+            </div>
 
             <!--              <div class="search-select-type-wrapper btn-group btn-group-toggle" data-toggle="buttons"> -->
 
