@@ -22,7 +22,7 @@
                     <!-- 상품등록 카테고리 -->
                     <div class="insert-category">
                         <h3>카테고리</h3>
-                        <select class="custom-select" name="category">
+                        <select class="custom-select" name="category" id="category">
                             <option value="-1" selected>선택</option>
                             <option value="한식">한식</option>
                             <option value="중식">중식</option>
