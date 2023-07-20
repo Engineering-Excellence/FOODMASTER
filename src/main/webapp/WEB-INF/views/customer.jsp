@@ -39,19 +39,19 @@
                 <div class="customer-menu-header-category">전체</div>
             </div>
             <div class="btn btn-light customer-menu-header-category-wrapper">
-                <div class="customer-menu-header-category">음료</div>
+                <div class="customer-menu-header-category">한식</div>
             </div>
             <div class="btn btn-light customer-menu-header-category-wrapper">
-                <div class="customer-menu-header-category">라면</div>
+                <div class="customer-menu-header-category">중식</div>
+            </div>
+            <div class="btn btn-light customer-menu-header-category-wrapper">
+                <div class="customer-menu-header-category">일식</div>
             </div>
             <div class="btn btn-light customer-menu-header-category-wrapper">
                 <div class="customer-menu-header-category">패스트푸드</div>
             </div>
             <div class="btn btn-light customer-menu-header-category-wrapper">
-                <div class="customer-menu-header-category">간식</div>
-            </div>
-            <div class="btn btn-light customer-menu-header-category-wrapper">
-                <div class="customer-menu-header-category">기타</div>
+                <div class="customer-menu-header-category">음료</div>
             </div>
             <div class="customer-menu-header-search">
                 <input class="search-input form-control" id="search-input"
