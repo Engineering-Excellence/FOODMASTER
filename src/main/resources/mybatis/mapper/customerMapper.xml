@@ -38,7 +38,7 @@
 
         <foreach collection="productDTOList" item="item" separator=" " index="index">
             -- 수입 누적
-            UPDATE /*+ NO_PARALLEL(SALE) */ SALE
+            UPDATE SALE
             SET INCOME = INCOME + #{item.price}
             WHERE SALEID = v_saleid;
 
@@ -62,11 +62,10 @@
         </foreach>
 
         -- 보유금 증가
-        UPDATE /*+ NO_PARALLEL(BALANCE), NO_PARALLEL(SALE) */ BALANCE
+        UPDATE BALANCE
         SET ASSETS = ASSETS + (
-
         SELECT INCOME
-        FROM (SELECT /*+ NO_PARALLEL(SALE) */ INCOME FROM SALE ORDER BY SALEID DESC)
+        FROM (SELECT INCOME FROM SALE ORDER BY SALEID DESC)
         WHERE ROWNUM = 1
         ),
         LASTUPDATED = SYSDATE;

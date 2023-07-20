@@ -114,14 +114,28 @@ $("#password-confirm").on("keyup", () => {
 })
 
 $("#answer-chk").click(() => {
-    if (answer === $("#answer").val()) {
-        answerChk = true;
-        $("#answer").attr("readonly", "readonly");
-        $("#answer-chk").toggleClass("btn-outline-secondary");
-        $("#answer-chk").toggleClass("btn-success");
-        $("#answer-chk").off("click");
-        alert("확인이 완료되었습니다");
-    } else {
-        alert("정답이 아닙니다");
-    }
+    $.ajax({
+        url: "/auth/confirmQuestion",
+        type: "post",
+        data: {
+            email: $("#email").val(),
+            answer: $("#answer").val()
+        },
+        dataType: "json",
+        success: (res) => {
+            if (res) {
+                answerChk = true;
+                $("#answer").attr("readonly", "readonly");
+                $("#answer-chk").toggleClass("btn-outline-secondary");
+                $("#answer-chk").toggleClass("btn-success");
+                $("#answer-chk").off("click");
+                alert("확인이 완료되었습니다");
+            } else {
+                alert("정답이 아닙니다");
+            }
+        },
+        error: (err) => {
+            console.error(err);
+        }
+    });
 });

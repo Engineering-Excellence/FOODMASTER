@@ -3,7 +3,9 @@
 
 <mapper namespace="kr.or.sw.mapper.AuthDAOImpl">
     <select id="selectCredentials" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
-        SELECT PASSWORD, SALT
+        SELECT PASSWORD,
+               SALT,
+               ANSWER
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
@@ -15,13 +17,19 @@
     </select>
 
     <select id="getQuestion" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
-        SELECT QUESTION, ANSWER
+        SELECT QUESTION,
+               ANSWER
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
 
     <select id="getMemberInfo" parameterType="java.lang.String" resultType="kr.or.sw.model.MemberDTO">
-        SELECT MEMBERID, NAME, EMAIL, CONTACT, BIRTHDATE, REGDATE
+        SELECT MEMBERID,
+               NAME,
+               EMAIL,
+               CONTACT,
+               BIRTHDATE,
+               REGDATE
         FROM MEMBER
         WHERE EMAIL = #{email}
     </select>
@@ -40,13 +48,15 @@
     </update>
 
     <select id="selectAdminCredentials" parameterType="java.lang.String" resultType="kr.or.sw.model.EmpDTO">
-        SELECT PASSWORD, SALT
+        SELECT PASSWORD,
+               SALT
         FROM EMP
         WHERE ADMIN = #{ADMIN}
     </select>
 
     <select id="getAdminInfo" parameterType="java.lang.String" resultType="kr.or.sw.model.EmpDTO">
-        SELECT EMPID, ADMIN
+        SELECT EMPID,
+               ADMIN
         FROM EMP
         WHERE ADMIN = #{ADMIN}
     </select>
