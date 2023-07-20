@@ -3,10 +3,10 @@
 <h2>⭐ ROLE</h2>
 <table>
     <thead>
-        <th>진승현</th>
-        <th>곽규창</th>
-        <th>심명관</th>
-        <th>김혁진</th>
+        <th>진승현<br>(bnbu)</th>
+        <th>곽규창<br>(Engineering-<br>Excellence)</th>
+        <th>심명관<br>(myungaa0626)</th>
+        <th>김혁진<br>(hyeokjin0317)</th>
     </thead>
     <tbody>
         <td>
@@ -46,34 +46,34 @@
         <td>
             <ul>
                 <li>
-                    뷰 제작
+                    프로젝트 기획
                 </li>
                 <li>
-                    회원 가입
+                    DB 모델링
                 </li>
                 <li>
-                    로그인
+                    아키텍처 설계
                 </li>
                 <li>
-                    비밀번호 재설정
+                    서버 구축(Linux) 및 관리
                 </li>
                 <li>
-                    회원 조회
+                    CI/CD(Jenkins)
                 </li>
                 <li>
-                    회원 정보 수정
+                    암호화
                 </li>
                 <li>
-                    이미지 등록 미리보기
+                    Docker 컨테이너 관리
                 </li>
                 <li>
-                    상품 재료 등록
+                    상품 이미지 등록/삭제
                 </li>
                 <li>
-                    장바구니 및 주문하기
+                    상품 레시피 기능 구현
                 </li>
                 <li>
-                    로그인 세션
+                   PL/SQL 작성 등 백엔드 기능 다수 구현 
                 </li>
             </ul>
         </td>
@@ -256,7 +256,3 @@
     </tr>
   </tbody>
 </table>
-
-
-
-
