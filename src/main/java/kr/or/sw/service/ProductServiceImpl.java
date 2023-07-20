@@ -21,6 +21,8 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -96,8 +98,10 @@ public class ProductServiceImpl implements ProductService {
         log.info("insert()");
 
         try {
-            String uploadPath = request.getServletContext().getRealPath(File.separator + "upload");
+//            String uploadPath = request.getServletContext().getRealPath(File.separator + "upload");
+            String uploadPath = Paths.get(request.getServletContext().getRealPath("/")).getParent().toString() + File.separator + "upload";
             File uploadDirectory = new File(uploadPath);
+            log.info("uploadPath: {}", uploadPath);
             if (!uploadDirectory.exists()) {    // 업로드 디렉토리가 없을 경우 생성
                 log.info("mkdir: {}", uploadDirectory.mkdirs());
             }

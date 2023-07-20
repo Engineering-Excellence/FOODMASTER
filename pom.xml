@@ -249,15 +249,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
-                <configuration>
-                    <!-- /upload/ 디렉토리에 있는 파일들을 포함하도록 설정 -->
-                    <webResources>
-                        <resource>
-                            <directory>src/main/webapp/upload</directory>
-                            <targetPath>/upload</targetPath>
-                        </resource>
-                    </webResources>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
