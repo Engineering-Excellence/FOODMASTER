@@ -2,6 +2,7 @@ package kr.or.sw.service;
 
 import kr.or.sw.mapper.BalanceDAO;
 import kr.or.sw.mapper.BalanceDAOImpl;
+import kr.or.sw.model.BalanceVO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +47,14 @@ public class BalanceServiceImpl implements BalanceService {
 
         request.setAttribute("balanceList", list);
         request.setAttribute("page", Objects.requireNonNullElse(request.getParameter("page"), 1));
+    }
+
+    @Override
+    public void selectBalance(HttpServletRequest request, HttpServletResponse response) {
+        log.info("selectBalance");
+
+        BalanceVO balanceVO = balanceDAO.selectBalance();
+
+        request.setAttribute("balance", balanceVO);
     }
 }

@@ -6,4 +6,5 @@ import javax.servlet.http.HttpServletResponse;
 public interface BalanceService {
 
     void selectAll(HttpServletRequest request, HttpServletResponse response);
+    void selectBalance(HttpServletRequest request, HttpServletResponse response);
 }
