@@ -294,7 +294,7 @@ const updateShoppingModal = () => {
         htmls += '<div class="card-body text-secondary">'
         htmls += '<div class="shopping-count-wrapper">'
         htmls += '<button class="btn btn-outline-secondary shopping-product-count-minus">-</button>'
-        htmls += `<input type="number" class="form-control shopping-product-count" name="keyword" value="${entry[1]}" style="text-align: center" readonly>`
+        htmls += `<div class="form-control shopping-product-count" style="text-align: center">${entry[1]}</div>`
         htmls += '<button class="btn btn-outline-secondary shopping-product-count-plus">+</button>'
         htmls += '</div>'
         htmls += '<div class="shopping-price-wrapper">'

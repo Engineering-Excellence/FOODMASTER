@@ -243,6 +243,9 @@
   -webkit-appearance: none;
   margin: 0;
 }
+.modal .modal-dialog .modal-content .modal-body .card .card-body .shopping-count-wrapper .shopping-product-count {
+  height: 100%;
+}
 .modal .modal-dialog .modal-content .modal-body .card .card-body .shopping-price-wrapper {
   flex-basis: 50%;
   display: flex;
