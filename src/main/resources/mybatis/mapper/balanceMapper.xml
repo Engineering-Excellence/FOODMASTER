@@ -8,4 +8,9 @@
 	<select id="selectAllExpense" resultType="map">
 			SELECT ACCOUNTID, ASSETS, EXPENSE AS COST, 1 AS FLAG, ORDERDATE AS DAY FROM STOCKORDER
 	</select>
+
+	<select id="selectBalance" resultType="kr.or.sw.model.BalanceVO">
+		SELECT ASSETS
+		FROM BALANCE
+	</select>
 </mapper>
