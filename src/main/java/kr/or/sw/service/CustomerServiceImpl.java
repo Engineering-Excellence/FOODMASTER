@@ -39,7 +39,6 @@ public class CustomerServiceImpl implements CustomerService {
         return instance;
     }
 
-    private CipherUtil cipher = CipherUtil.getInstance();
     private final CustomerDAO customerDAO = CustomerDAOImpl.getInstance();
 
     @Override
@@ -133,6 +132,7 @@ public class CustomerServiceImpl implements CustomerService {
 
             MemberDTO memberDTO = AuthDAOImpl.getInstance().selectCredentials(email);
 
+            CipherUtil cipher = CipherUtil.getInstance();
             if (cipher.hashPassword(password, memberDTO.getSalt()).equals(memberDTO.getPassword())) {
                 boolean ret = MemberDAOImpl.getInstance().deleteMember(memberID) == 1;
                 log.info("success: {}", ret);
@@ -166,7 +166,7 @@ public class CustomerServiceImpl implements CustomerService {
             MemberDTO memberDTO = new MemberDTO();
             memberDTO.setMemberID(memberID);
             memberDTO.setContact(contact);
-            int ret = 0;
+            int ret;
             if (password == null) {
                 log.info("password is null");
                 ret = MemberDAOImpl.getInstance().updateMemberSelfWOPassword(memberDTO);

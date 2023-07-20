@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public interface AuthService extends Service {
+public interface AuthService {
 
     boolean login(HttpServletRequest request, HttpServletResponse response);
 
@@ -20,5 +20,7 @@ public interface AuthService extends Service {
 
     void setAdminInfo(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-//    boolean findAccount(HttpServletRequest request, HttpServletResponse response);
+    boolean confirmQuestion(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
+    boolean register(HttpServletRequest request, HttpServletResponse response);
 }
