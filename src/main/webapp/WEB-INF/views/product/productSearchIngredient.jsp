@@ -19,11 +19,11 @@
 <main>
     <div class="search-container">
         <div class="search-input-container for-ingredient">
-			<div class="search-input-wrapper input-group for-ingredient">
-				<input type="text" class="form-control" placeholder="재고 이름 입력"
-					id="keyword" name="keyword">
-			</div>
-		</div>
+            <div class="search-input-wrapper input-group for-ingredient">
+                <input type="text" class="form-control" placeholder="재고 이름 입력"
+                       id="keyword" name="keyword">
+            </div>
+        </div>
         <div class="search-result-container for-ingredient">
             <div class="search-result-wrapper">
                 <table class="table table-bordered table-hover">

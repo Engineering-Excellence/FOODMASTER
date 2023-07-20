@@ -196,7 +196,6 @@ public class ProductServiceImpl implements ProductService {
         log.info("updateRecipe()");
 
         response.setContentType("application/json");
-//        response.setCharacterEncoding("UTF-8");
         ObjectMapper objectMapper = new ObjectMapper();
 
         try (PrintWriter out = response.getWriter()) {
