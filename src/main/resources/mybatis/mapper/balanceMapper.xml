@@ -1,69 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.sw.mapper.BalanceDAOImpl">
-<!-- 	<select id="selectAllBalances" resultType="kr.or.sw.model.BalanceVO"> -->
-<!-- 		SELECT * -->
-<!-- 		FROM BALANCE -->
-<!-- 		ORDER BY LASTUPDATED DESC -->
-<!-- 	</select> -->
-
-
-<!-- 	<select id="selectAllBalances" resultType="map"> -->
-<!-- 		SELECT B.ACCOUNTID, B.ASSETS, S.INCOME, O.EXPENSE, B.LASTUPDATED -->
-<!-- 		FROM BALANCE B -->
-<!-- 		LEFT OUTER JOIN SALE S ON B.ACCOUNTID = S.ACCOUNTID -->
-<!-- 		LEFT OUTER JOIN STOCKORDER O ON S.ACCOUNTID = O.ACCOUNTID -->
-<!-- 		ORDER BY LASTUPDATED DESC -->
-<!-- 	</select> -->
-	
-	
-<!-- 	<select id="selectAllBalances" resultType="map"> -->
-<!-- 		SELECT B.ACCOUNTID, B.ASSETS, S.INCOME, O.EXPENSE, COALESCE(S.INCOME, O.EXPENSE), B.LASTUPDATED -->
-<!-- 		FROM BALANCE B -->
-<!-- 		LEFT OUTER JOIN SALE S ON B.ACCOUNTID = S.ACCOUNTID -->
-<!-- 		LEFT OUTER JOIN STOCKORDER O ON S.ACCOUNTID = O.ACCOUNTID -->
-<!-- 		ORDER BY LASTUPDATED DESC -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectAllBalances" resultType="map"> -->
-<!-- 		SELECT B.ACCOUNTID, B.ASSETS, S.INCOME, O.EXPENSE, COALESCE(S.INCOME, O.EXPENSE), -->
-<!-- 		S.SALEDATE, O.ORDERDATE, COALESCE(S.SALEDATE, O.ORDERDATE) -->
-<!-- 		FROM BALANCE B -->
-<!-- 		LEFT OUTER JOIN SALE S ON B.ACCOUNTID = S.ACCOUNTID -->
-<!-- 		LEFT OUTER JOIN STOCKORDER O ON S.ACCOUNTID = O.ACCOUNTID -->
-<!-- 		ORDER BY LASTUPDATED DESC -->
-<!-- 	</select> -->
-
-
-<!-- 	<select id="selectAllBalances" resultType="map"> -->
-<!-- 		SELECT B.ACCOUNTID, B.ASSETS, S.INCOME, O.EXPENSE, COALESCE(S.INCOME, O.EXPENSE), -->
-<!-- 		S.SALEDATE, O.ORDERDATE, COALESCE(S.SALEDATE, O.ORDERDATE) -->
-<!-- 		FROM BALANCE B -->
-<!-- 		LEFT OUTER JOIN SALE S ON B.ACCOUNTID = S.ACCOUNTID -->
-<!-- 		LEFT OUTER JOIN STOCKORDER O ON S.ACCOUNTID = O.ACCOUNTID -->
-<!-- 		ORDER BY S.SALEDATE DESC, O.ORDERDATE DESC -->
-<!-- 	</select> -->
-
-
-
 	<select id="selectAllincome" resultType="map">
 			SELECT ACCOUNTID, ASSETS, INCOME AS COST, 0 AS FLAG, SALEDATE AS DAY FROM SALE
 	</select>
 
-
 	<select id="selectAllExpense" resultType="map">
 			SELECT ACCOUNTID, ASSETS, EXPENSE AS COST, 1 AS FLAG, ORDERDATE AS DAY FROM STOCKORDER
 	</select>
-
-
-
 </mapper>
-
-
-
-
-
-
-
-
-

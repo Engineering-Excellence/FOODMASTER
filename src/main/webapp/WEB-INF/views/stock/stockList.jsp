@@ -7,7 +7,6 @@
 <script src="${pageContext.request.contextPath}/js/stock.js"
         type="text/javascript" defer></script>
 
-
 <c:if
         test="$ {( page <= 0 || Math.ceil(stockList.size() / 10 ) < page ) && stockList.size()>0 } ">
 
@@ -31,7 +30,7 @@
                     <select class="custom-select" id="searchOption" name="searchOption">
                         <option value="-1" selected>선택</option>
                         <option value="1">재고 ID</option>
-<!--                         <option value="2">상품 ID</option> -->
+                        <!--                         <option value="2">상품 ID</option> -->
                         <option value="3">재고명</option>
 
                     </select> <input type="text" class="form-control" placeholder="검색어 입력"
