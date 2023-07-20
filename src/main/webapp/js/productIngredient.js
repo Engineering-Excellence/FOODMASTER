@@ -164,7 +164,10 @@ $("#close-window").click(() => {
 $("#confirm-window").click(() => {
     // {상품 ID, 재고 ID, 수량} 로 리스트로 해서 보내기
     let data = [];
-    const sortedList = Array.from([...selectStock].sort());
+    const sortedList = Array.from([...selectStock].sort((e1, e2) => {
+            return e1[0] - e2[0];
+        })
+    );
 
     let productID = new URL(window.location.href).searchParams.get("productID");
     let chk = true;

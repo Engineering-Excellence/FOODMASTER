@@ -220,6 +220,7 @@ public class ProductServiceImpl implements ProductService {
 
                 joinTableVOList.add(new JoinTableVO(Integer.parseInt(productID), Integer.parseInt(stockID), Integer.parseInt(quantity)));
             }
+            log.info("size: {}", joinTableVOList.size());
             boolean result = productDAO.updateRecipe(joinTableVOList) > 0;
             out.write(objectMapper.writeValueAsString(result));
             out.flush();
