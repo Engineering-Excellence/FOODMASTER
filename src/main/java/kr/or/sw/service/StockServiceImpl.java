@@ -94,7 +94,6 @@ public class StockServiceImpl implements StockService {
         String keyword = request.getParameter("keyword");
 
         int searchOption = Integer.parseInt(request.getParameter("searchOption"));
-//        if (searchOption == 2) keyword = "%" + keyword + "%";
 
         if (searchOption >= 3)
             keyword = "%" + keyword + "%";
