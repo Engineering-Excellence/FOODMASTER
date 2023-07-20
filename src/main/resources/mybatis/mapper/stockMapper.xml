@@ -71,6 +71,10 @@
         SET ASSETS = (SELECT ASSETS FROM BALANCE)
         WHERE ORDERID = v_orderid;
 
+        -- 누적 비용 갱신
+        UPDATE BALANCE
+        SET ACCEXPENSE = ACCEXPENSE + #{price} * #{quantity};
+
         -- 상품 개수 갱신
         MERGE INTO PRODUCT P
             USING (SELECT PS.PRODUCTID, TRUNC(MIN(S.QUANTITY / PS.QUANTITY)) AS MIN_AVAILABLE
