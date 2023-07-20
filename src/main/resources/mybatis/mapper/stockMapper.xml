@@ -2,96 +2,111 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.sw.mapper.StockDAOImpl">
-    <select id="selectAllStocks" resultType="kr.or.sw.model.StockVO">
-        SELECT *
-        FROM STOCK
-        ORDER BY STOCKID ASC
-    </select>
+	<select id="selectAllStocks" resultType="kr.or.sw.model.StockVO">
+		SELECT *
+		FROM STOCK
+		ORDER BY STOCKID ASC
+	</select>
 
-    <select id="selectStock" parameterType="_int" resultType="kr.or.sw.model.StockVO">
-        SELECT *
-        FROM STOCK
-        WHERE STOCKID = #{STOCKID}
-    </select>
+	<select id="selectStock" parameterType="_int"
+		resultType="kr.or.sw.model.StockVO">
+		SELECT *
+		FROM STOCK
+		WHERE STOCKID = #{STOCKID}
+	</select>
 
-    <select id="selectStockById" parameterType="_int" resultType="kr.or.sw.model.StockVO">
-        SELECT *
-        FROM STOCK
-        WHERE STOCKID = #{stockID}
-        ORDER BY STOCKID ASC
-    </select>
+	<select id="selectStockById" parameterType="_int"
+		resultType="kr.or.sw.model.StockVO">
+		SELECT *
+		FROM STOCK
+		WHERE STOCKID = #{stockID}
+		ORDER BY STOCKID ASC
+	</select>
 
-    <select id="selectStockByProductID" parameterType="_int" resultType="kr.or.sw.model.StockVO">
-        SELECT *
-        FROM STOCK
-        WHERE PRODUCTID = #{productID}
-        ORDER BY STOCKID ASC
-    </select>
+	<select id="selectStockByName" parameterType="String" resultType="kr.or.sw.model.StockVO">
+		SELECT *
+		FROM STOCK
+		WHERE STOCKNAME LIKE #{stockName}
+		ORDER BY STOCKNAME ASC
+	</select>
 
-    <update id="updateStock" parameterType="kr.or.sw.model.StockVO">
-        UPDATE STOCK
-        SET QUANTITY = #{quantity},
-            PRICE    = #{price}
-        WHERE STOCKID = #{stockID}
-    </update>
 
-    <delete id="deleteStock" parameterType="_int">
-        DELETE
-        FROM STOCK
-        WHERE STOCKID = #{STOCKID}
-    </delete>
 
-    <insert id="insertStock" parameterType="kr.or.sw.model.StockVO">
-        INSERT INTO STOCK (STOCKID, STOCKNAME, QUANTITY, PRICE, STOCKDATE)
-        VALUES (STOCKID_SEQ.NEXTVAL, #{stockName}, 0, #{price}, SYSDATE)
-    </insert>
+	<select id="selectStockByProductID" parameterType="_int"
+		resultType="kr.or.sw.model.StockVO">
+		SELECT *
+		FROM STOCK
+		WHERE PRODUCTID = #{productID}
+		ORDER BY STOCKID ASC
+	</select>
 
-    <update id="orderStock" parameterType="kr.or.sw.model.StockVO">
-        DECLARE
-        v_orderid NUMBER;
-        BEGIN
-        -- 발주기록 추가
-        INSERT INTO STOCKORDER (ORDERID, QUANTITY, EXPENSE, ASSETS, ORDERDATE, STOCKID,
-                                EMPID, ACCOUNTID)
-        VALUES (ORDERID_SEQ.nextval, #{quantity}, #{price} * #{quantity}, 0, SYSDATE, #{stockID}, 1,
-                'account') RETURNING ORDERID
-        INTO v_orderid;
+	<update id="updateStock" parameterType="kr.or.sw.model.StockVO">
+		UPDATE STOCK
+		SET QUANTITY = #{quantity},
+		PRICE = #{price}
+		WHERE STOCKID = #{stockID}
+	</update>
 
-        -- 재료 개수 증가 및 보유 금액 감소
-        UPDATE STOCK
-        SET QUANTITY = QUANTITY + #{quantity}
-        WHERE STOCKID = #{stockID};
+	<delete id="deleteStock" parameterType="_int">
+		DELETE
+		FROM STOCK
+		WHERE STOCKID = #{STOCKID}
+	</delete>
 
-        -- 보유금 감소
-        UPDATE BALANCE
-        SET ASSETS = ASSETS - #{price} * #{quantity};
+	<insert id="insertStock" parameterType="kr.or.sw.model.StockVO">
+		INSERT INTO STOCK (STOCKID, STOCKNAME, QUANTITY, PRICE, STOCKDATE)
+		VALUES (STOCKID_SEQ.NEXTVAL, #{stockName}, 0, #{price}, SYSDATE)
+	</insert>
 
-        -- 발주 직후 보유 금액 기록
-        UPDATE STOCKORDER
-        SET ASSETS = (SELECT ASSETS FROM BALANCE)
-        WHERE ORDERID = v_orderid;
+	<update id="orderStock" parameterType="kr.or.sw.model.StockVO">
+		DECLARE
+		v_orderid NUMBER;
+		BEGIN
+		-- 발주기록 추가
+		INSERT INTO STOCKORDER (ORDERID, QUANTITY, EXPENSE, ASSETS, ORDERDATE,
+		STOCKID,
+		EMPID, ACCOUNTID)
+		VALUES (ORDERID_SEQ.nextval, #{quantity}, #{price} * #{quantity}, 0,
+		SYSDATE, #{stockID}, 1,
+		'account') RETURNING ORDERID
+		INTO v_orderid;
 
-        -- 누적 비용 갱신
-        UPDATE BALANCE
-        SET ACCEXPENSE = ACCEXPENSE + #{price} * #{quantity};
+		-- 재료 개수 증가 및 보유 금액 감소
+		UPDATE STOCK
+		SET QUANTITY = QUANTITY + #{quantity}
+		WHERE STOCKID = #{stockID};
 
-        -- 상품 개수 갱신
-        MERGE INTO PRODUCT P
-            USING (SELECT PS.PRODUCTID, TRUNC(MIN(S.QUANTITY / PS.QUANTITY)) AS MIN_AVAILABLE
-                   FROM PRODUCT_STOCK PS
-                            JOIN STOCK S ON PS.STOCKID = S.STOCKID
-                   GROUP BY PS.PRODUCTID) UPD
-            ON (P.PRODUCTID = UPD.PRODUCTID)
-            WHEN MATCHED THEN
-                UPDATE SET P.QUANTITY = UPD.MIN_AVAILABLE;
+		-- 보유금 감소
+		UPDATE BALANCE
+		SET ASSETS = ASSETS - #{price} * #{quantity};
 
-        COMMIT;
+		-- 발주 직후 보유 금액 기록
+		UPDATE STOCKORDER
+		SET ASSETS = (SELECT ASSETS FROM BALANCE)
+		WHERE ORDERID = v_orderid;
 
-        -- 예외 처리
-        EXCEPTION
-        WHEN OTHERS THEN
-        ROLLBACK;
-        RAISE;
-        END;
-    </update>
+		-- 누적 비용 갱신
+		UPDATE BALANCE
+		SET ACCEXPENSE = ACCEXPENSE + #{price} * #{quantity};
+
+		-- 상품 개수 갱신
+		MERGE INTO PRODUCT P
+		USING (SELECT PS.PRODUCTID, TRUNC(MIN(S.QUANTITY / PS.QUANTITY)) AS
+		MIN_AVAILABLE
+		FROM PRODUCT_STOCK PS
+		JOIN STOCK S ON PS.STOCKID = S.STOCKID
+		GROUP BY PS.PRODUCTID) UPD
+		ON (P.PRODUCTID = UPD.PRODUCTID)
+		WHEN MATCHED THEN
+		UPDATE SET P.QUANTITY = UPD.MIN_AVAILABLE;
+
+		COMMIT;
+
+		-- 예외 처리
+		EXCEPTION
+		WHEN OTHERS THEN
+		ROLLBACK;
+		RAISE;
+		END;
+	</update>
 </mapper>
