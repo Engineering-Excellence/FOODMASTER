@@ -110,7 +110,7 @@
                         </c:if>
                         <%-- 이전과 다음 버튼 사이에 들어갈 각 페이지 버튼들, 데이터를 담는 것과 어느정도 비슷한 방식 --%>
                         <c:forEach var="i" begin="${Math.floor((page - 1) / 10) * 10}"
-                                   end="${Math.min(Math.floor(memberList.size() / 10), Math.floor((page - 1) / 10) * 10 + 9)}">
+                                   end="${Math.min(Math.floor((memberList.size() - 1) / 10), Math.floor((page - 1) / 10) * 10 + 9)}">
                             <c:if test="${page == i + 1}">
                                 <c:if test="${keyword != null}">
                                     <li class="page-item"><a class="page-link current-page"
