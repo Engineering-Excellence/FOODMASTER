@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>PC Master</title>
+    <title>FOOD Master</title>
     <link rel="icon" href="${pageContext.request.contextPath}/favicon.ico">
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/css/bootstrap.min.css">
