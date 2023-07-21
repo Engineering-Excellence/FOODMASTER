@@ -2,11 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.sw.mapper.BalanceDAOImpl">
 	<select id="selectAllincome" resultType="map">
-			SELECT ACCOUNTID, ASSETS, INCOME AS COST, 0 AS FLAG, SALEDATE AS DAY FROM SALE
+		SELECT ACCOUNTID,
+			   ASSETS,
+			   INCOME AS COST,
+			   0      AS FLAG,
+			   SALEDATE AS DAY
+		FROM SALE
 	</select>
 
 	<select id="selectAllExpense" resultType="map">
-			SELECT ACCOUNTID, ASSETS, EXPENSE AS COST, 1 AS FLAG, ORDERDATE AS DAY FROM STOCKORDER
+		SELECT ACCOUNTID,
+			   ASSETS,
+			   EXPENSE AS COST,
+			   1       AS FLAG,
+			   ORDERDATE AS DAY
+		FROM STOCKORDER
 	</select>
 
 	<select id="selectBalance" resultType="kr.or.sw.model.BalanceVO">

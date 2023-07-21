@@ -1,4 +1,4 @@
-<h1>FOOD MASTER 식당 관리 시스템 JAVA Project (3팀)</h1>
+<h1>FOOD MASTER 식당 관리 시스템 JSP Project (3팀)</h1>
 
 <h2>⭐ ROLE</h2>
 <table>
@@ -67,20 +67,23 @@
                     Docker 컨테이너 관리
                 </li>
                 <li>
-                    상품 이미지 등록/삭제
+                    트랜잭션 처리 PL/SQL 작성
                 </li>
                 <li>
                     상품 레시피 기능 구현
                 </li>
                 <li>
-                   PL/SQL 작성 등 백엔드 기능 다수 구현 
+                    상품 이미지 등록/삭제
+                </li>
+                <li>
+                    그 외 백엔드 기능 다수 구현
                 </li>
             </ul>
         </td>
         <td>
             <ul>
                 <li>
-                    로그인 (회원/관리자 로그인 폼 분리)
+                    로그인 폼 분리 
                 </li>
                 <li>
                     재고 페이지 제작
@@ -104,7 +107,7 @@
                     매출 현황 구현
                 </li>
                 <li>
-                    보유금 현황 / 누적 판매 / 지출 / 수익 / 적자
+                    보유금 현황 관리 
                 </li>
             </ul>
         </td>
@@ -142,7 +145,7 @@
 <br>
 <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
 <img src="https://img.shields.io/badge/myBatis-47A248?style=for-the-badge&logo&logoColor=white">
-<img src="https://img.shields.io/badge/apachemaven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white">
+<img src="https://img.shields.io/badge/ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
 <br>
 <img src="https://img.shields.io/badge/jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white">
 <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
@@ -155,7 +158,7 @@
 <img src="https://img.shields.io/badge/datagrip-000000?style=for-the-badge&logo=datagrip&logoColor=white">
 <br>
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
-<img src="https://img.shields.io/badge/ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
+<img src="https://img.shields.io/badge/apachemaven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white">
 </div>
 
 <h2>🤝 Collaboration</h2>
@@ -166,10 +169,22 @@
 </div>
 
 <h2>🌳 Tree Structure</h2>
-<img width="501" alt="KakaoTalk_20230712_160812305_01" src="https://github.com/KOSA-PCMASTER/PCMASTER/assets/129246009/eec56212-7dd8-480b-b5c4-3918a209e73a">
+<div>
+<img width="352" alt="스크린샷 2023-07-20 오후 7 15 35" src="https://github.com/KOSA-PCMASTER/PCMASTER/assets/109461345/b0771a86-7bdd-468f-947e-f286d2326370">
+&nbsp;&Tab;&nbsp;
+<img width="346" alt="스크린샷 2023-07-20 오후 7 15 53" src="https://github.com/KOSA-PCMASTER/PCMASTER/assets/109461345/98efc326-b906-46fe-9f0a-e638dd2b44e0">
+</div>
 
 <h2>💾 ERD</h2>
+<div>
 <img width="946" alt="image" src="https://github.com/KOSA-PCMASTER/PCMASTER/assets/129246009/f327b8f0-d68f-4e50-be93-e82a79b4a281">
+</div>
+![erd](https://github.com/KOSA-PCMASTER/PCMASTER/assets/109461345/18df0e78-c3e8-4e19-9472-741b3c91f763)
+
+<h2>🖥️ Class Diagram</h2>
+<div>
+![FOODMASTER](https://github.com/KOSA-PCMASTER/PCMASTER/assets/109461345/6fa8c2a6-9324-419e-9658-fcdbc21df413)
+</div>
 
 <h2>📖 Program manual</h2>
 <h3>사용자</h3>

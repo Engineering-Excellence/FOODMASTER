@@ -46,7 +46,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         try (SqlSession sqlSession = MyBatisUtil.getSession()) {
             sqlSession.update("insertSale", map);
-            return 1;   // Procedure에서 :RESULT를 반환할 수 없음
+            return 1;   // Oracle PL/SQL Procedure에서 기본적으로 결괏값을 반환할 수 없음
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
